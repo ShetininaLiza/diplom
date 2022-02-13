@@ -1,0 +1,67 @@
+﻿@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <script>
+        function proverka() {
+            var last;
+            var first;
+            var work;
+            last = document.getElementById("TextLastName").value
+            first = document.getElementById("TextFirstName").value
+            work = document.getElementById("TextWork").value
+            if ((last == '')) {
+                Swal.fire("Заполните поле \"Фамилия\"! \nВаше сообщение не отправлено!")
+                return false;
+            }
+            if ((first == '')) {
+                Swal.fire("Заполните поле \"Имя\"! \nВаше сообщение не отправлено!")
+                return false;
+            }
+            if (work == '') {
+                Swal.fire("Введите поле \"Место работы\"!")
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <h1 style="text-align: center">Регистрация</h1>
+    <form method="post" onsubmit="return proverka()">
+        <p style="font-size:20px; text-align: center">
+            <label style="font-weight:bold">Фамилия:</label><br />
+            <input name="last" id="TextLastName" type="text" size="40" /><br /><br />
+        </p>
+        <p style="font-size:20px; text-align: center">
+            <label style="font-weight:bold">Имя:</label><br />
+            <input name="first" id="TextFirstName" type="text" size="40" /><br /><br />
+        </p>
+        <p style="font-size:20px; text-align: center">
+            <label style="font-weight:bold">Отчество:</label><br />
+            <input name="otch" id="TextOtch" type="text" size="40" /><br /><br />
+        </p>
+        <p style="font-size:20px; text-align: center">
+            <label style="font-weight:bold">Место работы:</label><br />
+            <input name="work" id="TextWork" type="text" size="40" /><br /><br />
+        </p>
+
+        <p style="font-size:20px; text-align: center">
+            <!--<label>
+        <input type="checkbox" name="isRedactor" value="true" />
+        <span>Зарегестрироваться как редактор</span>
+    </label>
+    <br /><br />-->
+            <button id="NextStep" type="submit"  asp-action="NextStep">Регистрация</button><br /><br />
+            <!--<a asp-controller="User" asp-action="Enter">Вход</a>-->
+            <a href="Enter">Вход</a>
+        </p>
+    </form>
+</body>
+</html>
