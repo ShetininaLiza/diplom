@@ -39,8 +39,15 @@
                    title="Пароль должен содержать от 8 символов (английские строчные, заглавные, цифры и спец символы)" /><br /><br />
         </p>
         <p style="font-size:20px; text-align: center">
-            <br /><br />
+            <label style="font-weight:bold">Роль:</label><br />
+            <select id="SelectRole" name="role">
+                <option>Автор</option>
+                <option>Рецензент</option>
+            </select>
+        </p>
+        <p style="font-size:20px; text-align: center">
             <button id="NextStep" type="submit">Вход</button><br /><br />
+            <a href="Register">Регистрация</a>
         </p>
     </form>
 </body>

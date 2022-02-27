@@ -1,0 +1,196 @@
+﻿@model IEnumerable<string>
+@{
+    ViewData["Title"] = "AddPublication";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <script>
+        function proverka() {
+            var categories;
+            var words;
+            var file;
+            var annotation;
+            var title;
+            var autors;
+
+            words = document.getElementById("TextWords").value;
+            if (words == '') {
+                Swal.fire("Заполните ключевые слова к статье!")
+                return false;
+            }
+
+            categories = document.getElementById("categories");
+            var categor = categories.getElementsByTagName("input");
+            var count = 0;
+            for (var i = 0; i < categor.length; i++) {
+                if (categor.item(i).checked) {
+                    count = count + 1;
+                }
+            }
+            if (count == 0) {
+                Swal.fire("Выберете рубрику или рубрики!")
+                return false;
+            }
+
+            file = document.getElementById("File").value
+            if (file == '') {
+                Swal.fire("Выберете файл статьи!")
+                return false;
+            }
+
+            annotation = document.getElementById("TextAnnotation").value
+            if (annotation == '') {
+                Swal.fire("Заполните аннотацию к статье!")
+                return false;
+            }
+
+            title = document.getElementById("TextTitle").value
+            if (title == '') {
+                Swal.fire("Заполните название статьи!")
+                return false;
+            }
+
+            autors = document.getElementById("autors")
+            var inputs = autors.getElementsByTagName("input");
+            //если вообще нет авторов
+            if (inputs.length == 0) {
+                Swal.fire("Введите авторов!")
+                return false;
+            }
+            else {
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs.item(i).value == '') {
+                        Swal.fire("Заполните данные к автору!")
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    </script>
+    <script>
+        var id = 1;
+        var id_button = 1;
+        function add() {
+            //создали строку
+            var row = document.createElement("tr");
+            row.setAttribute("id", id);
+            id = id + 1;
+            //создали ячейки
+            var cell_last = document.createElement("td");
+            var cell_name = document.createElement("td");
+            var cell_otch = document.createElement("td");
+            var cell_work = document.createElement("td");
+            var cell_email = document.createElement("td");
+            var buttonDel = document.createElement("button");
+            buttonDel.setAttribute("type", "button");
+            buttonDel.setAttribute("onclick", "remove(this);");
+            buttonDel.setAttribute("name", "remove");
+            buttonDel.setAttribute("id", id_button);
+            id_button = id_button + 1;
+            //добавили текстовое поле
+            cell_last.innerHTML = "<input type='text' name='last'>";
+            cell_name.innerHTML = "<input type='text' name='name'>";
+            cell_otch.innerHTML = "<input type='text' name='otch'>";
+            cell_work.innerHTML = "<input type='text' name='work'>";
+            cell_email.innerHTML = "<input type='email' name='email'>";
+            buttonDel.innerHTML = "<label>Удалить</label>";
+            //добавляем ячейки в строку
+            row.appendChild(cell_last);
+            row.appendChild(cell_name);
+            row.appendChild(cell_otch);
+            row.appendChild(cell_work);
+            row.appendChild(cell_email);
+            row.appendChild(buttonDel);
+            var table = document.getElementById("autors");
+            //Добавляем строку в таблицу
+            table.appendChild(row);
+        }
+
+        function remove(button) {
+            var table = document.getElementById("autors");
+            var nodes = table.childNodes;
+            for (var i = 0; i < nodes.length; i++) {
+                if (nodes.item(i).id == button.id) {
+                    table.removeChild(nodes.item(i));
+                    break;
+                }
+            }
+
+            /*
+            var table = document.getElementById("autors");
+            //Смотрим если в таблице больше 1 строки (1 строка - шапка)
+            if (table.childElementCount > 1) {
+                var lastChild = table.lastChild;
+                table.removeChild(lastChild);
+            }
+            */
+        }
+
+    </script>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Научный журнал</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <form method="post" onsubmit="return proverka();">
+        <h1 style="text-align: center">Добавление статьи для публикации</h1>
+        <p style="font-size:20px; text-align: center">
+            <label style="font-weight:bold">Автор(ы):</label><br />
+            <table id="autors" style="width:100%;">
+                <tr>
+                    <td>Фамилия</td>
+                    <td>Имя</td>
+                    <td>Отчество</td>
+                    <td>Место работы</td>
+                    <td>Почта</td>
+                </tr>
+            </table>
+            <br />
+            <button type="button" onclick="add();"><img src="/Images/buttonAdd.png" style="vertical-align: middle">Добавить</button>
+        </p>
+
+        <p style="font-size:20px; text-align: center">
+            <label style="font-weight:bold">Название статьи:</label><br />
+            <input name="title" id="TextTitle" type="text" size="40" /><br /><br />
+        </p>
+        <div style="font-size:20px; text-align: center">
+            <label style="font-weight:bold">Рубрика(и):</label><br />
+            <p id="categories">
+                @foreach (string str in Model)
+                {
+                    <input id="Checkbox1" name="category" type="checkbox" value="@str">@str<br />
+                }
+            </p>
+        </div>
+        <p style="font-size:20px; text-align: center">
+            <label style="font-weight:bold">Ключевые слова:</label><br />
+            <textarea id="TextWords" name="words" cols="40" rows="5"
+                      title="Каждое новое ключевое слово вводится с новой строки."
+                      placeholder="Каждое новое ключевое слово вводится с новой строки."></textarea><br /><br />
+        </p>
+        <p style="font-size:20px; text-align: center">
+            <label style="font-weight:bold">Аннотация:</label><br />
+            <textarea id="TextAnnotation" name="annotation" cols="40" rows="5"></textarea><br /><br />
+        </p>
+        <label style="font-size: 20px; text-align: center; font-weight:bold">Прикрепить статью:</label>
+        <input id="File" name="file" type="file" /><br />
+        <!--onclick="proverka();"-->
+        <button id="ButtonSave" type="submit">Сохранить</button>
+    </form>
+</body>
+</html>

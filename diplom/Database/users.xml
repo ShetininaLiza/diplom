@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Users>
+  <User Id="1" Login="admin" Password="Admin12345!" Email="" LastName="" Name="" Otch="" Work="" Role="Администратор" isBlock="False" />
+  <User Id="2" Login="liza" Password="Shetinina2000!" Email="shetinina.l2000@gmail.com" LastName="Щетинина" Name="Елизавета" Otch="Вадимовна" Work="qq" Role="Автор" isBlock="False" />
+  <User Id="3" Login="editor" Password="Editor12345@" Email="prokofijostalcev@gmail.com" LastName="1" Name="2" Otch="3" Work="4" Role="Редактор" isBlock="False" />
+  <User Id="4" Login="mari" Password="Shetinina2000!" Email="mariaaminova.cat@gmail.com" LastName="Аминова" Name="Мария" Otch="Николаевна" Work="qq" Role="Автор" isBlock="False" />
+</Users>

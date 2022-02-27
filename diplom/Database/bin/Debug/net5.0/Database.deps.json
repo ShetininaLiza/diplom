@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Database/1.0.0": {
+        "dependencies": {
+          "BisnessLogic": "1.0.0"
+        },
+        "runtime": {
+          "Database.dll": {}
+        }
+      },
+      "BisnessLogic/1.0.0": {
+        "runtime": {
+          "BisnessLogic.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Database/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BisnessLogic/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

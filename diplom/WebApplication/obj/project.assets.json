@@ -11,6 +11,9 @@
           "lib/netstandard2.0/Humanizer.dll": {}
         }
       },
+      "jQuery/1.8.0": {
+        "type": "package"
+      },
       "MailKit/3.1.1": {
         "type": "package",
         "dependencies": {
@@ -526,6 +529,12 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll": {}
+        }
+      },
+      "Microsoft.jQuery.Unobtrusive.Ajax/3.2.6": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "1.8.0"
         }
       },
       "Microsoft.NETCore.Platforms/3.1.0": {
@@ -2413,6 +2422,29 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "BisnessLogic/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/BisnessLogic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BisnessLogic.dll": {}
+        }
+      },
+      "Database/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "BisnessLogic": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Database.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Database.dll": {}
+        }
       }
     }
   },
@@ -2431,6 +2463,25 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "jQuery/1.8.0": {
+      "sha512": "laDFQRJrIRHT0Z0GVYklMt3bE0iu0MZFJwHwg21kt3SHb7Bj8TdNiM3K+ZdK1DzB8ZxKy8z7NkJvwMas+dmHBw==",
+      "type": "package",
+      "path": "jquery/1.8.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Scripts/jquery-1.8.0-vsdoc.js",
+        "Content/Scripts/jquery-1.8.0.js",
+        "Content/Scripts/jquery-1.8.0.min.js",
+        "Tools/common.ps1",
+        "Tools/install.ps1",
+        "Tools/jquery-1.8.0.intellisense.js",
+        "Tools/uninstall.ps1",
+        "jquery.1.8.0.nupkg.sha512",
+        "jquery.nuspec"
       ]
     },
     "MailKit/3.1.1": {
@@ -3198,6 +3249,19 @@
         "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.xml",
         "microsoft.identitymodel.tokens.5.6.0.nupkg.sha512",
         "microsoft.identitymodel.tokens.nuspec"
+      ]
+    },
+    "Microsoft.jQuery.Unobtrusive.Ajax/3.2.6": {
+      "sha512": "udg7ZBszgqxloQ+ShJRONKQAzPnJIlUhKZB+AIvZdKh7CDc5Nms69T9X0hN5i+NqMmQE6njkzdCcEb16lPdJTw==",
+      "type": "package",
+      "path": "microsoft.jquery.unobtrusive.ajax/3.2.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Scripts/jquery.unobtrusive-ajax.js",
+        "Content/Scripts/jquery.unobtrusive-ajax.min.js",
+        "microsoft.jquery.unobtrusive.ajax.3.2.6.nupkg.sha512",
+        "microsoft.jquery.unobtrusive.ajax.nuspec"
       ]
     },
     "Microsoft.NETCore.Platforms/3.1.0": {
@@ -8054,15 +8118,28 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "BisnessLogic/1.0.0": {
+      "type": "project",
+      "path": "../BisnessLogic/BisnessLogic.csproj",
+      "msbuildProject": "../BisnessLogic/BisnessLogic.csproj"
+    },
+    "Database/1.0.0": {
+      "type": "project",
+      "path": "../Database/Database.csproj",
+      "msbuildProject": "../Database/Database.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "BisnessLogic >= 1.0.0",
+      "Database >= 1.0.0",
       "MailKit >= 3.1.1",
       "Microsoft.AspNet.WebApi.Core >= 5.2.7",
       "Microsoft.AspNetCore.Session >= 2.2.0",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.13",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.13",
+      "Microsoft.jQuery.Unobtrusive.Ajax >= 3.2.6",
       "OpenPop >= 2.0.6.2",
       "OpenPop.NET >= 2.0.6.1120",
       "Pop3Client >= 3.0.6474.16527",
@@ -8076,9 +8153,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplication\\WebApplication.csproj",
-      "projectName": "WebApplication",
-      "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplication\\WebApplication.csproj",
+      "projectUniqueName": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplication\\ApplicationUsers.csproj",
+      "projectName": "ApplicationUsers",
+      "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplication\\ApplicationUsers.csproj",
       "packagesPath": "C:\\Users\\sheti\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplication\\obj\\",
       "projectStyle": "PackageReference",
@@ -8096,7 +8173,14 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj": {
+              "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj"
+            },
+            "C:\\Users\\sheti\\source\\repos\\diplom\\Database\\Database.csproj": {
+              "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\Database\\Database.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -8130,6 +8214,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
             "version": "[5.0.13, )"
+          },
+          "Microsoft.jQuery.Unobtrusive.Ajax": {
+            "target": "Package",
+            "version": "[3.2.6, )"
           },
           "OpenPop": {
             "target": "Package",

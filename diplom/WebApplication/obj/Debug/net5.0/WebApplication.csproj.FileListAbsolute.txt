@@ -83,4 +83,5 @@ C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\BouncyCastle.
 C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\System.Net.Pop3.dll
 C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\SmtpServer.dll
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\User\NextRegister.cshtml.g.cs
+C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\AddPublication.cshtml.g.cs
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\Autor.cshtml.g.cs

@@ -1,0 +1,118 @@
+﻿@{
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Администратор</title>
+</head>
+<body>
+    <script>
+        function validateEmail(email) {
+            var pattern = /^([\w\.\-]+)@@([\w\-]+)((\.(\w){2,3})+)$/;
+              //  /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return pattern.test(email);
+        }
+        function proverka() {
+            var email;
+            var login;
+            var pas;
+            var last;
+            var first;
+            var work;
+            email = document.getElementById("TextEmail").value
+            login = document.getElementById("TextLogin").value
+            pas = document.getElementById("TextPass").value
+            last = document.getElementById("TextLastName").value
+            first = document.getElementById("TextFirstName").value
+            work = document.getElementById("TextWork").value
+            if ((login == '')) {
+                Swal.fire("Заполните поле \"Login\"! \nВаше сообщение не отправлено!")
+                return false;
+            }
+            if ((email == '')) {
+                Swal.fire("Заполните поле \"Email\"! \nВаше сообщение не отправлено!")
+                return false;
+            }
+            if (!validateEmail(email)) {
+                Swal.fire("Заполните поле \"Email\" правильно!")
+                return false;
+            }
+            if (pas == '') {
+                Swal.fire("Введите пароль")
+                return false;
+            }
+            if ((last == '')) {
+                Swal.fire("Заполните поле \"Фамилия\"! \nВаше сообщение не отправлено!")
+                return false;
+            }
+            if ((first == '')) {
+                Swal.fire("Заполните поле \"Имя\"! \nВаше сообщение не отправлено!")
+                return false;
+            }
+            if (work == '') {
+                Swal.fire("Введите поле \"Место работы\"!")
+                return false;
+            }
+                return true;
+        }
+    </script>
+    <div class="text-center">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Main">Научный журнал</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <!--
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="">Блокировка пользователя</a>
+                    </li>
+                </ul>
+                    -->
+                </div>
+            </div>
+        </nav>
+        <h2 class="display-4">Регистрация редактора</h2>
+        <div>
+            <form method="post" onsubmit="return proverka()">
+                <p style="font-size:20px; text-align: center">
+                    <label style="font-weight:bold">Логин:</label><br />
+                    <input name="login" id="TextLogin" type="text" size="40" /><br /><br />
+                </p>
+                <p style="font-size:20px; text-align: center">
+                    <label style="font-weight:bold">Email:</label><br />
+                    <input name="email" id="TextEmail" type="email" size="40" /><br /><br />
+                </p>
+                <p style="font-size:20px; text-align: center">
+                    <label style="font-weight:bold">Пароль:</label><br />
+                    <input name="pass" id="TextPass" type="password" size="40" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])\S{8,}"
+                           title="Пароль должен содержать от 8 символов (английские строчные, заглавные, цифры и спец символы)" /><br /><br />
+                </p>
+                <p style="font-size:20px; text-align: center">
+                    <label style="font-weight:bold">Фамилия:</label><br />
+                    <input name="last" id="TextLastName" type="text" size="40" /><br /><br />
+                </p>
+                <p style="font-size:20px; text-align: center">
+                    <label style="font-weight:bold">Имя:</label><br />
+                    <input name="first" id="TextFirstName" type="text" size="40" /><br /><br />
+                </p>
+                <p style="font-size:20px; text-align: center">
+                    <label style="font-weight:bold">Отчество:</label><br />
+                    <input name="otch" id="TextOtch" type="text" size="40" /><br /><br />
+                </p>
+                <p style="font-size:20px; text-align: center">
+                    <label style="font-weight:bold">Место работы:</label><br />
+                    <input name="work" id="TextWork" type="text" size="40" /><br /><br />
+                </p>
+                <p style="font-size:20px; text-align: center">
+                    <button id="NextStep" type="submit" asp-action="RegisterEditor">Регистрация</button>
+                </p>
+            </form>
+        </div>
+</body>
+</html>

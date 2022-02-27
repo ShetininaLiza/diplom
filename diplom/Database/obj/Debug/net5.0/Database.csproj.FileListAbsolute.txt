@@ -1,0 +1,15 @@
+C:\Users\sheti\source\repos\diplom\Database\bin\Debug\net5.0\Database.deps.json
+C:\Users\sheti\source\repos\diplom\Database\bin\Debug\net5.0\Database.dll
+C:\Users\sheti\source\repos\diplom\Database\bin\Debug\net5.0\ref\Database.dll
+C:\Users\sheti\source\repos\diplom\Database\bin\Debug\net5.0\Database.pdb
+C:\Users\sheti\source\repos\diplom\Database\bin\Debug\net5.0\BisnessLogic.dll
+C:\Users\sheti\source\repos\diplom\Database\bin\Debug\net5.0\BisnessLogic.pdb
+C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\Database.csproj.AssemblyReference.cache
+C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\Database.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\Database.AssemblyInfoInputs.cache
+C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\Database.AssemblyInfo.cs
+C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\Database.csproj.CoreCompileInputs.cache
+C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\Database.csproj.CopyComplete
+C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\Database.dll
+C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\ref\Database.dll
+C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\Database.pdb

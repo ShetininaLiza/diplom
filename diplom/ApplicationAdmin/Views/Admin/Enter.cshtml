@@ -1,0 +1,44 @@
+﻿@{
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Вход</title>
+</head>
+<body>
+    <script>
+        function proverka() {
+            var login;
+            var pas;
+            login = document.getElementById("TextLogin").value
+            pas = document.getElementById("TextPass").value
+            if ((login == '')) {
+                Swal.fire("Заполните поле \"Логин\"! \nВаше сообщение не отправлено!")
+                return false;
+            }
+            if (pas == '') {
+                Swal.fire("Введите пароль")
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <h1 style="text-align: center">Вход</h1>
+    <form method="post" onsubmit="return proverka()">
+        <p style="font-size:20px; text-align: center">
+            <label style="font-weight:bold">Логин:</label><br />
+            <input name="login" id="TextLogin" type="text" size="40" /><br /><br />
+        </p>
+        <p style="font-size:20px; text-align: center">
+            <label style="font-weight:bold">Пароль:</label><br />
+            <input name="pass" id="TextPass" type="password" size="40" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])\S{8,}"
+                   title="Пароль должен содержать от 8 символов (английские строчные, заглавные, цифры и спец символы)" /><br /><br />
+        </p>
+        <p style="font-size:20px; text-align: center">
+            <button id="NextStep" type="submit">Вход</button><br /><br />
+        </p>
+    </form>
+</body>
+</html>

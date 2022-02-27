@@ -6,10 +6,13 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web;
-using WebApplication.Helper;
 using WebApplication.Models;
 using Microsoft.AspNetCore.Session;
 using System.Text;
+using BisnessLogic.Helper;
+using BisnessLogic.Models;
+using Database;
+using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -23,7 +26,8 @@ namespace WebApplication.Controllers
             file = new WorkFile();
         }
 
-        // GET: /User/Register/ 
+        // GET: /User/Register/
+        // Регистрация пользователя
         [HttpGet]
         public IActionResult Register()
         {
@@ -32,30 +36,23 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ActionName("Register")]
-        public IActionResult Register(string login, string email, bool isRedactor, string pass)
+        public IActionResult Register(string login, string email, string pass)
         {
             //Проверяем наличие такого логина
             var cheak=file.CheakLogin(login, email);
             //Если нет такого логина
             if (!cheak)
             {
-                /*
-                //GeneralPassword pas = new GeneralPassword();
-                //string pass = pas.GetPass();
-                file.WriteUser(login, email, pass);
-                mLogic.Send(email, login, pass);
-                string authData = $"Регистрация прошла успешно. Login: {login}   Email: {email}   Password: {pass}";
-                //return Content(authData);
-                */
                 InsertDataInTemp("Login", login);
                 InsertDataInTemp("Email", email);
                 InsertDataInTemp("Password", pass);
-                InsertDataInTemp("Role", "Автор");
                 TempData.Save();
                 return View("NextRegister");
             }
             return Content("Ошибка. Такой пользователь уже есть в системе.");
         }
+        
+        //Метод для добавления значеня во временное хранилище для передачи между страницами
         private void InsertDataInTemp(string key, string value)
         {
             if (TempData.ContainsKey(key))
@@ -63,7 +60,7 @@ namespace WebApplication.Controllers
             else
                 TempData.Add(key, value);
         }
-        
+        //Вход пользователя
         [ActionName("Enter")]
         public IActionResult EnterUser()
         {
@@ -71,23 +68,32 @@ namespace WebApplication.Controllers
         }
         [HttpPost]
         [ActionName("Enter")]
-        public IActionResult Enter(string login, string pass)
+        public IActionResult Enter(string login, string pass, string role)
         {
-            var cheak=file.GetUserData(login);
+            var user = file.GetUsers().FirstOrDefault(rec => rec.Login == login);
             //Если нет такого логина
-            if (cheak.Length == 0)
+            if (user==null)
                 return Content("В системе нет пользователя с такими данными.");
             else
-            { 
-                //Если введен неправильный пароль
-                if(cheak.Split(' ')[1]!=pass)
-                    return Content("Неправильно введен пароль.");
+            {
+                if (user.IsBlock)
+                    return Content("Данный пользователь заблокирован администратором.");
                 else
-                    return View("../Home/Index");
+                {
+                    if (user.Role != role)
+                        return Content("Нет пользователя с такой ролью.");
+                    //Если введен неправильный пароль
+                    if (user.Password != pass)
+                        return Content("Неправильно введен пароль.");
+                    else
+                        //return View("../Home/Autor");
+                        return Redirect("../Home/Autor");
+                }
             }
         }
 
-        // GET: /User/NextStep/ 
+        // GET: /User/NextStep/
+        // Переход на вторую страницу регистрации
         [HttpGet]
         public IActionResult NextStep()
         {
@@ -96,17 +102,29 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ActionName("NextStep")]
+        //Завершение регистрации
         public IActionResult NextStep(string last, string first, string otch, string work)
         {
             string login=TempData.Peek("Login").ToString();
             string email = TempData.Peek("Email").ToString();
             string pass = TempData.Peek("Password").ToString();
-            string role = TempData.Peek("Role").ToString();
-            User user = new Models.User(login, email, pass, last, first, otch, work, role);
+            var user = new User
+            {
+                Login = login,
+                Email = email,
+                Password = pass,
+                LastName = last,
+                Name = first,
+                Otch = otch,
+                Work = work,
+                Role = Role.Автор.ToString(),
+                IsBlock=false
+            };
             file.WriteUser(user);
-            mLogic.Send(user);
-            //string authData = $"Регистрация прошла успешно. Login: {user.Login}   Email: {user.Email}   Password: {user.Password}";
-            //return Content(authData);
+            mLogic.Send(user.Email, "Регистрация в научном журнале", 
+                            "Уважаемый(ая) " + user.LastName + " " + user.Name + " " + user.Otch
+                            + ", благодарим за регистрацию в системе научного журнала.\n" +
+                            "Ваш логин: " + user.Login + "\nВаш пароль: " + user.Password);
             return View("NextRegister");
         }
     }

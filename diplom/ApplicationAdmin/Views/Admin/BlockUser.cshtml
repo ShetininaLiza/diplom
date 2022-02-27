@@ -1,0 +1,91 @@
+﻿@using BisnessLogic.Models
+@model IEnumerable<User>
+@{
+    
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Администратор</title>
+</head>
+<body>
+    <script>
+        function proverka(button) {
+            var rows = document.getElementsByTagName("tr");
+            Swal.fire({
+                title: 'Вопрос',
+                text: "Вы уверены, что хотите заблокировать этого пользователя?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Да'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire("id: " + button.id);
+                    var row = rows.item(button.id);
+                    var nodes = row.children;
+                    var login = nodes.item(0).textContent;
+                    Swal.fire("Login: "+login);
+                    $(this).load('@Url.Action("AddBlock", "Admin")?login=' + login);
+                    Swal.fire(
+                        'Готово!',
+                        'Пользователь был заблокирован/разблокирован.',
+                        'success'
+                    );
+                }
+            })
+        }
+    </script>
+    <div class="text-center">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Main">Научный журнал</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="RegisterEditor">Регистрация редактора</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <h1>Блокировка пользователя</h1>
+        <table id="users" style="width:100%;">
+                <tr>
+                    <td>Логин</td>
+                    <td>Фамилия</td>
+                    <td>Имя</td>
+                    <td>Отчество</td>
+                    <td>Место работы</td>
+                    <td>Почта</td>
+                    <td>Роль</td>
+                    <td>Наличие блокировки</td>
+                </tr>
+
+                @foreach (User user in Model)
+                {
+                    <tr>
+                        <td>@user.Login</td>
+                        <td>@user.LastName</td>
+                        <td>@user.Name</td>
+                        <td>@user.Otch</td>
+                        <td>@user.Work</td>
+                        <td>@user.Email</td>
+                        <td>@user.Role</td>
+                        <td>@user.IsBlock</td>
+                        <td>
+                            <button id="@ViewData[user.Id.Value.ToString()]" onclick="proverka(this);">Заблокировать/разблокировать</button>
+                        </td>
+                    </tr>
+                }
+        </table>
+    </div>
+</body>
+</html>

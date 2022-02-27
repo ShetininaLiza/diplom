@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "+0LwNX5Qg29eGkCtrNpsqxbcHYTygiVR41xpgQCYgBcLda9s82dO/+eXwCPZb43+DChjJZ4eM/sZV0VFpqPniQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sheti\\source\\repos\\diplom\\ApplicationAdmin\\ApplicationAdmin.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sheti\\.nuget\\packages\\jquery\\3.6.0\\jquery.3.6.0.nupkg.sha512",
+    "C:\\Users\\sheti\\.nuget\\packages\\microsoft.jquery.unobtrusive.ajax\\3.0.0\\microsoft.jquery.unobtrusive.ajax.3.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
