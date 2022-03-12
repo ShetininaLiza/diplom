@@ -8,9 +8,12 @@ namespace BisnessLogic.Models
         public int? Id { get; set; }
         public string Title { get; set; }
         public string Annotation { get; set; }
+        public DateTime DateCreate { get; set; }
+        public DateTime DatePublic { get; set; }
         public string File { get; set; }
-        public Status Status { get; set; }
+        public string Status { get; set; }
         public List<User> Autors { get; set; }
+        //public List<int> AutorsId { get; set; }
         public List<string> KeyWords { get; set; }
         public List<string> Categories { get; set; }
     }

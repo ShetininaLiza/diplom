@@ -33,9 +33,12 @@
     ".NETCoreApp,Version=v5.0": {
       "ApplicationUsers/1.0.0": {
         "dependencies": {
+          "AspNet.ScriptManager.bootstrap": "4.6.0",
+          "AspNet.ScriptManager.jQuery": "3.6.0",
           "BisnessLogic": "1.0.0",
           "Database": "1.0.0",
           "MailKit": "3.1.1",
+          "Microsoft.AspNet.ScriptManager.WebForms": "5.0.0",
           "Microsoft.AspNet.WebApi.Core": "5.2.7",
           "Microsoft.AspNetCore.Session": "2.2.0",
           "Microsoft.EntityFrameworkCore.Design": "5.0.13",
@@ -46,6 +49,8 @@
           "Pop3Client": "3.0.6474.16527",
           "SmtpServer": "9.0.1",
           "System.Net.Pop3": "0.1.4",
+          "Web.UI.WebControls": "1.0.2.226",
+          "bootstrap": "4.6.0",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "5.0.0.0",
@@ -335,6 +340,40 @@
           "ApplicationUsers.dll": {}
         }
       },
+      "AspNet.ScriptManager.bootstrap/4.6.0": {
+        "dependencies": {
+          "bootstrap": "4.6.0"
+        },
+        "runtime": {
+          "lib/net45/AspNet.ScriptManager.bootstrap.dll": {
+            "assemblyVersion": "4.6.0.0",
+            "fileVersion": "4.6.0.0"
+          }
+        },
+        "compile": {
+          "lib/net45/AspNet.ScriptManager.bootstrap.dll": {}
+        }
+      },
+      "AspNet.ScriptManager.jQuery/3.6.0": {
+        "dependencies": {
+          "jQuery": "3.6.0"
+        },
+        "runtime": {
+          "lib/net45/AspNet.ScriptManager.jQuery.dll": {
+            "assemblyVersion": "3.6.0.0",
+            "fileVersion": "3.6.0.0"
+          }
+        },
+        "compile": {
+          "lib/net45/AspNet.ScriptManager.jQuery.dll": {}
+        }
+      },
+      "bootstrap/4.6.0": {
+        "dependencies": {
+          "jQuery": "3.6.0",
+          "popper.js": "1.16.1"
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "runtime": {
           "lib/netstandard2.0/Humanizer.dll": {
@@ -343,7 +382,7 @@
           }
         }
       },
-      "jQuery/1.8.0": {},
+      "jQuery/3.6.0": {},
       "MailKit/3.1.1": {
         "dependencies": {
           "MimeKit": "3.1.1"
@@ -356,6 +395,17 @@
         },
         "compile": {
           "lib/net5.0/MailKit.dll": {}
+        }
+      },
+      "Microsoft.AspNet.ScriptManager.WebForms/5.0.0": {
+        "runtime": {
+          "lib/net45/Microsoft.ScriptManager.WebForms.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/net45/Microsoft.ScriptManager.WebForms.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.7": {
@@ -750,7 +800,7 @@
       },
       "Microsoft.jQuery.Unobtrusive.Ajax/3.2.6": {
         "dependencies": {
-          "jQuery": "1.8.0"
+          "jQuery": "3.6.0"
         }
       },
       "Microsoft.NETCore.Platforms/3.1.0": {},
@@ -913,6 +963,7 @@
           "lib/net40/Pop3Client.dll": {}
         }
       },
+      "popper.js/1.16.1": {},
       "Portable.BouncyCastle/1.9.0": {
         "runtime": {
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
@@ -1852,6 +1903,17 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XmlDocument": "4.3.0"
+        }
+      },
+      "Web.UI.WebControls/1.0.2.226": {
+        "runtime": {
+          "lib/Microsoft.Web.UI.WebControls.dll": {
+            "assemblyVersion": "1.0.2.226",
+            "fileVersion": "1.0.2.226"
+          }
+        },
+        "compile": {
+          "lib/Microsoft.Web.UI.WebControls.dll": {}
         }
       },
       "BisnessLogic/1.0.0": {
@@ -3567,6 +3629,27 @@
       "serviceable": false,
       "sha512": ""
     },
+    "AspNet.ScriptManager.bootstrap/4.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-a5pmSriJ7mOxTLgGmLlIbUX06nPW9q8kZ6ehoklmyrA4wiIRs2XMlgjx7sx/bORKcNCh3Fwl7fQ1nlqBZqiegA==",
+      "path": "aspnet.scriptmanager.bootstrap/4.6.0",
+      "hashPath": "aspnet.scriptmanager.bootstrap.4.6.0.nupkg.sha512"
+    },
+    "AspNet.ScriptManager.jQuery/3.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-B/2ickp9SMhDpRYpELMlXsv/MfWKxe2G96Z8qRfw66Nc9em2BncOIYXMOW2T7/Ws/RbMVXGlmoZA170c0GhwyA==",
+      "path": "aspnet.scriptmanager.jquery/3.6.0",
+      "hashPath": "aspnet.scriptmanager.jquery.3.6.0.nupkg.sha512"
+    },
+    "bootstrap/4.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nGsIRcbAcBybxBeoL5H6Uax8bb+nrT+tbx3/3n1yXCWq/s+fgEvdo0BAYIq1GmbBizA2KKShyFNiJaSanonIIQ==",
+      "path": "bootstrap/4.6.0",
+      "hashPath": "bootstrap.4.6.0.nupkg.sha512"
+    },
     "Humanizer.Core/2.8.26": {
       "type": "package",
       "serviceable": true,
@@ -3574,12 +3657,12 @@
       "path": "humanizer.core/2.8.26",
       "hashPath": "humanizer.core.2.8.26.nupkg.sha512"
     },
-    "jQuery/1.8.0": {
+    "jQuery/3.6.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-laDFQRJrIRHT0Z0GVYklMt3bE0iu0MZFJwHwg21kt3SHb7Bj8TdNiM3K+ZdK1DzB8ZxKy8z7NkJvwMas+dmHBw==",
-      "path": "jquery/1.8.0",
-      "hashPath": "jquery.1.8.0.nupkg.sha512"
+      "sha512": "sha512-sSzCTDWn15waSMjDrP21jjgG1j1pwISLaKiVCClwU4XGAmuZt+FScLkdyRvh9ppoIxAW/tJtJBYei+3CAwFQ7g==",
+      "path": "jquery/3.6.0",
+      "hashPath": "jquery.3.6.0.nupkg.sha512"
     },
     "MailKit/3.1.1": {
       "type": "package",
@@ -3587,6 +3670,13 @@
       "sha512": "sha512-NprdMF0ABNWOqQUuqz45X5YkJK6f3vtYwwvqR6nGVdmrZ7HkahNbSATpOZ5Rj3W1cgDGf/iD8vs/oCyZ4wUO7g==",
       "path": "mailkit/3.1.1",
       "hashPath": "mailkit.3.1.1.nupkg.sha512"
+    },
+    "Microsoft.AspNet.ScriptManager.WebForms/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bWDoRE15wfr/6SYzes5AhZCpZZvtXClq6L1LmItY12Gs+ZLUJ29FrS5tfqmkPm2+UHQh81JmtR5DrolD3ZmoXg==",
+      "path": "microsoft.aspnet.scriptmanager.webforms/5.0.0",
+      "hashPath": "microsoft.aspnet.scriptmanager.webforms.5.0.0.nupkg.sha512"
     },
     "Microsoft.AspNet.WebApi.Client/5.2.7": {
       "type": "package",
@@ -3930,6 +4020,13 @@
       "sha512": "sha512-KiiTKb3xDKCZ6dvAD3UdYmX8ybG/cvUacxrp3+W08h+W5VDscmbzjrXw9pZ/RqTVCImbt118lyACcTvHVvMhlQ==",
       "path": "pop3client/3.0.6474.16527",
       "hashPath": "pop3client.3.0.6474.16527.nupkg.sha512"
+    },
+    "popper.js/1.16.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6GiVZho0vwBnId7pK7NLTjMGq4F0/VE65I08CCeKlarVoUt1w8SGTtJmhNo/0pK38EGUP/xbT4+OkWB8UTMPBw==",
+      "path": "popper.js/1.16.1",
+      "hashPath": "popper.js.1.16.1.nupkg.sha512"
     },
     "Portable.BouncyCastle/1.9.0": {
       "type": "package",
@@ -4658,6 +4755,13 @@
       "sha512": "sha512-MYoTCP7EZ98RrANESW05J5ZwskKDoN0AuZ06ZflnowE50LTpbR5yRg3tHckTVm5j/m47stuGgCrCHWePyHS70Q==",
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    },
+    "Web.UI.WebControls/1.0.2.226": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OtqE1o+Xfuv3VJyu8PEOPAqI3oRg2gGppik39074IBXyRqGaTmzbek804RYk2wTpV7h0zQo8lypzyucw44pu+w==",
+      "path": "web.ui.webcontrols/1.0.2.226",
+      "hashPath": "web.ui.webcontrols.1.0.2.226.nupkg.sha512"
     },
     "BisnessLogic/1.0.0": {
       "type": "project",

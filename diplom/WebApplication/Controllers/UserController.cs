@@ -13,6 +13,7 @@ using BisnessLogic.Helper;
 using BisnessLogic.Models;
 using Database;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -33,39 +34,58 @@ namespace WebApplication.Controllers
         {
             return View();
         }
-
+        
         [HttpPost]
         [ActionName("Register")]
-        public IActionResult Register(string login, string email, string pass)
+        public async Task<IActionResult> RegisterAutorAsync(string login, string email, string pass,
+                                        string last, string first, string otch, string work, string tel)
         {
             //Проверяем наличие такого логина
-            var cheak=file.CheakLogin(login, email);
+            var cheak = file.CheakLogin(login, email);
             //Если нет такого логина
             if (!cheak)
             {
-                InsertDataInTemp("Login", login);
-                InsertDataInTemp("Email", email);
-                InsertDataInTemp("Password", pass);
-                TempData.Save();
-                return View("NextRegister");
+                var user = new User
+                {
+                    Login = login,
+                    Email = email,
+                    Password = pass,
+                    LastName = last,
+                    Name = first,
+                    Otch = otch,
+                    Phone=tel,
+                    Work = work,
+                    Role = Role.Автор.ToString(),
+                    IsBlock = false
+                };
+                await WriteAutor(user);
+                await SendMailNewAutor(user);
+
+                return View();
             }
             return Content("Ошибка. Такой пользователь уже есть в системе.");
         }
-        
-        //Метод для добавления значеня во временное хранилище для передачи между страницами
-        private void InsertDataInTemp(string key, string value)
+
+        async Task WriteAutor(User autor)
         {
-            if (TempData.ContainsKey(key))
-                TempData[key] = value;
-            else
-                TempData.Add(key, value);
+            await Task.Run(() => file.WriteUser(autor));
         }
+        async Task SendMailNewAutor(User autor)
+        {
+            await Task.Run(() => mLogic.Send(autor.Email,
+                                "Регистрация в научном журнале",
+                                "Уважаемый(ая) " + autor.LastName + " " + autor.Name + " " + autor.Otch
+                                + ", благодарим за регистрацию в системе научного журнала.\n" +
+                                "Ваш логин: " + autor.Login + "\nВаш пароль: " + autor.Password));
+        }
+        
         //Вход пользователя
         [ActionName("Enter")]
         public IActionResult EnterUser()
         {
             return View("Enter");
         }
+        
         [HttpPost]
         [ActionName("Enter")]
         public IActionResult Enter(string login, string pass, string role)
@@ -86,46 +106,46 @@ namespace WebApplication.Controllers
                     if (user.Password != pass)
                         return Content("Неправильно введен пароль.");
                     else
-                        //return View("../Home/Autor");
-                        return Redirect("../Home/Autor");
+                    {
+                        Program.user = user;
+                        if(user.Role==Role.Автор.ToString())
+                            return Redirect("../Home/Autor");
+                        else if(user.Role==Role.Рецензент.ToString())
+                            return Redirect("../Reviewer/Index");
+                    }    
                 }
+                return View();
             }
         }
 
-        // GET: /User/NextStep/
-        // Переход на вторую страницу регистрации
+       
         [HttpGet]
-        public IActionResult NextStep()
+        public IActionResult UpdateData() 
         {
-            return View("NextRegister");
+            var user = file.GetUsers().Where(rec => rec.Id == Program.user.Id).ToList();
+            return View(user);
         }
-
         [HttpPost]
-        [ActionName("NextStep")]
-        //Завершение регистрации
-        public IActionResult NextStep(string last, string first, string otch, string work)
+        public IActionResult UpdateData(string Login, string Pass,
+                                        string Last, string First, string Otch, string Work, string Tel)
         {
-            string login=TempData.Peek("Login").ToString();
-            string email = TempData.Peek("Email").ToString();
-            string pass = TempData.Peek("Password").ToString();
-            var user = new User
+            User user = new User
             {
-                Login = login,
-                Email = email,
-                Password = pass,
-                LastName = last,
-                Name = first,
-                Otch = otch,
-                Work = work,
-                Role = Role.Автор.ToString(),
-                IsBlock=false
+                Id = Program.user.Id,
+                Login = Login,
+                Password = Pass,
+                LastName=Last,
+                Name=First,
+                Otch=Otch,
+                Work=Work,
+                Phone=Tel,
+                Role=Program.user.Role,
+                Email=Program.user.Email,
+                IsBlock=Program.user.IsBlock
             };
-            file.WriteUser(user);
-            mLogic.Send(user.Email, "Регистрация в научном журнале", 
-                            "Уважаемый(ая) " + user.LastName + " " + user.Name + " " + user.Otch
-                            + ", благодарим за регистрацию в системе научного журнала.\n" +
-                            "Ваш логин: " + user.Login + "\nВаш пароль: " + user.Password);
-            return View("NextRegister");
+            file.UpdateUser(user);
+            return Content("All ok");
+                //new EmptyResult();
         }
     }
 }

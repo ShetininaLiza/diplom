@@ -77,7 +77,6 @@ C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\S
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\User\Enter.cshtml.g.cs
-C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\User\NextRegister.cshtml.g.cs
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\User\Register.cshtml.g.cs
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
@@ -89,3 +88,11 @@ C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\ApplicationUs
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\ref\ApplicationUsers.dll
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\ApplicationUsers.pdb
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\ApplicationUsers.genruntimeconfig.cache
+C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Reviewer\Index.cshtml.g.cs
+C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\User\UpdateData.cshtml.g.cs
+C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\MyPublications.cshtml.g.cs
+C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\AspNet.ScriptManager.bootstrap.dll
+C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\AspNet.ScriptManager.jQuery.dll
+C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\Microsoft.ScriptManager.WebForms.dll
+C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\Microsoft.Web.UI.WebControls.dll
+C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\Publication.cshtml.g.cs

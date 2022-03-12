@@ -1,12 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "7ycc05yLxlcAzdpjavYZ8uplfBGYDXClqfps+mPcir1FijY2o/imi6XZq/ah5DcZFd5G11ZeV/9oI1vLf1XnvQ==",
+  "dgSpecHash": "64kB4lWCfJsmBVvrBj+Zoev4Aq1hbUNdW39zDBXo8zZ3jTxckT0u3C9xgEbtB1XUGxWxA3VQOYqBSKD1s13l+Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplication\\ApplicationUsers.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\sheti\\.nuget\\packages\\aspnet.scriptmanager.bootstrap\\4.6.0\\aspnet.scriptmanager.bootstrap.4.6.0.nupkg.sha512",
+    "C:\\Users\\sheti\\.nuget\\packages\\aspnet.scriptmanager.jquery\\3.6.0\\aspnet.scriptmanager.jquery.3.6.0.nupkg.sha512",
+    "C:\\Users\\sheti\\.nuget\\packages\\bootstrap\\4.6.0\\bootstrap.4.6.0.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
-    "C:\\Users\\sheti\\.nuget\\packages\\jquery\\1.8.0\\jquery.1.8.0.nupkg.sha512",
+    "C:\\Users\\sheti\\.nuget\\packages\\jquery\\3.6.0\\jquery.3.6.0.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\mailkit\\3.1.1\\mailkit.3.1.1.nupkg.sha512",
+    "C:\\Users\\sheti\\.nuget\\packages\\microsoft.aspnet.scriptmanager.webforms\\5.0.0\\microsoft.aspnet.scriptmanager.webforms.5.0.0.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.7\\microsoft.aspnet.webapi.client.5.2.7.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\microsoft.aspnet.webapi.core\\5.2.7\\microsoft.aspnet.webapi.core.5.2.7.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\2.2.0\\microsoft.aspnetcore.cryptography.internal.2.2.0.nupkg.sha512",
@@ -56,6 +60,7 @@
     "C:\\Users\\sheti\\.nuget\\packages\\openpop\\2.0.6.2\\openpop.2.0.6.2.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\openpop.net\\2.0.6.1120\\openpop.net.2.0.6.1120.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\pop3client\\3.0.6474.16527\\pop3client.3.0.6474.16527.nupkg.sha512",
+    "C:\\Users\\sheti\\.nuget\\packages\\popper.js\\1.16.1\\popper.js.1.16.1.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -159,9 +164,50 @@
     "C:\\Users\\sheti\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\sheti\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\sheti\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\sheti\\.nuget\\packages\\web.ui.webcontrols\\1.0.2.226\\web.ui.webcontrols.1.0.2.226.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1603",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "AspNet.ScriptManager.jQuery 3.6.0 зависит от jQuery (>= 3.5.9 && < 3.6.1), но jQuery 3.5.9 не найден. Использовано наилучшее приближенное соответствие jQuery 3.6.0.",
+      "libraryId": "jQuery",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Пакет \"AspNet.ScriptManager.bootstrap 4.6.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \"net5.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "libraryId": "AspNet.ScriptManager.bootstrap",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Пакет \"AspNet.ScriptManager.jQuery 3.6.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \"net5.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "libraryId": "AspNet.ScriptManager.jQuery",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Пакет \"Microsoft.AspNet.ScriptManager.WebForms 5.0.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \"net5.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "libraryId": "Microsoft.AspNet.ScriptManager.WebForms",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",
@@ -208,6 +254,16 @@
       "warningLevel": 1,
       "message": "Пакет \"System.Net.Pop3 0.1.4\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \"net5.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
       "libraryId": "System.Net.Pop3",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Пакет \"Web.UI.WebControls 1.0.2.226\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \"net5.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "libraryId": "Web.UI.WebControls",
       "targetGraphs": [
         "net5.0"
       ]

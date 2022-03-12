@@ -28,6 +28,7 @@
         }
     </script>
     <h1 style="text-align: center">Вход</h1>
+    <!--
     <form method="post" onsubmit="return proverka()">
         <p style="font-size:20px; text-align: center">
             <label style="font-weight:bold">Логин:</label><br />
@@ -49,6 +50,31 @@
             <button id="NextStep" type="submit">Вход</button><br /><br />
             <a href="Register">Регистрация</a>
         </p>
+    </form>
+        -->
+    <form method="post" class="needs-validation">
+        <div class="form-floating">
+            <input type="text" class="form-control" id="login" placeholder="Логин" required name="login">
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="pass" placeholder="Пароль" required
+             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])\S{8,}"
+             title="Пароль должен содержать от 8 символов (английские строчные, заглавные, цифры и спец символы)" 
+                   name="pass">
+        </div>
+        <div class="col-md-4">
+            <label for="validationCustom04" class="form-label">Роль</label>
+            <select class="form-select" id="validationCustom04" required name="role">
+                <option selected disabled value="">Выберите...</option>
+                <option>Автор</option>
+                <option>Редактор</option>
+            </select>
+            <div class="invalid-feedback">
+                Пожалуйста, выберите корректный город.
+            </div>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" asp-controller="User" asp-action="Enter">Вход</button>
+        <a href="Register">Регистрация</a>
     </form>
 </body>
 </html>

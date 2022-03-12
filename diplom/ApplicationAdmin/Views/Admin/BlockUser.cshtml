@@ -24,17 +24,18 @@
                 confirmButtonText: 'Да'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire("id: " + button.id);
+                    //Swal.fire("id: " + button.id);
                     var row = rows.item(button.id);
                     var nodes = row.children;
                     var login = nodes.item(0).textContent;
-                    Swal.fire("Login: "+login);
+                    //Swal.fire("Login: "+login);
                     $(this).load('@Url.Action("AddBlock", "Admin")?login=' + login);
                     Swal.fire(
                         'Готово!',
                         'Пользователь был заблокирован/разблокирован.',
                         'success'
                     );
+                    location.reload();
                 }
             })
         }

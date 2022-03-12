@@ -1,20 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Publications>
-  <Publication Id="1" Title="qwerty yuiop asdf" Annotation="fgfhg vhjkdfhkjf jgkbhj jkgnbkjfn hfgjkdf." File="1_1.txt" Status="Принята">
-    <Autors>
-      <Autor LastName="Щетинина" Name="Елизавета" Otch="Вадимовна" Email="shetinina.l2000@gmail.com" Work="qq" />
-    </Autors>
+  <Publication Id="1" Title="q w e" DateCreate="12.03.2022 0:00:00" DatePublic="01.01.0001 0:00:00" Annotation="fgh uy yu y ." File="1_1.txt" Status="Принята">
     <Categories>
-      <Category Name="Информационные системы" />
       <Category Name="Искусственный интеллект" />
       <Category Name="Исследование операций и принятие решений" />
     </Categories>
     <KeyWords>
-      <KeyWord Name="qwe&#xD;" />
-      <KeyWord Name="asd&#xD;" />
-      <KeyWord Name="zxcv&#xD;" />
-      <KeyWord Name="vfr&#xD;" />
-      <KeyWord Name="bgt" />
+      <KeyWord Name="1&#xD;" />
+      <KeyWord Name="2&#xD;" />
+      <KeyWord Name="3" />
     </KeyWords>
   </Publication>
 </Publications>

@@ -54,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -112,7 +112,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -159,9 +159,21 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AspNet.ScriptManager.bootstrap": {
+              "target": "Package",
+              "version": "[4.6.0, )"
+            },
+            "AspNet.ScriptManager.jQuery": {
+              "target": "Package",
+              "version": "[3.6.0, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[3.1.1, )"
+            },
+            "Microsoft.AspNet.ScriptManager.WebForms": {
+              "target": "Package",
+              "version": "[5.0.0, )"
             },
             "Microsoft.AspNet.WebApi.Core": {
               "target": "Package",
@@ -204,6 +216,14 @@
             "System.Net.Pop3": {
               "target": "Package",
               "version": "[0.1.4, )"
+            },
+            "Web.UI.WebControls": {
+              "target": "Package",
+              "version": "[1.0.2.226, )"
+            },
+            "bootstrap": {
+              "target": "Package",
+              "version": "[4.6.0, )"
             }
           },
           "imports": [
@@ -224,7 +244,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
         }
       }
     }

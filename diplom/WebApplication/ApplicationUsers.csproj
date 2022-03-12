@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\Publication.cs" />
     <Compile Remove="Models\Role.cs" />
     <Compile Remove="Models\Status.cs" />
   </ItemGroup>
@@ -16,7 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNet.ScriptManager.bootstrap" Version="4.6.0" />
+    <PackageReference Include="AspNet.ScriptManager.jQuery" Version="3.6.0" />
+    <PackageReference Include="bootstrap" Version="4.6.0" />
     <PackageReference Include="MailKit" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNet.ScriptManager.WebForms" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.13">
@@ -30,6 +33,7 @@
     <PackageReference Include="Pop3Client" Version="3.0.6474.16527" />
     <PackageReference Include="SmtpServer" Version="9.0.1" />
     <PackageReference Include="System.Net.Pop3" Version="0.1.4" />
+    <PackageReference Include="Web.UI.WebControls" Version="1.0.2.226" />
   </ItemGroup>
 
   <ItemGroup>

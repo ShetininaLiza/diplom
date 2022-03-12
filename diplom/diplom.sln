@@ -5,13 +5,15 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationUsers", "WebApplication\ApplicationUsers.csproj", "{CF0633E6-BB0F-40BE-A979-54EA0B3C9456}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationAdmin", "ApplicationAdmin\ApplicationAdmin.csproj", "{E61F4736-9E70-4376-8E00-AFB535D9A396}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationAdmin", "ApplicationAdmin\ApplicationAdmin.csproj", "{E61F4736-9E70-4376-8E00-AFB535D9A396}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{1696857D-1308-440C-B511-ED10D9691ABA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Database\Database.csproj", "{1696857D-1308-440C-B511-ED10D9691ABA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BisnessLogic", "BisnessLogic\BisnessLogic.csproj", "{F04DBC2F-9338-4BEC-B452-B7B5ACF6E8C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BisnessLogic", "BisnessLogic\BisnessLogic.csproj", "{F04DBC2F-9338-4BEC-B452-B7B5ACF6E8C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppRegisterAdmin", "AppRegisterAdmin\AppRegisterAdmin.csproj", "{CA96AF20-15BE-4813-B04D-773FC42E072A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppRegisterAdmin", "AppRegisterAdmin\AppRegisterAdmin.csproj", "{CA96AF20-15BE-4813-B04D-773FC42E072A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationEditor", "WebApplicationEditor\ApplicationEditor.csproj", "{CF46BC3E-3067-42D1-BA94-86F0EA28FC78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{CA96AF20-15BE-4813-B04D-773FC42E072A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA96AF20-15BE-4813-B04D-773FC42E072A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA96AF20-15BE-4813-B04D-773FC42E072A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF46BC3E-3067-42D1-BA94-86F0EA28FC78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF46BC3E-3067-42D1-BA94-86F0EA28FC78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF46BC3E-3067-42D1-BA94-86F0EA28FC78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF46BC3E-3067-42D1-BA94-86F0EA28FC78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

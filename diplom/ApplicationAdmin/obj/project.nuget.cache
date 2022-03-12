@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "+0LwNX5Qg29eGkCtrNpsqxbcHYTygiVR41xpgQCYgBcLda9s82dO/+eXwCPZb43+DChjJZ4eM/sZV0VFpqPniQ==",
+  "dgSpecHash": "TIpTdNNgOoYwWDvIfAnJrMpJQ2zzjmFn/x/yFiJeggOaFJWv8gncy6R6RZnK5hoZjPRfWoRV3UG6GDxRQriR2w==",
   "success": true,
   "projectFilePath": "C:\\Users\\sheti\\source\\repos\\diplom\\ApplicationAdmin\\ApplicationAdmin.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\sheti\\.nuget\\packages\\bootstrap\\4.6.0\\bootstrap.4.6.0.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\jquery\\3.6.0\\jquery.3.6.0.nupkg.sha512",
-    "C:\\Users\\sheti\\.nuget\\packages\\microsoft.jquery.unobtrusive.ajax\\3.0.0\\microsoft.jquery.unobtrusive.ajax.3.0.0.nupkg.sha512"
+    "C:\\Users\\sheti\\.nuget\\packages\\microsoft.jquery.unobtrusive.ajax\\3.0.0\\microsoft.jquery.unobtrusive.ajax.3.0.0.nupkg.sha512",
+    "C:\\Users\\sheti\\.nuget\\packages\\popper.js\\1.16.1\\popper.js.1.16.1.nupkg.sha512"
   ],
   "logs": []
 }
