@@ -1,0 +1,63 @@
+﻿@using ApplicationEditor.Models
+@model List<Publication>
+@{
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="topmenu">
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="Main">Научный журнал</a>
+                </li>
+
+                <li>
+                    <a href="" class="submenu-link">Рецензенты</a>
+                    <ul class="submenu">
+                        <li><a href="../Editor/Reviewers">Список рецензентов</a></li>
+                        <li><a href="../Editor/Register">Регистрация рецензента</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a>Формировать научный журнал</a>
+                </li>
+
+                <li>
+                    <a href="../Editor/Publications">Список статей</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Мои публикации</h1>
+    <table class="table table-primary">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Название статьи</th>
+                <th>Дата подачи</th>
+                <th>Статус</th>
+                <th>Рецензент</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var str in Model)
+            {
+
+                <tr>
+                    <td>@str.Id</td>
+                    <td><a href="/Editor/GetPublic?Id=@str.Id" />@str.Title</td>
+                    <td>@str.DateCreate</td>
+                    <td>@str.Status</td>
+                    <td>@str.ReviewerFIO</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

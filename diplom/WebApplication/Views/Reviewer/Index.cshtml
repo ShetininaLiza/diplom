@@ -1,0 +1,75 @@
+﻿@model List<BisnessLogic.Models.Publication>
+@{
+}
+<script>
+    function DownloadFile(id) {
+        //Swal.fire("id: "+id)
+        $.post("/Reviewer/DownloadAndUpdate", { ID: id }, function (data) {
+            let a = document.createElement("a");
+            let blob = new Blob([data]);
+            a.href = URL.createObjectURL(blob);
+            a.download = "publication_"+id+".txt";
+            a.click();
+        });
+    }
+</script>
+<div class="text-center">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Научный журнал</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="navbar-nav flex-grow-1 topmenu">
+                <li class="nav-item">
+                    <a class="submenu-link nav-link text-dark" href="../User/Enter">Выход</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Добро пожаловать</h1>
+    <h2>Рецензент</h2>
+    <table class="table table-primary">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Название статьи</th>
+                <th>Дата подачи</th>
+                <th>Статус</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var str in Model)
+            {
+                <tr>
+                    <td>@str.Id</td>
+                    <td><a href="/Home/GetPublic?Id=@str.Id" />@str.Title</td>
+                    <td>@str.DateCreate</td>
+                    <td>@str.Status</td>
+                    @if (str.Status == BisnessLogic.Models.Status.Отправлена_рецензенту.ToString())
+                    {
+                        <td>
+                            <button class="btn btn-lg btn-primary" type="button" onclick="DownloadFile(@str.Id)">Скачать</button>
+                        </td>
+                    }
+                    else if (str.Status == BisnessLogic.Models.Status.Находится_на_рецензировании.ToString())
+                    { 
+                <td>
+                    <!--class="custom-file-input"-->
+                    <!--
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+        <label class="custom-file-label" for="inputGroupFile01">Файл рецензии</label>
+    </div>
+        -->
+                    <input type="file" class="custom-file" data-classButton="btn btn-primary" data-input="false" data-buttonText="Your label here.">
+                </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

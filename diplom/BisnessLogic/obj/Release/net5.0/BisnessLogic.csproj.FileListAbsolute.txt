@@ -1,0 +1,12 @@
+C:\Users\sheti\source\repos\diplom\BisnessLogic\bin\Release\net5.0\BisnessLogic.deps.json
+C:\Users\sheti\source\repos\diplom\BisnessLogic\bin\Release\net5.0\BisnessLogic.dll
+C:\Users\sheti\source\repos\diplom\BisnessLogic\bin\Release\net5.0\ref\BisnessLogic.dll
+C:\Users\sheti\source\repos\diplom\BisnessLogic\bin\Release\net5.0\BisnessLogic.pdb
+C:\Users\sheti\source\repos\diplom\BisnessLogic\obj\Release\net5.0\BisnessLogic.csproj.AssemblyReference.cache
+C:\Users\sheti\source\repos\diplom\BisnessLogic\obj\Release\net5.0\BisnessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sheti\source\repos\diplom\BisnessLogic\obj\Release\net5.0\BisnessLogic.AssemblyInfoInputs.cache
+C:\Users\sheti\source\repos\diplom\BisnessLogic\obj\Release\net5.0\BisnessLogic.AssemblyInfo.cs
+C:\Users\sheti\source\repos\diplom\BisnessLogic\obj\Release\net5.0\BisnessLogic.csproj.CoreCompileInputs.cache
+C:\Users\sheti\source\repos\diplom\BisnessLogic\obj\Release\net5.0\BisnessLogic.dll
+C:\Users\sheti\source\repos\diplom\BisnessLogic\obj\Release\net5.0\ref\BisnessLogic.dll
+C:\Users\sheti\source\repos\diplom\BisnessLogic\obj\Release\net5.0\BisnessLogic.pdb

@@ -1,0 +1,198 @@
+﻿@using BisnessLogic.Models
+@model IEnumerable<User>
+
+@{
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <script src="sweetalert2.all.min.js"></script>
+    <script>
+        function printPas() {
+            var textPas;
+            textPas = document.getElementById("TextPass")
+            textPas.removeAttribute("type");
+            textPas.setAttribute("type", "text");
+        }
+        function SaveUpdateData() {
+            Swal.fire({
+                title: 'Вы точно хотите изменить данные?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Сохранить',
+                denyButtonText: `Отмена`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    var login = document.getElementById("login").value;
+                    if (login == '') {
+                        Swal.fire("Поле \"Логин\" быть заполнены!")
+                        return false;
+                    }
+                    var pas = document.getElementById("TextPass").value;
+                    if (pas == '') {
+                        Swal.fire("Поле \"Пароль\" быть заполнены!")
+                        return false;
+                    }
+                    var ln = document.getElementById("LastName").value;
+                    if (ln == '') {
+                        Swal.fire("Поле \"Фамилия\" быть заполнены!")
+                        return false;
+                    }
+                    var name = document.getElementById("Name").value;
+                    if (name == '') {
+                        Swal.fire("Поле \"Имя\" быть заполнены!")
+                        return false;
+                    }
+                    var otch = document.getElementById("Otch").value;
+                    if (otch == '') {
+                        Swal.fire("Поле \"Отчество\" быть заполнены!")
+                        return false;
+                    }
+                    var work = document.getElementById("Work").value;
+                    if (work == '') {
+                        Swal.fire("Поле \"Место работы\" быть заполнены!")
+                        return false;
+                    }
+                    var phone = document.getElementById("Phone").value;
+                    if (phone == '') {
+                        Swal.fire("Поле \"Номер телефона\" быть заполнены!")
+                        return false;
+                    }
+                    $.post("/User/UpdateData",
+                        {
+                            Login: login,
+                            Pass: pas,
+                            Last: ln,
+                            First: name,
+                            Otch: otch,
+                            Work: work,
+                            Tel: phone
+                        },
+                        function (data) {
+                            Swal.fire('Изменения внесены успешно!', '', 'success');
+                            location.reload();
+                            //return true;
+                            //$("form")
+                        });
+                    return true;
+                }
+                else if (result.isDenied) {
+                    //Swal.fire('Changes are not saved', '', 'info')
+                    location.reload();
+                    return false;
+                }
+            });
+        }
+        function Censel() {
+            Swal.fire({
+                title: 'Вы точно хотите отменить изменение данные?\nВведенные данные не сохраняются.',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Да',
+                denyButtonText: `Нет`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Swal.fire('Changes are not saved', '', 'info')
+                    location.reload();
+                    return false;
+                }
+
+            });
+        }
+        function StartUpdate() {
+            var texts;
+            var buttons;
+            texts = document.getElementsByTagName("input");
+            for (var i = 0; i < texts.length; i++) {
+                texts.item(i).removeAttribute("readonly");
+            }
+            buttons = document.getElementById("Buttons");
+            var buttonSave = document.createElement("button");
+            buttonSave.setAttribute("type", "submit");
+            buttonSave.setAttribute("onclick", "SaveUpdateData();");
+            buttonSave.setAttribute("name", "save");
+            buttonSave.innerHTML = "<label>Сохранить</label>";
+
+            var buttonCen = document.createElement("button");
+            buttonCen.setAttribute("type", "submit");
+            buttonCen.setAttribute("onclick", "Censel();");
+            buttonCen.setAttribute("name", "cen");
+            buttonCen.innerHTML = "<label>Отмена</label>";
+
+            buttons.removeChild(document.getElementById("update"));
+            buttons.appendChild(buttonSave);
+            buttons.appendChild(buttonCen);
+        }
+    </script>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Autor">Научный журнал</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="../Home/AddPublication">Добавить публикацию</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <form id="form">
+    <h1>Мои данные</h1>
+    @foreach (User user in Model)
+    {
+        <p style="display:inline-block">
+            <label>Логин: </label>
+            <input id="login" type="text" required name="login" min="3" value="@user.Login" readonly />
+        </p>
+        <br />
+        <p style="display:inline-block">
+            <label>Пароль: </label>
+            <input id="TextPass" type="password" required name="pass" value="@user.Password" readonly
+                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])\S{8,}"
+                   title="Пароль должен содержать от 8 символов (английские строчные, заглавные, цифры и спец символы)" />
+            <button onclick="printPas()">Отобразить</button>
+        </p>
+        <br />
+        <p style="display:inline-block">
+            <label>Фамилия: </label>
+            <input id="LastName" type="text" required name="last" minlength="3" value="@user.LastName" readonly />
+        </p>
+        <br />
+        <p style="display:inline-block">
+            <label>Имя: </label>
+            <input id="Name" type="text" required name="first" minlength="1" value="@user.Name" readonly />
+        </p>
+        <br />
+        <p style="display:inline-block">
+            <label>Отчество: </label>
+            <input id="Otch" type="text" required name="otch" minlength="3" value="@user.Otch" readonly />
+        </p>
+        <br />
+        <p style="display:inline-block">
+            <label>Номер телефона: </label>
+            <input id="Phone" type="tel" required name="tel" value="@user.Phone" readonly 
+                   pattern="89\d{9}" title="Формат телефона 89........." />
+        </p>
+        <br />
+        <p style="display:inline-block">
+            <label>Место работы:</label>
+            <input id="Work" type="text" required name="work" minlength="1" value="@user.Work" readonly />
+        </p>
+    }
+    <br />
+    <p id="Buttons" style="display:inline-block">
+        <button id="update" style="text-align: center" onclick="StartUpdate()">Изменить данные</button>
+    </p>
+    </form>
+</body>
+</html>

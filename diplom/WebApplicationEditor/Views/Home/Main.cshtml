@@ -1,0 +1,63 @@
+﻿@{
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <!--
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Main">Научный журнал</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+        <a class="nav-link text-dark" href="">Рецензенты</a>
+        <ul>
+            <li><a href="Editor/Reviewers">Список рецензентов</a></li>
+        </ul>
+    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+        -->
+    <header>
+        <nav>
+            <ul class="topmenu">
+                <!--
+    <li><a href="">Главная</a></li>
+    -->
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="Main">Научный журнал</a>
+                </li>
+
+                <li>
+                    <a href="" class="submenu-link">Рецензенты</a>
+                    <ul class="submenu">
+                        <li><a href="../Editor/Reviewers">Список рецензентов</a></li>
+                        <li><a href="../Editor/Register">Регистрация рецензента</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a>Формировать научный журнал</a>
+                </li>
+
+                <li>
+                    <a href="../Editor/Publications">Список статей</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <h1 class="display-4">Добро пожаловать</h1>
+    <h2 class="display-4">Редактор</h2>
+</body>
+</html>

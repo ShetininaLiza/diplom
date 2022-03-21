@@ -1,0 +1,62 @@
+﻿@using WebApplication.Models
+@model IEnumerable<Publication>
+@{
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <script>
+        function getInformation(id) {
+            //Swal.fire('click');
+            $.post("/Home/GetPublic", { Id: id }, function (data) { });
+        }
+    </script>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Autor">Научный журнал</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="AddPublication">Добавить публикацию</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="../User/UpdateData">Изменить данные</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <h1>Мои публикации</h1>
+    <table class="table table-primary">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Название статьи</th>
+                <th>Дата подачи</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var str in Model)
+            {
+                <tr>
+                    <td>@str.Id</td>
+                    <td><a href="/Home/GetPublic?Id=@str.Id"/>@str.Title</td>
+                    <td>@str.DateCreate</td>
+                    <td>@str.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

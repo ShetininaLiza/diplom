@@ -1,0 +1,156 @@
+﻿@using BisnessLogic.Models
+@model (List<ApplicationEditor.Models.Publication>, List<User>)
+@{
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <style>
+        input[name="publicId"]{
+            border:none;
+        }
+            input[name="publicId"]::placeholder {
+                font-weight:bold;
+            }
+    </style>
+</head>
+<body>
+    <script>
+        function UpdatePublic() {
+            var publicId;
+            var revId;
+            publicId = document.getElementById("id").innerText;
+            revId = document.getElementById("validationCustom04").value;
+            //Swal.fire("data: " + publicId + ", " + revId)
+            if (revId = '') { Swal.fire('Выбирете рецензента'); return false; }
+            else {
+                $.post("/Editor/Update", { publicId: publicId, reviewerId: revId });
+            }
+        }
+    </script>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Autor">Научный журнал</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="AddPublication">Добавить публикацию</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="../User/UpdateData">Изменить данные</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <form method="post" class="needs-validation">
+        <h1>Информация о публикации</h1>
+        @foreach (var str in Model.Item1)
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <label style="font-weight:bold">Номер статьи:</label><br />
+                        <!--<label id="id" name="publicId">@str.Id</label>-->
+                        <input type="text" value="@str.Id" name="publicId" />
+
+                        <br /><br />
+                        <label style="font-weight:bold">Название статьи:</label><br />
+                        <label>@str.Title</label><br /><br />
+                        <label style="font-weight:bold">Рубрика(и):</label><br />
+                        <p id="categories">
+                            @foreach (var c in str.Categories)
+                            {
+                                <input id="Checkbox1" checked="checked" name="category" type="checkbox" value="@c">@c<br />
+                            }
+                        </p>
+                    </div>
+                    <div class="col">
+                        <div>
+                            <label style="font-weight:bold">Ключевые слова:</label><br />
+                            <textarea id="TextWords" name="words" cols="40" rows="12">@string.Join('\n', str.KeyWords.ToArray())</textarea><br /><br />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div>
+                            <label style="font-weight:bold">Аннотация:</label><br />
+                            <textarea id="TextAnnotation" name="annotation" cols="40" rows="12">@str.Annotation</textarea><br /><br />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label style="font-weight:bold">Статус статьи:</label><br />
+                        <label>@str.Status</label><br /><br />
+                        <label style="font-weight:bold">Дата подачи статьи:</label><br />
+                        <input type="text" value="@str.DateCreate"><br />
+                        <label style="font-weight:bold">Дата публикации статьи:</label><br />
+                        @if (str.DatePublic <= str.DateCreate)
+                        {
+                            <label style="font-weight:bold">Статья не опубликована</label><br />
+                        }
+                        else
+                        {
+                            <input type="text" value="@str.DateCreate"><br />
+                        }
+                        <label style="font-weight:bold">Рецензент статьи:</label><br />
+                        @if (str.ReviewerFIO.Length == 0)
+                        {
+                            <label style="font-weight:bold">Рецензент не назначен</label><br />
+                            <select class="form-select" id="validationCustom04" required name="reviewerId">
+                                <option selected disabled value="">Выберите...</option>
+                                @foreach (var rev in Model.Item2)
+                                {
+                                    <option value="@rev.Id">@rev.LastName @rev.Name @rev.Otch</option>
+                                }
+                            </select>
+                            <div class="invalid-feedback">
+                                Пожалуйста, выберите рецензента.
+                            </div>
+                            <!--onclick="UpdatePublic()"-->
+                            <!--asp-controller="Editor" asp-action="Update"-->
+                            <button class="w-100 btn btn-lg btn-primary" type="submit" asp-controller="Editor" asp-action="Update">Назначить рецензента на статью</button>
+                        }
+                        else { 
+                            <label>@str.ReviewerFIO</label><br />
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <label style="font-weight:bold">Автор(ы):</label><br />
+                    <table class="table table-primary">
+                        <thead>
+                            <tr>
+                                <th>Фамилия</th>
+                                <th>Имя</th>
+                                <th>Отчество</th>
+                                <th>Почта</th>
+                                <th>Номер телефона</th>
+                                <th>Место работы</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var autor in str.Autors)
+                            {
+                                <tr>
+                                    <td>@autor.LastName</td>
+                                    <td>@autor.Name</td>
+                                    <td>@autor.Otch</td>
+                                    <td>@autor.Email</td>
+                                    <td>@autor.Phone</td>
+                                    <td>@autor.Work</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </form>
+</body>
+</html>

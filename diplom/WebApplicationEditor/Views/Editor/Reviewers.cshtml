@@ -1,0 +1,54 @@
+﻿@using BisnessLogic.Models
+@model IEnumerable<User>
+@{
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Main">Научный журнал</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li><a href="Register">Регистрация рецензента</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <h1 class="display-4">Список рецензентов</h1>
+    <table class="table table-primary">
+        <thead>
+            <tr>
+                <td>Логин</td>
+                <td>Фамилия</td>
+                <td>Имя</td>
+                <td>Отчество</td>
+                <td>Место работы</td>
+                <td>Почта</td>
+            </tr>
+        </thead>
+        <tbody id="users">
+            @foreach (User user in Model)
+            {
+                <tr>
+                    <td>@user.Login</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Name</td>
+                    <td>@user.Otch</td>
+                    <td>@user.Work</td>
+                    <td>@user.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

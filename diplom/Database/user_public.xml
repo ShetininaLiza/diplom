@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Publications>
+  <AutorsPublication Id="1">
+    <Autors>
+      <Autor LastName="Щетинина" Name="Елизавета" Otch="Вадимовна" Email="shetinina.l2000@gmail.com" Work="qq" isConnect="true" />
+      <Autor LastName="Аминова" Name="Мария" Otch="Николаевна" Email="mariaaminova.cat@gmail.com" Work="qq" isConnect="false" />
+    </Autors>
+  </AutorsPublication>
+</Publications>
