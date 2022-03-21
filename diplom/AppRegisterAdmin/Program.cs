@@ -7,14 +7,20 @@ using System.Text.RegularExpressions;
 namespace AppRegisterAdmin
 {
     class Program
-    { 
+    {
+        public static MyDatabase database;
         static void Main(string[] args)
         {
-            WorkFile wf = new WorkFile();
+            database = new MyDatabase();
+            //database.Connect();
+            //WorkFile wf = new WorkFile();
+            
+            var list = database.GetUsers();
             
             Console.WriteLine("Введите логин:");
             string login = Console.ReadLine();
-            var list = wf.GetUsers();
+            
+                //wf.GetUsers();
             var res =list.FirstOrDefault(rec=>rec.Login==login);
             while (res != null)
             {
@@ -34,19 +40,27 @@ namespace AppRegisterAdmin
                     "\nВведите пароль:");
                 pas = Console.ReadLine();
             }
-            //если все верно
-            wf.WriteUser(new User
+            try
             {
-                Login = login,
-                Password = pas,
-                Email = "",
-                LastName = "",
-                Name = "",
-                Otch = "",
-                Work = "",
-                Role = Role.Администратор.ToString()
-            });
-            Console.WriteLine("Администратор добавлен.");
+                //если все верно
+                //wf
+                database.WriteUser(new User
+                {
+                    Login = login,
+                    Password = pas,
+                    Email = "",
+                    LastName = "",
+                    Name = "",
+                    Otch = "",
+                    Work = "",
+                    Role = Role.Администратор.ToString()
+                });
+                Console.WriteLine("Администратор добавлен.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             Console.ReadKey();
         }
     }

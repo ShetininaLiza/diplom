@@ -35,7 +35,7 @@
                         'Пользователь был заблокирован/разблокирован.',
                         'success'
                     );
-                    location.reload();
+                    //location.reload();
                 }
             })
         }
@@ -58,18 +58,20 @@
             </div>
         </nav>
         <h1>Блокировка пользователя</h1>
-        <table id="users" style="width:100%;">
+        <table class="table table-primary">
+            <thead>
                 <tr>
-                    <td>Логин</td>
-                    <td>Фамилия</td>
-                    <td>Имя</td>
-                    <td>Отчество</td>
-                    <td>Место работы</td>
-                    <td>Почта</td>
-                    <td>Роль</td>
-                    <td>Наличие блокировки</td>
+                    <th>Логин</th>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Место работы</th>
+                    <th>Почта</th>
+                    <th>Роль</th>
+                    <th>Наличие блокировки</th>
                 </tr>
-
+            </thead>
+            <tbody  id="users">
                 @foreach (User user in Model)
                 {
                     <tr>
@@ -86,6 +88,7 @@
                         </td>
                     </tr>
                 }
+            </tbody>
         </table>
     </div>
 </body>

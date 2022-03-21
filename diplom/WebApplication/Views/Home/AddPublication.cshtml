@@ -68,7 +68,6 @@
                 }
             }
             connection = document.getElementsByName("connection");
-            Swal.fire('Count: ' + connection.length);
             var count_con = 0;
             for (var i = 0; i < connection.length; i++) {
                 if (connection.item(i).checked) {
@@ -117,6 +116,7 @@
             var cell_last = document.createElement("td");
             var cell_name = document.createElement("td");
             var cell_otch = document.createElement("td");
+            var cell_tel = document.createElement("td");
             var cell_work = document.createElement("td");
             var cell_autor = document.createElement("td");
             
@@ -132,6 +132,7 @@
                 cell_last.innerHTML = "<input type='text' name='last'>";
                 cell_name.innerHTML = "<input type='text' name='name'>";
                 cell_otch.innerHTML = "<input type='text' name='otch'>";
+                cell_tel.innerHTML = "<input type='text' name='tel'>";
                 cell_work.innerHTML = "<input type='text' name='work'>";
                 //cell_autor.innerHTML = "<input id=checkbox'" + id + "' name='connection' type='checkbox'>";
             }
@@ -141,7 +142,8 @@
                 cell_last.innerHTML = "<input type='text' name='last' value='" + user_data[1] + "'  readonly>";
                 cell_name.innerHTML = "<input type='text' name='name' value='" + user_data[2] + "'  readonly>";
                 cell_otch.innerHTML = "<input type='text' name='otch' value='" + user_data[3] + "'  readonly>";
-                cell_work.innerHTML = "<input type='text' name='work' value='" + user_data[4] + "'  readonly>";
+                cell_tel.innerHTML = "<input type='text' name='tel' value='" + user_data[4] + "'  readonly>";
+                cell_work.innerHTML = "<input type='text' name='work' value='" + user_data[5] + "'  readonly>";
                 //cell_autor.innerHTML = "<input id=checkbox'" + id + "' name='connection' type='checkbox'>";
             }
             cell_autor.innerHTML = "<input id=checkbox'" + id + "' name='connection' type='checkbox' value='"+id+" '>";
@@ -159,6 +161,7 @@
             row.appendChild(cell_last);
             row.appendChild(cell_name);
             row.appendChild(cell_otch);
+            row.appendChild(cell_tel);
             row.appendChild(cell_work);
             row.appendChild(cell_autor);
             row.appendChild(buttonDel);
@@ -205,7 +208,7 @@
             </div>
         </div>
     </nav>
-    <form id="form" name="form" method="post" onsubmit="return proverka();">
+    <form id="form" name="form" method="post" enctype="multipart/form-data" onsubmit="return proverka();">
         <h1 style="text-align: center">Добавление статьи для публикации</h1>
         <p style="font-size:20px; text-align: center">
             <label style="font-weight:bold">Автор(ы):</label><br />
@@ -217,6 +220,7 @@
                         <th scope="col">Фамилия</th>
                         <th scope="col">Имя</th>
                         <th scope="col">Отчество</th>
+                        <th scope="col">Номер телефона</th>
                         <th scope="col">Место работы</th>
                         <th scope="col">Автор для связи</th>
                         <th scope="col"> </th>
@@ -232,21 +236,21 @@
             <div class="row">
                 <div class="col">
                     <div>
-                    <!--<p style="font-size:20px; text-align: center">-->
-                    <label style="font-weight:bold">Название статьи:</label><br />
-                    <input name="title" id="TextTitle" type="text" size="40" /><br /><br />
-                    <!--</p>-->
-                <!--</div>-->
-                <!--style="font-size:20px; text-align: center"-->
-                <!--<div class="col-md-4">-->
-                    <label style="font-weight:bold">Рубрика(и):</label><br />
-                    <p id="categories">
-                        @foreach (string str in Model)
-                        {
-                            <input id="Checkbox1" name="category" type="checkbox" value="@str">@str<br />
-                        }
-                    </p>
-                        </div>
+                        <!--<p style="font-size:20px; text-align: center">-->
+                        <label style="font-weight:bold">Название статьи:</label><br />
+                        <input name="title" id="TextTitle" type="text" size="40" /><br /><br />
+                        <!--</p>-->
+                        <!--</div>-->
+                        <!--style="font-size:20px; text-align: center"-->
+                        <!--<div class="col-md-4">-->
+                        <label style="font-weight:bold">Рубрика(и):</label><br />
+                        <p id="categories">
+                            @foreach (string str in Model)
+                            {
+                                <input id="Checkbox1" name="category" type="checkbox" value="@str">@str<br />
+                            }
+                        </p>
+                    </div>
                 </div>
                 <div class="col">
                     <div>
@@ -261,18 +265,17 @@
                 <div class="col">
                     <div>
                         <!--<p style="font-size:20px; text-align: center">-->
-                            <label style="font-weight:bold">Аннотация:</label><br />
-                            <textarea id="TextAnnotation" name="annotation" cols="40" rows="12"></textarea><br /><br />
+                        <label style="font-weight:bold">Аннотация:</label><br />
+                        <textarea id="TextAnnotation" name="annotation" cols="40" rows="12"></textarea><br /><br />
                         <!--</p>-->
-                        </div>
                     </div>
                 </div>
             </div>
-
+        </div>
             <label style="font-size: 20px; text-align: center; font-weight:bold">Прикрепить статью:</label>
             <input id="File" name="file" type="file" /><br />
             <!--onclick="proverka();"-->
             <button id="ButtonSave" type="submit">Сохранить</button>
-</form>
+    </form>
 </body>
 </html>

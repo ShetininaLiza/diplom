@@ -12,36 +12,67 @@
 <body>
     <script>
         function send() {
-            $(this).load('@Url.Action("Register", "User")');
+            var login = document.getElementById("Login").value;
+            var email = document.getElementById("Email").value;
+            var pas = document.getElementById("Pass").value;
+            var last = document.getElementById("LastName").value;
+            var first = document.getElementById("Name").value;
+            var otch = document.getElementById("Otch").value;
+            var work = document.getElementById("Work").value;
+            var tel = document.getElementById("Tel").value;
+            $.post("/User/RegisterAutor",
+                {
+                    Login:login,
+                    Email:email,
+                    Pass:pas,
+                    Last:last,
+                    First:first,
+                    Otch:otch,
+                    Work:work,
+                    Tel:tel
+                },
+                function (data) {
+                    Swal.fire(
+                        'Готово!',
+                        'Вы успешно зарегистрировались!',
+                        'success'
+                    );
+                    return true;
+                });
+            /*
+            перед Url был знак собаки
+            $(this).load('Url.Action("Register", "User")');
             Swal.fire(
                 'Готово!',
                 'Вы успешно зарегистрировались!',
                 'success'
             );
+            */
         }
     </script>
     <div>
         <h1 style="text-align: center">Регистрация</h1>
+        
         <form method="post" class="row g-3 needs-validation">
             <div class="col-md-4">
                 <label for="validationCustom02" class="form-label">Фамилия</label>
-                <input type="text" class="form-control" id="LastName" name="last" required>
+                <input type="text" class="form-control" id="LastName" name="Last" required>
             </div>
 
             <div class="col-md-4">
                 <label for="validationCustom01" class="form-label">Имя</label>
-                <input type="text" class="form-control" id="Name" name="first" required>
+                <input type="text" class="form-control" id="Name" name="First" required>
             </div>
 
             <div class="col-md-4">
                 <label for="validationCustom02" class="form-label">Отчество</label>
-                <input type="text" class="form-control" id="Otch" name="otch" required>
+                <input type="text" class="form-control" id="Otch" name="Otch" required>
             </div>
 
             <div class="col-md-4">
                 <label for="validationCustomUsername" class="form-label">Логин</label>
                 <div class="input-group has-validation">
-                    <input type="text" class="form-control" id="Login" aria-describedby="inputGroupPrepend" name="login" required>
+                    <input type="text" class="form-control" id="Login" aria-describedby="inputGroupPrepend" name="Login" required>
                 </div>
             </div>
 
@@ -49,21 +80,23 @@
                 <label for="validationCustom03" class="form-label">Пароль</label>
                 <input type="password" class="form-control" id="Pass" required
                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])\S{8,}"
-                       title="Пароль должен содержать от 8 символов (английские строчные, заглавные, цифры и спец символы)" name="pass">
+                       title="Пароль должен содержать от 8 символов (английские строчные, заглавные, цифры и спец символы)" 
+                       name="Pass">
             </div>
 
             <div class="col-md-4">
                 <label for="validationCustomUsername" class="form-label">Почта</label>
                 <div class="input-group has-validation">
                     <input type="email" class="form-control" id="Email"
-                           aria-describedby="inputGroupPrepend" placeholder="name@gmail.com" required name="email">
+                           aria-describedby="inputGroupPrepend" placeholder="name@gmail.com" required 
+                           name="Email">
                 </div>
             </div>
 
             <div class="col-md-4">
                 <label for="validationCustom03" class="form-label">Номер телефона</label>
                 <input type="tel" class="form-control" id="Tel" required
-                       pattern="89\d{9}" title="Формат телефона 89........." name="tel">
+                       pattern="89\d{9}" title="Формат телефона 89........." name="Tel">
                 <div class="invalid-feedback">
                     Введите номер телефона.
                 </div>
@@ -71,14 +104,19 @@
             
             <div class="col-md-4">
                 <label for="validationCustom03" class="form-label">Место работы</label>
-                <input type="text" class="form-control" id="Work" required />
+                <input type="text" class="form-control" id="Work" required name="Work"/>
                 <div class="invalid-feedback">
                     Введите место работы.
                 </div>
             </div>
             <div class="col-12" style="text-align:center">
                 <!--asp-controller="User" asp-action="Register"-->
-                <button class="btn btn-primary" type="submit" onclick="send()">Регистрация</button>
+                <!--
+    <button class="btn btn-primary" type="submit" onclick="send();">Регистрация</button>
+        -->
+                
+    <button class="btn btn-primary" type="submit" asp-controller="User" asp-action="Register">Регистрация</button>
+    
                 <br />
                 <a href="Enter">Вход</a>
             </div>

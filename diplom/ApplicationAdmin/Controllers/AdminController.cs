@@ -11,13 +11,16 @@ namespace ApplicationAdmin.Controllers
 {
     public class AdminController : Controller
     {
-        WorkFile wf;
+        //WorkFile wf;
         MailLogic mLogic;
+        MyDatabase database;
         List<User> list;
         public AdminController()
         {
-            wf = new WorkFile();
-            list = wf.GetUsers();
+            //wf = new WorkFile();
+            database = new MyDatabase();
+            list = database.GetUsers();
+                //wf.GetUsers();
             mLogic = new MailLogic();
         }
         // GET: /Admin/Enter/
@@ -63,7 +66,7 @@ namespace ApplicationAdmin.Controllers
 
         [HttpPost]
         public IActionResult RegisterEditor(string login, string email, string pass,
-                                            string last, string first, string otch, string work)
+                                            string last, string first, string otch, string work, string tel)
         {
             var user = new User
             {
@@ -71,24 +74,34 @@ namespace ApplicationAdmin.Controllers
                 Email = email,
                 Password = pass,
                 LastName = last,
+                Phone=tel,
                 Name = first,
                 Otch = otch,
                 Work = work,
                 Role = Role.Редактор.ToString()
             };
-            wf.WriteUser(user);
-            mLogic.Send(user.Email, "Регистрация в научном журнале",
+            try
+            {
+                //wf.WriteUser(user);
+                database.WriteUser(user);
+                mLogic.Send(user.Email, "Регистрация в научном журнале",
                             "Уважаемый(ая) " + user.LastName + " " + user.Name + " " + user.Otch
                             + ",сообщаем Вам, что Вы зарегистрированы в системе научного журнала как редактор.\n" +
                             "Ваш логин: " + user.Login + "\nВаш пароль: " + user.Password);
-            return View("RegisterEditor");
+                return View("RegisterEditor");
+            }
+            catch (Exception ex)
+            {
+                return Content(ex.Message);
+            }
         }
 
 
         [HttpGet]
         public IActionResult BlockUser()
         {
-            list = wf.GetUsers();
+            list = database.GetUsers();
+                //wf.GetUsers();
             var users = list.Where(rec => rec.Role != Role.Администратор.ToString()).ToList();
             List<int> ids = new List<int>();
             for (int i = 0; i < users.Count; i++)
@@ -119,7 +132,8 @@ namespace ApplicationAdmin.Controllers
         [HttpGet]
         public PartialViewResult Update()
         {
-            list = wf.GetUsers();
+            list = database.GetUsers(); 
+                //wf.GetUsers();
             var users = list.Where(rec => rec.Role != Role.Администратор.ToString()).ToList();
             List<int> ids = new List<int>();
             for (int i = 0; i < users.Count; i++)
@@ -136,29 +150,54 @@ namespace ApplicationAdmin.Controllers
             //Если пользователь не заблокирован, то метку переводим в значение блока
             if (!user.IsBlock)
                 zn = true;
-
-            wf.UpdateUser(new User
-            { 
-                Id=user.Id,
-                Login=user.Login,
-                Password=user.Password,
-                Email=user.Email,
-                LastName=user.LastName,
-                Name=user.Name,
-                Otch=user.Otch,
-                Work=user.Work,
-                Role=user.Role,
-                IsBlock=zn
-            });
-            list= wf.GetUsers();
-            var users = list.Where(rec => rec.Role != Role.Администратор.ToString()).ToList();
-            List<int> ids = new List<int>();
-            for (int i = 0; i < users.Count; i++)
+            try
             {
-                ViewData[users.ElementAt(i).Id.Value.ToString()] = i + 1;
+                list = database.UpdateUser(new User
+                {
+                    Id = user.Id,
+                    Login = user.Login,
+                    Password = user.Password,
+                    Phone=user.Phone,
+                    Email = user.Email,
+                    LastName = user.LastName,
+                    Name = user.Name,
+                    Otch = user.Otch,
+                    Work = user.Work,
+                    Role = user.Role,
+                    IsBlock = zn
+                });
+                var users = list.Where(rec => rec.Role != Role.Администратор.ToString()).ToList();
+                List<int> ids = new List<int>();
+                for (int i = 0; i < users.Count; i++)
+                {
+                    ViewData[users.ElementAt(i).Id.Value.ToString()] = i + 1;
+                }
+                IEnumerable<User> data = users;
+                return //PartialView(users);
+                    View("BlockUser", data);
+                /*
+                wf.UpdateUser(new User
+                { 
+                    Id=user.Id,
+                    Login=user.Login,
+                    Password=user.Password,
+                    Email=user.Email,
+                    LastName=user.LastName,
+                    Name=user.Name,
+                    Otch=user.Otch,
+                    Work=user.Work,
+                    Role=user.Role,
+                    IsBlock=zn
+                });
+                */
+                //list = database.GetUsers(); 
+                //wf.GetUsers();
             }
-            IEnumerable<User> data = users;
-            return PartialView(users);
+            catch (Exception) 
+            {
+                return PartialView(list);
+            }
+            
         }
     }
 }

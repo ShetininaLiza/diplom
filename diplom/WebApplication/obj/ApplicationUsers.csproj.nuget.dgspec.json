@@ -39,6 +39,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -97,6 +103,28 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.123, )"
+            },
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[6.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[5.0.15, )"
+            },
+            "System.Data.SQLite": {
+              "target": "Package",
+              "version": "[1.0.115.5, )"
+            },
+            "System.Data.SQLite.Core": {
+              "target": "Package",
+              "version": "[1.0.115.5, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -159,25 +187,21 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "AspNet.ScriptManager.bootstrap": {
+            "Dapper": {
               "target": "Package",
-              "version": "[4.6.0, )"
-            },
-            "AspNet.ScriptManager.jQuery": {
-              "target": "Package",
-              "version": "[3.6.0, )"
+              "version": "[2.0.123, )"
             },
             "MailKit": {
               "target": "Package",
               "version": "[3.1.1, )"
             },
-            "Microsoft.AspNet.ScriptManager.WebForms": {
-              "target": "Package",
-              "version": "[5.0.0, )"
-            },
             "Microsoft.AspNet.WebApi.Core": {
               "target": "Package",
               "version": "[5.2.7, )"
+            },
+            "Microsoft.AspNet.WebHelpers": {
+              "target": "Package",
+              "version": "[3.2.7, )"
             },
             "Microsoft.AspNetCore.Session": {
               "target": "Package",
@@ -192,6 +216,12 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[5.0.13, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.1, )"
             },
             "Microsoft.jQuery.Unobtrusive.Ajax": {
               "target": "Package",
@@ -212,6 +242,10 @@
             "SmtpServer": {
               "target": "Package",
               "version": "[9.0.1, )"
+            },
+            "System.Data.SQLite.Core": {
+              "target": "Package",
+              "version": "[1.0.115.5, )"
             },
             "System.Net.Pop3": {
               "target": "Package",

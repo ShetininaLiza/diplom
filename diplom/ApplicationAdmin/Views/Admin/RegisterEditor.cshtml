@@ -77,41 +77,64 @@
                 </div>
             </div>
         </nav>
+        <!--<p style="font-size:20px; text-align: center">
+                    -->
         <h2 class="display-4">Регистрация редактора</h2>
         <div>
-            <form method="post" onsubmit="return proverka()">
-                <p style="font-size:20px; text-align: center">
+            <form method="post" class="row g-3 needs-validation" onsubmit="return proverka()">
+                <div class="col-md-4">
                     <label style="font-weight:bold">Логин:</label><br />
-                    <input name="login" id="TextLogin" type="text" size="40" /><br /><br />
-                </p>
-                <p style="font-size:20px; text-align: center">
+                    <input name="login" class="form-control" id="TextLogin" type="text" size="40" required /><br /><br />
+                </div>
+
+                <div class="col-md-4">
                     <label style="font-weight:bold">Email:</label><br />
-                    <input name="email" id="TextEmail" type="email" size="40" /><br /><br />
-                </p>
-                <p style="font-size:20px; text-align: center">
+                    <input name="email" class="form-control" id="TextEmail" type="email" size="40" required /><br /><br />
+                </div>
+
+                <div class="col-md-4">
                     <label style="font-weight:bold">Пароль:</label><br />
-                    <input name="pass" id="TextPass" type="password" size="40" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])\S{8,}"
+                    <input name="pass" class="form-control" id="TextPass" type="password" size="40" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])\S{8,}"
                            title="Пароль должен содержать от 8 символов (английские строчные, заглавные, цифры и спец символы)" /><br /><br />
-                </p>
-                <p style="font-size:20px; text-align: center">
+                </div>
+
+                <div class="col-md-4">
                     <label style="font-weight:bold">Фамилия:</label><br />
-                    <input name="last" id="TextLastName" type="text" size="40" /><br /><br />
-                </p>
-                <p style="font-size:20px; text-align: center">
+                    <input name="last" class="form-control" id="TextLastName" type="text" size="40" required /><br /><br />
+                </div>
+
+                <div class="col-md-4">
                     <label style="font-weight:bold">Имя:</label><br />
-                    <input name="first" id="TextFirstName" type="text" size="40" /><br /><br />
-                </p>
-                <p style="font-size:20px; text-align: center">
+                    <input name="first" class="form-control" id="TextFirstName" type="text" size="40" required /><br /><br />
+                </div>
+
+                <div class="col-md-4">
                     <label style="font-weight:bold">Отчество:</label><br />
-                    <input name="otch" id="TextOtch" type="text" size="40" /><br /><br />
-                </p>
-                <p style="font-size:20px; text-align: center">
+                    <input name="otch" class="form-control" id="TextOtch" type="text" size="40" required /><br /><br />
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom03" class="form-label">Номер телефона</label>
+                    <input type="tel" class="form-control" id="Tel" required
+                           pattern="89\d{9}" title="Формат телефона 89........." name="tel">
+                    <div class="invalid-feedback">
+                        Введите номер телефона.
+                    </div>
+                </div>
+
+                <div class="col-md-4">
                     <label style="font-weight:bold">Место работы:</label><br />
-                    <input name="work" id="TextWork" type="text" size="40" /><br /><br />
-                </p>
-                <p style="font-size:20px; text-align: center">
-                    <button id="NextStep" type="submit" asp-action="RegisterEditor">Регистрация</button>
-                </p>
+                    <input name="work" class="form-control" id="TextWork" type="text" size="40" required /><br /><br />
+                </div>
+                
+                <div class="col-12" style="text-align:center">
+                    <!--
+        <p style="font-size:20px; text-align: center">
+            <button id="NextStep" type="submit" asp-action="RegisterEditor">Регистрация</button>
+        </p>
+        -->
+                    <button id="NextStep" class="btn btn-primary" type="submit" asp-action="RegisterEditor">Регистрация</button>
+                </div>
             </form>
         </div>
 </body>

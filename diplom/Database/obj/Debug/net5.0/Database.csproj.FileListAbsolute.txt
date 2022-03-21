@@ -13,3 +13,8 @@ C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\Database.csproj.Cop
 C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\Database.dll
 C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\ref\Database.dll
 C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\Database.pdb
+C:\Users\sheti\source\repos\diplom\Database\bin\Debug\net5.0\Database.runtimeconfig.json
+C:\Users\sheti\source\repos\diplom\Database\bin\Debug\net5.0\Database.runtimeconfig.dev.json
+C:\Users\sheti\source\repos\diplom\Database\obj\Debug\net5.0\Database.genruntimeconfig.cache
+C:\Users\sheti\source\repos\diplom\Database\bin\Debug\net5.0\diplomdb.db
+C:\Users\sheti\source\repos\diplom\Database\bin\Debug\net5.0\Database.dll.config

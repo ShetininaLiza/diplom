@@ -14,6 +14,10 @@ using BisnessLogic.Models;
 using Database;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data;
+using Dapper;
+using Microsoft.Data.Sqlite;
+using Database.Logic;
 
 namespace WebApplication.Controllers
 {
@@ -21,6 +25,8 @@ namespace WebApplication.Controllers
     {
         private MailLogic mLogic;
         private WorkFile file;
+        //private MyDatabase md = Program.database;
+        private IDbConnection md = Program.database;
         public UserController()
         {
             mLogic = new MailLogic();
@@ -37,38 +43,40 @@ namespace WebApplication.Controllers
         
         [HttpPost]
         [ActionName("Register")]
-        public async Task<IActionResult> RegisterAutorAsync(string login, string email, string pass,
-                                        string last, string first, string otch, string work, string tel)
+        public async Task<IActionResult> RegisterAutor(string Login, string Email, string Pass,
+                                        string Last, string First, string Otch, string Work, string Tel)
         {
-            //Проверяем наличие такого логина
-            var cheak = file.CheakLogin(login, email);
-            //Если нет такого логина
-            if (!cheak)
-            {
-                var user = new User
+            var user = new User
                 {
-                    Login = login,
-                    Email = email,
-                    Password = pass,
-                    LastName = last,
-                    Name = first,
-                    Otch = otch,
-                    Phone=tel,
-                    Work = work,
+                    Login = Login,
+                    Email = Email,
+                    Password = Pass,
+                    LastName = Last,
+                    Name = First,
+                    Otch = Otch,
+                    Phone = Tel,
+                    Work = Work,
                     Role = Role.Автор.ToString(),
                     IsBlock = false
                 };
-                await WriteAutor(user);
+            try
+            {
+                md.Execute(UserLogic.AddUser, user);
                 await SendMailNewAutor(user);
-
                 return View();
             }
-            return Content("Ошибка. Такой пользователь уже есть в системе.");
+            catch (Exception) { return Content("Ошибка. Пользователь с такими данными уже есть в системе."); }
         }
 
         async Task WriteAutor(User autor)
         {
-            await Task.Run(() => file.WriteUser(autor));
+            try
+            {
+                await Task.Run(() => md.Execute(UserLogic.AddUser, autor));
+            }
+            catch(Exception) { throw new Exception("Ошибка. Пользователь с такими данными уже есть в системе."); }
+            //.WriteUser(autor));
+            //file.WriteUser(autor));
         }
         async Task SendMailNewAutor(User autor)
         {
@@ -90,27 +98,31 @@ namespace WebApplication.Controllers
         [ActionName("Enter")]
         public IActionResult Enter(string login, string pass, string role)
         {
-            var user = file.GetUsers().FirstOrDefault(rec => rec.Login == login);
+            var dp = new DynamicParameters();
+            dp.Add("id", "");
+            dp.Add("login", login);
+            
+            var user = md.Query<User>(UserLogic.GetUsers, dp).ToList();
             //Если нет такого логина
-            if (user==null)
+            if (user==null || user.Count==0)
                 return Content("В системе нет пользователя с такими данными.");
             else
             {
-                if (user.IsBlock)
+                if (user.ElementAt(0).IsBlock)
                     return Content("Данный пользователь заблокирован администратором.");
                 else
                 {
-                    if (user.Role != role)
+                    if (user.ElementAt(0).Role != role)
                         return Content("Нет пользователя с такой ролью.");
                     //Если введен неправильный пароль
-                    if (user.Password != pass)
+                    if (user.ElementAt(0).Password != pass)
                         return Content("Неправильно введен пароль.");
                     else
                     {
-                        Program.user = user;
-                        if(user.Role==Role.Автор.ToString())
+                        Program.user = user.ElementAt(0);
+                        if(user.ElementAt(0).Role==Role.Автор.ToString())
                             return Redirect("../Home/Autor");
-                        else if(user.Role==Role.Рецензент.ToString())
+                        else if(user.ElementAt(0).Role==Role.Рецензент.ToString())
                             return Redirect("../Reviewer/Index");
                     }    
                 }
@@ -122,7 +134,11 @@ namespace WebApplication.Controllers
         [HttpGet]
         public IActionResult UpdateData() 
         {
-            var user = file.GetUsers().Where(rec => rec.Id == Program.user.Id).ToList();
+            var dp = new DynamicParameters();
+            dp.Add("id", Program.user.Id);
+            dp.Add("login", "");
+
+            var user = md.Query<User>(UserLogic.GetUsers, dp);
             return View(user);
         }
         [HttpPost]
@@ -134,17 +150,36 @@ namespace WebApplication.Controllers
                 Id = Program.user.Id,
                 Login = Login,
                 Password = Pass,
-                LastName=Last,
-                Name=First,
-                Otch=Otch,
-                Work=Work,
-                Phone=Tel,
-                Role=Program.user.Role,
-                Email=Program.user.Email,
-                IsBlock=Program.user.IsBlock
+                LastName = Last,
+                Name = First,
+                Otch = Otch,
+                Work = Work,
+                Phone = Tel,
+                Role = Program.user.Role,
+                Email = Program.user.Email,
+                IsBlock = Program.user.IsBlock,
             };
-            file.UpdateUser(user);
-            return Content("All ok");
+            
+            var dp = new DynamicParameters();
+            
+            dp.Add("login", Login);
+            dp.Add("tel", Tel);
+            dp.Add("pass", Pass);
+            dp.Add("last", Last);
+            dp.Add("name", First);
+            dp.Add("otch", Otch);
+            dp.Add("work", Work);
+            dp.Add("block", Program.user.IsBlock);
+            dp.Add("id", Program.user.Id);
+            
+            md.Execute(UserLogic.UpdateUser, user);
+            
+            dp = new DynamicParameters();
+            dp.Add("id", Program.user.Id);
+            dp.Add("login", "");
+            
+            return View(md.Query<User>(UserLogic.GetUsers,dp));
+                //Content("All ok");
                 //new EmptyResult();
         }
     }

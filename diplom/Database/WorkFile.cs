@@ -76,7 +76,7 @@ namespace Database
                 return 0;
             }
         }
-        public bool CheakLogin(string login, string email)
+        public bool CheakLoginAndEmail(string login, string email)
         {
             //Загрузили файл
             XDocument xDocument = XDocument.Load(path+"users.xml");
@@ -105,7 +105,7 @@ namespace Database
             el.SetAttribute("DateCreate", publication.DateCreate.ToString());
             el.SetAttribute("DatePublic", publication.DatePublic.ToString());
             el.SetAttribute("Annotation", publication.Annotation);
-            el.SetAttribute("File", publication.File);
+            //el.SetAttribute("File", publication.File);
             el.SetAttribute("Status", publication.Status.ToString());
             /*
             var autors = publication.AutorsId;//Autors;
@@ -246,11 +246,11 @@ namespace Database
                     DateCreate = Convert.ToDateTime(publica.Attribute("DateCreate").Value),
                     DatePublic = Convert.ToDateTime(publica.Attribute("DatePublic").Value),
                     Annotation = publica.Attribute("Annotation").Value,
-                    File = publica.Attribute("File").Value,
+                    //File = publica.Attribute("File").Value,
                     Status = publica.Attribute("Status").Value,
                     //Autors=autors,
                     //AutorsId=autorsId,
-                    Autors = list_autors,
+                    //Autors = list_autors,
                     Categories = categories,
                     KeyWords = words
                 });
