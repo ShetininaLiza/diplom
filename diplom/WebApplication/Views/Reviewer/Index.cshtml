@@ -2,6 +2,10 @@
 @{
 }
 <script>
+    function GetTo(pid) {
+        $.post("/Reviewer/GetPublic", { Id: pid }, function (data) { });
+    }
+
     function DownloadFile(id) {
         //Swal.fire("id: "+id)
         $.post("/Reviewer/DownloadAndUpdate", { ID: id }, function (data) {
@@ -12,6 +16,10 @@
             a.click();
         });
     }
+    
+</script>
+<script>
+    
 </script>
 <div class="text-center">
     <header>
@@ -55,17 +63,16 @@
                         </td>
                     }
                     else if (str.Status == BisnessLogic.Models.Status.Находится_на_рецензировании.ToString())
-                    { 
-                <td>
-                    <!--class="custom-file-input"-->
-                    <!--
-    <div class="custom-file">
-        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-        <label class="custom-file-label" for="inputGroupFile01">Файл рецензии</label>
-    </div>
-        -->
-                    <input type="file" class="custom-file" data-classButton="btn btn-primary" data-input="false" data-buttonText="Your label here.">
-                </td>
+                    {
+                        <td>
+                            <a href="/Reviewer/CreateReview?Id=@str.Id">Написать рецензию</a>
+                            <!--
+                            <button id="create" class="btn btn-lg btn-primary" type="button" value="@str.Id"
+                                    asp-action="GetPublic" asp-controller="Reviewer">
+                                Написать рецензию
+                            </button>
+                        -->
+                        </td>
                     }
                 </tr>
             }

@@ -38,7 +38,7 @@ namespace Database.Logic
                              "@AutorId," +
                              "@PublicId); ";
             
-            string text_addCategoriesPublic = "INSERT INTO PablicCategories (" +
+            string text_addCategoriesPublic = "INSERT INTO PublicCategories (" +
                                  "PublicId," +
                                  "CategoryId ) VALUES(" +
                                  "@PublicId," +
@@ -87,8 +87,8 @@ namespace Database.Logic
         {
             //выдергиваем данные публикации (название, аннотацию, статус, дату создания и публикации
             //ключевые слова, текст)
-            string text = "SELECT * FROM Publications WHERE Id = " +
-                "(SELECT PublicId FROM PublicAitors WHERE AutorId = " +
+            string text = "SELECT * FROM Publications WHERE Id IN " +
+                "(SELECT PublicId FROM PublicAitors WHERE AutorId IN " +
                 "(SELECT Id FROM Autors WHERE Email = :autor));";
             
             var parametr = new DynamicParameters();

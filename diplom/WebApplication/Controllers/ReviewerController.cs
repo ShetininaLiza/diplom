@@ -23,7 +23,22 @@ namespace ApplicationUsers.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        public IActionResult CreateReview()
+        {
+            int id = Convert.ToInt32(Request.Query["Id"]);
+            var model = publications.First(rec => rec.Id == id);
+            return //View();
+                View(model);
+        }
+        
+        [HttpGet]
+        public IActionResult GetPublic(int Id)
+        {
+            //int Id = Convert.ToInt32(Request.Query["Id"]);
+            var model = publications.First(rec => rec.Id == Id); //PublicationLogic.GetPublications(database, Id).ToList();
+            return View("CreateReview", model);
+        }
+
         public IActionResult DownloadAndUpdate(int ID)
         {
             var publication = publications.First(rec => rec.Id == ID);

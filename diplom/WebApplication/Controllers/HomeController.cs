@@ -84,7 +84,7 @@ namespace WebApplication.Controllers
                 try
                 {
                     var res=(long)md.ExecuteScalar(AutorLogic.AddAutor, autor);
-                    await SendMailAutor(autor, title);
+                    //await SendMailAutor(autor, title);
                     autors.Add(res);
                 }
                 catch (Exception ex) { return Content(ex.Message); }

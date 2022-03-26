@@ -143,3 +143,4 @@ C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\System.Web.We
 C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\WebMatrix.Data.dll
 C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\WebMatrix.WebData.dll
 C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
+C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Reviewer\CreateReview.cshtml.g.cs
