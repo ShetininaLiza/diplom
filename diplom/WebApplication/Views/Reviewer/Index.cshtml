@@ -2,10 +2,6 @@
 @{
 }
 <script>
-    function GetTo(pid) {
-        $.post("/Reviewer/GetPublic", { Id: pid }, function (data) { });
-    }
-
     function DownloadFile(id) {
         //Swal.fire("id: "+id)
         $.post("/Reviewer/DownloadAndUpdate", { ID: id }, function (data) {
@@ -13,6 +9,7 @@
             let blob = new Blob([data]);
             a.href = URL.createObjectURL(blob);
             a.download = "publication_"+id+".txt";
+            //a.download = "publication_" + id + ".docx";
             a.click();
         });
     }
@@ -24,7 +21,7 @@
 <div class="text-center">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Научный журнал</a>
+            <a class="navbar-brand" asp-area="" asp-controller="Reviewer" asp-action="Index">Научный журнал</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -66,12 +63,12 @@
                     {
                         <td>
                             <a href="/Reviewer/CreateReview?Id=@str.Id">Написать рецензию</a>
-                            <!--
-                            <button id="create" class="btn btn-lg btn-primary" type="button" value="@str.Id"
-                                    asp-action="GetPublic" asp-controller="Reviewer">
-                                Написать рецензию
-                            </button>
-                        -->
+                        </td>
+                    }
+                    else
+                    { 
+                        <td>
+                            <a href="/Reviewer/GetReview?Id=@str.Id">Посмотреть результат рецензирования</a>
                         </td>
                     }
                 </tr>

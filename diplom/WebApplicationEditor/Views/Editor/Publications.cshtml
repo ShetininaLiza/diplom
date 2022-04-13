@@ -1,5 +1,6 @@
-﻿@using ApplicationEditor.Models
-@model List<Publication>
+﻿@using BisnessLogic.Models
+@using ApplicationEditor.Models
+@model (List<ApplicationEditor.Models.Publication>, string)
 @{
 }
 <!DOCTYPE html>
@@ -9,7 +10,24 @@
     <meta name="viewport" content="width=device-width" />
     <title></title>
 </head>
-<body>
+<body id="body" onload="">
+    <script>
+        function Filter() {
+            var status = document.getElementById('status');
+            $.post("/Editor/GetPublicationList", { nameView: "Publications", selectedStatus: status.value },
+                function (dataP)
+                {
+                    $('#body').html(dataP);
+                    var options = document.getElementsByTagName('option');
+                    for (var i = 0; i < options.length; i++) {
+                        if (options.item(i).value == status.value) {
+                            options.item(i).selected = true;
+                            break;
+                        }
+                    }
+                });
+        }
+    </script>
     <header>
         <nav>
             <ul class="topmenu">
@@ -25,7 +43,11 @@
                     </ul>
                 </li>
                 <li>
-                    <a>Формировать научный журнал</a>
+                    <a class="submenu-link">Выпуски журнала</a>
+                    <ul class="submenu">
+                        <li><a href="../Editor/CreateMagazine">Формировать научный журнал</a></li>
+                        <li><a href="../Editor/Magazines">Список выпусков</a></li>
+                    </ul>
                 </li>
 
                 <li>
@@ -34,8 +56,20 @@
             </ul>
         </nav>
     </header>
-    <h1>Мои публикации</h1>
-    <table class="table table-primary">
+    <h1>Публикации</h1>
+    <label>Фильтровать:</label>
+    <select id="status" onchange="Filter();">
+        <option name="status" value="All">Все</option>
+        <option name="status" value="@Status.Принята">@Status.Принята</option>
+        <option name="status" value="@Status.Отклонена">@Status.Отклонена</option>
+        <option name="status" value="@Status.Отправлена_рецензенту">@Status.Отправлена_рецензенту</option>
+        <option name="status" value="@Status.Находится_на_рецензировании">@Status.Находится_на_рецензировании</option>
+        <option name="status" value="@Status.Рецензирование_окончено">@Status.Рецензирование_окончено</option>
+        <option name="status" value="@Status.Отправлена_на_дороботку">@Status.Отправлена_на_дороботку</option>
+        <option name="status" value="@Status.Готова_к_публикации">@Status.Готова_к_публикации</option>
+        <option name="status" value="@Status.Публикуется_в_слудующем_номере">@Status.Публикуется_в_слудующем_номере</option>
+    </select>
+    <table id="dataPublic" class="table table-primary">
         <thead>
             <tr>
                 <th>№</th>
@@ -43,19 +77,25 @@
                 <th>Дата подачи</th>
                 <th>Статус</th>
                 <th>Рецензент</th>
+                <th> </th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var str in Model)
+            @foreach (var str in Model.Item1)
             {
-
-                <tr>
-                    <td>@str.Id</td>
-                    <td><a href="/Editor/GetPublic?Id=@str.Id" />@str.Title</td>
-                    <td>@str.DateCreate</td>
-                    <td>@str.Status</td>
-                    <td>@str.ReviewerFIO</td>
-                </tr>
+            <tr>
+                <td>@str.Id</td>
+                <td><a href="/Editor/GetPublic?Id=@str.Id" />@str.Title</td>
+                <td>@str.DateCreate</td>
+                <td>@str.Status</td>
+                <td>@str.ReviewerFIO</td>
+                <td>
+                    @if (str.Status == "Рецензирование_окончено")
+                    {
+                        <a href="/Editor/GetReview?Id=@str.Id">Посмотреть результат рецензирования</a>
+                    }
+                </td>
+            </tr>
             }
         </tbody>
     </table>

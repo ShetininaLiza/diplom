@@ -1,4 +1,4 @@
-﻿@model IEnumerable<string>
+﻿@model (IEnumerable<string>, string[])
 @{
     ViewData["Title"] = "AddPublication";
 }
@@ -24,6 +24,11 @@
                 Swal.fire("Заполните ключевые слова к статье!")
                 return false;
             }
+            if (words.split('\n').length < 3)
+            {
+                Swal.fire("Ключевых слов должно быть как минимум 3!")
+                return false;
+            }
             categories = document.getElementById("categories");
             var categor = categories.getElementsByTagName("input");
             var count = 0;
@@ -36,7 +41,7 @@
                 Swal.fire("Выберете рубрику или рубрики!")
                 return false;
             }
-            file = document.getElementById("File").value
+            file = document.getElementById("File").value;
             if (file == '') {
                 Swal.fire("Выберете файл статьи!")
                 return false;
@@ -44,6 +49,10 @@
             annotation = document.getElementById("TextAnnotation").value
             if (annotation == '') {
                 Swal.fire("Заполните аннотацию к статье!")
+                return false;
+            }
+            if (annotation.length < 100) {
+                Swal.fire("Длина аннотации должна быть от 100 символов. Сейчас " + annotation.length)
                 return false;
             }
             title = document.getElementById("TextTitle").value
@@ -91,7 +100,7 @@
             row.setAttribute("id", id);
             
             var cell_email = document.createElement("td");
-            cell_email.innerHTML = "<input type='email' name='email' onchange='cheakEmail(this);'>";
+            cell_email.innerHTML = "<input type='email' size='10' name='email' onchange='cheakEmail(this);'>";
             //добавляем ячейки в строку
             row.appendChild(cell_email);
             var table = document.getElementById("autors");
@@ -125,25 +134,26 @@
             buttonDel.setAttribute("type", "button");
             buttonDel.setAttribute("onclick", "remove(this);");
             buttonDel.setAttribute("name", "remove");
+            buttonDel.setAttribute("class", "btn btn-primary");
             buttonDel.setAttribute("id", id_button);
             
             if (metka == 'false') {
                 //добавили текстовое поле
-                cell_last.innerHTML = "<input type='text' name='last'>";
-                cell_name.innerHTML = "<input type='text' name='name'>";
-                cell_otch.innerHTML = "<input type='text' name='otch'>";
-                cell_tel.innerHTML = "<input type='text' name='tel'>";
-                cell_work.innerHTML = "<input type='text' name='work'>";
+                cell_last.innerHTML = "<input type='text' size='10' name='last'>";
+                cell_name.innerHTML = "<input type='text' size='10' name='name'>";
+                cell_otch.innerHTML = "<input type='text' size='10' name='otch'>";
+                cell_tel.innerHTML = "<input type='text' size='10' name='tel'>";
+                cell_work.innerHTML = "<input type='text' size='10' name='work'>";
                 //cell_autor.innerHTML = "<input id=checkbox'" + id + "' name='connection' type='checkbox'>";
             }
             else {
                 var user_data = data.split(',');
                 //добавили текстовое поле
-                cell_last.innerHTML = "<input type='text' name='last' value='" + user_data[1] + "'  readonly>";
-                cell_name.innerHTML = "<input type='text' name='name' value='" + user_data[2] + "'  readonly>";
-                cell_otch.innerHTML = "<input type='text' name='otch' value='" + user_data[3] + "'  readonly>";
-                cell_tel.innerHTML = "<input type='text' name='tel' value='" + user_data[4] + "'  readonly>";
-                cell_work.innerHTML = "<input type='text' name='work' value='" + user_data[5] + "'  readonly>";
+                cell_last.innerHTML = "<input type='text' size='10' name='last' value='" + user_data[1] + "'  readonly>";
+                cell_name.innerHTML = "<input type='text' size='10' name='name' value='" + user_data[2] + "'  readonly>";
+                cell_otch.innerHTML = "<input type='text' size='10' name='otch' value='" + user_data[3] + "'  readonly>";
+                cell_tel.innerHTML = "<input type='text' size='10' name='tel' value='" + user_data[4] + "'  readonly>";
+                cell_work.innerHTML = "<input type='text' size='10' name='work' value='" + user_data[5] + "'  readonly>";
                 //cell_autor.innerHTML = "<input id=checkbox'" + id + "' name='connection' type='checkbox'>";
             }
             cell_autor.innerHTML = "<input id=checkbox'" + id + "' name='connection' type='checkbox' value='"+id+" '>";
@@ -197,18 +207,39 @@
     </script>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Научный журнал</a>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Autor">Научный журнал</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="AddPublication">Добавить публикацию</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="../User/UpdateData">Изменить данные</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="MyPublications">Мои публикации</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="../User/Enter">Выход</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
     <form id="form" name="form" method="post" enctype="multipart/form-data" onsubmit="return proverka();">
+        @if (Model.Item2.Length != 0)
+        {
+            <div class="alert alert-primary" role="alert">
+                <strong>@Model.Item2.ElementAt(0)</strong>@Model.Item2.ElementAt(1)
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
         <h1 style="text-align: center">Добавление статьи для публикации</h1>
         <p style="font-size:20px; text-align: center">
             <label style="font-weight:bold">Автор(ы):</label><br />
@@ -245,7 +276,7 @@
                         <!--<div class="col-md-4">-->
                         <label style="font-weight:bold">Рубрика(и):</label><br />
                         <p id="categories">
-                            @foreach (string str in Model)
+                            @foreach (var str in Model.Item1)
                             {
                                 <input id="Checkbox1" name="category" type="checkbox" value="@str">@str<br />
                             }
@@ -272,10 +303,10 @@
                 </div>
             </div>
         </div>
-            <label style="font-size: 20px; text-align: center; font-weight:bold">Прикрепить статью:</label>
-            <input id="File" name="file" type="file" /><br />
-            <!--onclick="proverka();"-->
-            <button id="ButtonSave" type="submit">Сохранить</button>
+        <label style="font-size: 20px; text-align: center; font-weight:bold">Прикрепить статью:</label>
+        <input id="File" name="file" type="file" accept=".txt"  /><br />
+        <!--onclick="proverka();"-->
+        <button id="ButtonSave" type="submit" class="btn btn-primary btn-lg btn-block">Сохранить</button>
     </form>
 </body>
 </html>

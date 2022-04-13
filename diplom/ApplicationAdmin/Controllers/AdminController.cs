@@ -5,22 +5,20 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Database.Logic;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace ApplicationAdmin.Controllers
 {
     public class AdminController : Controller
     {
-        //WorkFile wf;
         MailLogic mLogic;
-        MyDatabase database;
+        private IDbConnection database = Program.database;
         List<User> list;
         public AdminController()
         {
-            //wf = new WorkFile();
-            database = new MyDatabase();
-            list = database.GetUsers();
-                //wf.GetUsers();
+            list = UserLogic.GetAllUser(database);
             mLogic = new MailLogic();
         }
         // GET: /Admin/Enter/
@@ -28,7 +26,7 @@ namespace ApplicationAdmin.Controllers
         [HttpGet]
         public IActionResult Enter()
         {
-            return View();
+            return View(new string[] { });
         }
 
         [HttpPost]
@@ -36,23 +34,14 @@ namespace ApplicationAdmin.Controllers
         public IActionResult Enter(string login, string pass)
         {
             var cheak = list.FirstOrDefault(rec => rec.Login == login && rec.Role == Role.Администратор.ToString());
-            //wf.GetAdminData(login);
             //Если нет такого логина
-            //if (cheak.Length == 0)
             if (cheak == null)
-                return Content("В системе нет пользователя с такими данными.");
+                return View(new string[] {"Ошибка!", "В системе нет пользователя с такими данными." });
             else
             {
-                /*
-                //Если введен неправильный пароль
-                if (cheak.Split(' ')[1] != pass)
-                    return Content("Неправильно введен пароль.");
-                else
-                    return View("../Home/Main");
-                */
                 //Если введен неправильный пароль
                 if (cheak.Password != pass)
-                    return Content("Неправильно введен пароль.");
+                    return View(new string[] { "Ошибка!", "Неправильно введен пароль." });
                 else
                     return View("../Home/Main");
             }
@@ -61,7 +50,7 @@ namespace ApplicationAdmin.Controllers
         [HttpGet]
         public IActionResult RegisterEditor()
         {
-            return View("RegisterEditor");
+            return View("RegisterEditor", new string[] { });
         }
 
         [HttpPost]
@@ -82,17 +71,17 @@ namespace ApplicationAdmin.Controllers
             };
             try
             {
-                //wf.WriteUser(user);
-                database.WriteUser(user);
+                UserLogic.AddUser(database, user);
+
                 mLogic.Send(user.Email, "Регистрация в научном журнале",
                             "Уважаемый(ая) " + user.LastName + " " + user.Name + " " + user.Otch
                             + ",сообщаем Вам, что Вы зарегистрированы в системе научного журнала как редактор.\n" +
                             "Ваш логин: " + user.Login + "\nВаш пароль: " + user.Password);
-                return View("RegisterEditor");
+                return View("RegisterEditor", new string[] {"Поздравляем!","Редактор был успешно зарегистрирован в системе." });
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return View("RegisterEditor", new string[] { "Ошибка!", ex.Message });
             }
         }
 
@@ -100,8 +89,7 @@ namespace ApplicationAdmin.Controllers
         [HttpGet]
         public IActionResult BlockUser()
         {
-            list = database.GetUsers();
-                //wf.GetUsers();
+            list = UserLogic.GetAllUser(database);
             var users = list.Where(rec => rec.Role != Role.Администратор.ToString()).ToList();
             List<int> ids = new List<int>();
             for (int i = 0; i < users.Count; i++)
@@ -110,30 +98,13 @@ namespace ApplicationAdmin.Controllers
             }
             IEnumerable<User> data = users;
             
-            /*
-            ViewData["Count"] =users.Count;
-            for (int i = 0; i < users.Count; i++)
-            {
-                ViewData["Login" + i] = users.ElementAt(i).Login;
-                ViewData["Last" + i] = users.ElementAt(i).LastName;
-                ViewData["Name" + i] = users.ElementAt(i).Name;
-                ViewData["Otch" + i] = users.ElementAt(i).Otch;
-                ViewData["Work" + i] = users.ElementAt(i).Work;
-                ViewData["Email" + i] = users.ElementAt(i).Email;
-                ViewData["Role" + i] = users.ElementAt(i).Role;
-                ViewData["Block" + i] = users.ElementAt(i).IsBlock;
-                ViewData["Id" + i] = i+1;
-            }
-            */
-            //return PartialView(users);
             return View("BlockUser", data);
         }
 
         [HttpGet]
         public PartialViewResult Update()
         {
-            list = database.GetUsers(); 
-                //wf.GetUsers();
+            list = UserLogic.GetAllUser(database);
             var users = list.Where(rec => rec.Role != Role.Администратор.ToString()).ToList();
             List<int> ids = new List<int>();
             for (int i = 0; i < users.Count; i++)
@@ -152,12 +123,12 @@ namespace ApplicationAdmin.Controllers
                 zn = true;
             try
             {
-                list = database.UpdateUser(new User
+                User buf = new User
                 {
                     Id = user.Id,
                     Login = user.Login,
                     Password = user.Password,
-                    Phone=user.Phone,
+                    Phone = user.Phone,
                     Email = user.Email,
                     LastName = user.LastName,
                     Name = user.Name,
@@ -165,7 +136,11 @@ namespace ApplicationAdmin.Controllers
                     Work = user.Work,
                     Role = user.Role,
                     IsBlock = zn
-                });
+                };
+
+                UserLogic.UpdateUser(database, buf);
+                
+                list = UserLogic.GetAllUser(database);
                 var users = list.Where(rec => rec.Role != Role.Администратор.ToString()).ToList();
                 List<int> ids = new List<int>();
                 for (int i = 0; i < users.Count; i++)
@@ -175,23 +150,6 @@ namespace ApplicationAdmin.Controllers
                 IEnumerable<User> data = users;
                 return //PartialView(users);
                     View("BlockUser", data);
-                /*
-                wf.UpdateUser(new User
-                { 
-                    Id=user.Id,
-                    Login=user.Login,
-                    Password=user.Password,
-                    Email=user.Email,
-                    LastName=user.LastName,
-                    Name=user.Name,
-                    Otch=user.Otch,
-                    Work=user.Work,
-                    Role=user.Role,
-                    IsBlock=zn
-                });
-                */
-                //list = database.GetUsers(); 
-                //wf.GetUsers();
             }
             catch (Exception) 
             {

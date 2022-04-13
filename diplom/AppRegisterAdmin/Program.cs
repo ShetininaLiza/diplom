@@ -1,21 +1,28 @@
-﻿using Database;
+﻿using Database.Logic;
 using BisnessLogic.Models;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Data;
+using System.Data.SQLite;
+using System.Configuration;
 
 namespace AppRegisterAdmin
 {
     class Program
     {
-        public static MyDatabase database;
+        //public static MyDatabase database;
+        public static IDbConnection database;
         static void Main(string[] args)
         {
-            database = new MyDatabase();
+            database = new SQLiteConnection(LoadConnectionString());
+            database.Open();
+            //database = new MyDatabase();
             //database.Connect();
             //WorkFile wf = new WorkFile();
-            
-            var list = database.GetUsers();
+
+            var list = UserLogic.GetAllUser(database);
+                //database.GetUsers();
             
             Console.WriteLine("Введите логин:");
             string login = Console.ReadLine();
@@ -44,6 +51,7 @@ namespace AppRegisterAdmin
             {
                 //если все верно
                 //wf
+                /*
                 database.WriteUser(new User
                 {
                     Login = login,
@@ -55,6 +63,19 @@ namespace AppRegisterAdmin
                     Work = "",
                     Role = Role.Администратор.ToString()
                 });
+                */
+                User user = new User
+                {
+                    Login = login,
+                    Password = pas,
+                    Email = "",
+                    LastName = "",
+                    Name = "",
+                    Otch = "",
+                    Work = "",
+                    Role = Role.Администратор.ToString()
+                };
+                UserLogic.AddUser(database, user);
                 Console.WriteLine("Администратор добавлен.");
             }
             catch (Exception ex)
@@ -62,6 +83,10 @@ namespace AppRegisterAdmin
                 Console.WriteLine(ex.Message);
             }
             Console.ReadKey();
+        }
+        private static string LoadConnectionString(string id = "DiplomDB")
+        {
+            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
     }
 }

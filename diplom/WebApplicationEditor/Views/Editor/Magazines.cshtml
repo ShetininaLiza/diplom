@@ -1,0 +1,62 @@
+﻿@model List<BisnessLogic.Models.Magazine>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title></title>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul class="topmenu">
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Main">Научный журнал</a>
+                    </li>
+
+                    <li>
+                        <a href="" class="submenu-link">Рецензенты</a>
+                        <ul class="submenu">
+                            <li><a href="../Editor/Reviewers">Список рецензентов</a></li>
+                            <li><a href="../Editor/Register">Регистрация рецензента</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="submenu-link">Выпуски журнала</a>
+                        <ul class="submenu">
+                            <li><a href="../Editor/CreateMagazine">Формировать научный журнал</a></li>
+                            <li><a href="../Editor/Magazines">Список выпусков</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="../Editor/Publications">Список статей</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <h1 class="display-4">Список Выпусков</h1>
+        <table class="table table-primary">
+            <thead>
+                <tr>
+                    <th>Номер выпуска</th>
+                    <th>Дата выхода</th>
+                </tr>
+            </thead>
+            <tbody id="users">
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <td>
+                        <a href="/Editor/GetMagazine?Id=@m.Id">@m.Id</a></td>
+                        <td>@m.Date</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </body>
+</html>

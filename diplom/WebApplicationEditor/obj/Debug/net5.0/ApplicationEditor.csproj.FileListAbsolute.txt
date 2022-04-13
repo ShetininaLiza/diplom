@@ -98,3 +98,7 @@ C:\Users\sheti\source\repos\diplom\WebApplicationEditor\bin\Debug\net5.0\Dapper.
 C:\Users\sheti\source\repos\diplom\WebApplicationEditor\bin\Debug\net5.0\Database.dll.config
 C:\Users\sheti\source\repos\diplom\WebApplicationEditor\obj\Debug\net5.0\Razor\Views\Editor\Publications.cshtml.g.cs
 C:\Users\sheti\source\repos\diplom\WebApplicationEditor\obj\Debug\net5.0\Razor\Views\Editor\Publication.cshtml.g.cs
+C:\Users\sheti\source\repos\diplom\WebApplicationEditor\obj\Debug\net5.0\Razor\Views\Editor\CreateMagazine.cshtml.g.cs
+C:\Users\sheti\source\repos\diplom\WebApplicationEditor\obj\Debug\net5.0\Razor\Views\Editor\GetReview.cshtml.g.cs
+C:\Users\sheti\source\repos\diplom\WebApplicationEditor\obj\Debug\net5.0\Razor\Views\Editor\Magazines.cshtml.g.cs
+C:\Users\sheti\source\repos\diplom\WebApplicationEditor\obj\Debug\net5.0\Razor\Views\Editor\Magazine.cshtml.g.cs

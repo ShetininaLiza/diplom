@@ -1,4 +1,5 @@
-﻿@{
+﻿@model string[]
+@{
 }
 <!DOCTYPE html>
 
@@ -26,6 +27,15 @@
         }
     </script>
     <h1 style="text-align: center">Вход</h1>
+    @if (Model.Length != 0)
+    {
+        <div class="alert alert-primary" role="alert">
+            <strong>@Model.ElementAt(0)</strong> @Model.ElementAt(1)
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
     <form method="post" onsubmit="return proverka()">
         <p style="font-size:20px; text-align: center">
             <label style="font-weight:bold">Логин:</label><br />
@@ -37,7 +47,7 @@
                    title="Пароль должен содержать от 8 символов (английские строчные, заглавные, цифры и спец символы)" /><br /><br />
         </p>
         <p style="font-size:20px; text-align: center">
-            <button id="NextStep" type="submit">Вход</button><br /><br />
+            <button id="NextStep" type="submit" class="btn btn-primary">Вход</button><br /><br />
         </p>
     </form>
 </body>

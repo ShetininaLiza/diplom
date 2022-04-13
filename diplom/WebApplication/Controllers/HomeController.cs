@@ -15,6 +15,9 @@ using Dapper;
 using Database.Logic;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using System.Web.Mvc;
+using System.Text;
+using Microsoft.Web.Helpers;
 
 namespace WebApplication.Controllers
 {
@@ -48,7 +51,7 @@ namespace WebApplication.Controllers
         [ActionName("AddPublication")]
         public IActionResult AddPublic()
         {
-            return View("AddPublication", categories);
+            return View("AddPublication", (categories, new string[] { }));
         }
         
         [HttpPost]
@@ -61,7 +64,7 @@ namespace WebApplication.Controllers
             //получили номера авторов для связи в списке
             List<int> autorsId = await ConvertIndexAutors(connection);
             //считываем статью
-            byte[] text = await ReadFileAsync(file);
+            var text = await ReadFileAsync(file);
             
             List<long> autors = new List<long>();
             //добавили всех авторов
@@ -87,7 +90,7 @@ namespace WebApplication.Controllers
                     //await SendMailAutor(autor, title);
                     autors.Add(res);
                 }
-                catch (Exception ex) { return Content(ex.Message); }
+                catch (Exception ex) { return View("AddPublication", (categories, new string[] { "Ошибка!", ex.Message })); }
             }
             
 
@@ -105,11 +108,12 @@ namespace WebApplication.Controllers
             {
                 PublicationLogic.AddPublication(md, publication, autors);
             }
-            catch (Exception ex) { return Content(ex.Message); }
-
-            return Content("Статья подана.");
-                //View("AddPublication");
+            catch (Exception ex) { return View("AddPublication", (categories, new string[] { "Ошибка!", ex.Message })); }
+            //ViewBag["Mess"] = "Статья подана.";
+            return View("AddPublication", (categories, new string[] {"Поздравляем!", "Статья подана." }));
+                //Content("Статья подана.");
         }
+
         private List<int> GetIndexAutors(List<string> connection)
         {
             List<int> autorsId = new List<int>();
@@ -128,20 +132,40 @@ namespace WebApplication.Controllers
             return result;
         }
         
-        private byte[] ReadFileToByteArray(IFormFile file)
+        private byte[] ReadFileToByteArrayAsync(IFormFile file)
         {
+            //Guid.NewGuid
+            /*
+            //https://metanit.com/sharp/adonetcore/4.7.php
             // массив для хранения бинарных данных файла
-            byte[] result= null;
+            byte[] result = null;
             // считываем переданный файл в массив байтов
             using (var binaryReader = new BinaryReader(file.OpenReadStream()))
             {
-                result = binaryReader.ReadBytes((int)file.Length);
+                result = binaryReader.ReadBytes((Int32)file.Length);
             }
-            return result;
+            */
+            byte[] result = null;
+            using (var target=new MemoryStream()) 
+            {
+                file.CopyTo(target);
+                result = target.ToArray();
+                target.Close();
+            }
+                /*
+                var strim = file.OpenReadStream();
+                BinaryReader fs = new BinaryReader(strim);
+
+                //var buf = fs.ReadChars((Int32)strim.Length);
+                byte[] result = //buf.Select(c => (byte)c).ToArray();
+                    fs.ReadBytes((Int32)strim.Length);
+                */
+                return result;
         }
+        //byte[]
         async Task<byte[]> ReadFileAsync (IFormFile file)
         {
-            var result = await Task.Run(() => ReadFileToByteArray(file));
+            var result = await Task.Run(() => ReadFileToByteArrayAsync(file));
             return result;
         }
         async Task SendMailAutor(Autor user, string title)
@@ -212,6 +236,14 @@ namespace WebApplication.Controllers
                     KeyWords = rec.KeyWords
                 }).ToList();
             return View("Publication", publication);
+        }
+        
+        [HttpGet]
+        public IActionResult GetReview()
+        {
+            int Id = Convert.ToInt32(Request.Query["Id"]);
+            var model = PublicationLogic.GetReviewByIDPublic(md, Id);
+            return View(model);
         }
     }
 }

@@ -1,0 +1,143 @@
+﻿@using BisnessLogic.Models
+@using ApplicationEditor.Models
+@model (List<ApplicationEditor.Models.Publication>, string, string[])
+@{
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body id="body">
+    <script>
+        
+    </script>
+    <script>
+        var count = 0;
+        var list = [];
+
+        function Filter() {
+            var status = document.getElementById('status');
+            $.post("/Editor/GetPublicationList", { nameView: "CreateMagazine", selectedStatus: status.value },
+                function (dataP) {
+                    $('#body').html(dataP);
+                    var options = document.getElementsByTagName('option');
+                    for (var i = 0; i < options.length; i++) {
+                        if (options.item(i).value == status.value) {
+                            options.item(i).selected = true;
+                            break;
+                        }
+                    }
+                });
+        }
+        function Select(input) {
+            //Swal.fire('checked: ' + input.checked);
+            if (input.checked) {
+                //Swal.fire('True');
+                count = count + 1;
+                list.push(input.value);
+            }
+            else if (!input.checked) {
+                //Swal.fire('False');
+                count = count - 1;
+                list.pop();
+            }
+        }
+
+        function Proverka() {
+            if (count == 0) {
+                Swal.fire('Выберите статьи!');
+                return false;
+            }
+            /*
+            if (count != 14) {
+                Swal.fire('В выпуске журнала могут быть только 14 статей. Вы выбрвли ' + count + '.');
+                return false;
+            }
+            */
+        }
+    </script>
+    <header>
+        <nav>
+            <ul class="topmenu">
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="Main">Научный журнал</a>
+                </li>
+
+                <li>
+                    <a href="" class="submenu-link">Рецензенты</a>
+                    <ul class="submenu">
+                        <li><a href="../Editor/Reviewers">Список рецензентов</a></li>
+                        <li><a href="../Editor/Register">Регистрация рецензента</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="submenu-link">Выпуски журнала</a>
+                    <ul class="submenu">
+                        <li><a href="../Editor/CreateMagazine">Формировать научный журнал</a></li>
+                        <li><a href="../Editor/Magazines">Список выпусков</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="../Editor/Publications">Список статей</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <form method="post" onsubmit="return Proverka();">
+        <h1>Формирование выпуска научного журнала</h1>
+        @if(Model.Item3.Length != 0) {
+            <div class="alert alert-primary" role="alert">
+                <strong>@Model.Item3.ElementAt(0)</strong>@Model.Item3.ElementAt(1)
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        <h6>Выберите статьи для формирования выпуска:</h6>
+        <label>Фильтровать:</label>
+        <select id="status" onchange="Filter();">
+            <option name="status" value="All">Все</option>
+            <option name="status" value="@Status.Принята">@Status.Принята</option>
+            <option name="status" value="@Status.Отклонена">@Status.Отклонена</option>
+            <option name="status" value="@Status.Отправлена_рецензенту">@Status.Отправлена_рецензенту</option>
+            <option name="status" value="@Status.Находится_на_рецензировании">@Status.Находится_на_рецензировании</option>
+            <option name="status" value="@Status.Рецензирование_окончено">@Status.Рецензирование_окончено</option>
+            <option name="status" value="@Status.Отправлена_на_дороботку">@Status.Отправлена_на_дороботку</option>
+            <option name="status" value="@Status.Готова_к_публикации">@Status.Готова_к_публикации</option>
+            <option name="status" value="@Status.Публикуется_в_слудующем_номере">@Status.Публикуется_в_слудующем_номере</option>
+        </select>
+        <table id="dataPublic" class="table table-primary">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Название статьи</th>
+                    <th>Дата подачи</th>
+                    <th>Статус</th>
+                    <th>Рецензент</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var str in Model.Item1)
+                {
+                <tr>
+                    <td>@str.Id</td>
+                    <td><a href="/Editor/GetPublic?Id=@str.Id" />@str.Title</td>
+                    <td>@str.DateCreate</td>
+                    <td>@str.Status</td>
+                    <td>@str.ReviewerFIO</td>
+                    <td><input type="checkbox" name="checkbox" value="@str.Id" onclick="Select(this);" /></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <label style="font-weight:bold">Выберите дату выхода:</label>
+        <input id="date" type="date" name="date" required/>
+        <button class="btn btn-primary" type="submit" asp-action="CreateMagazine" asp-controller="Editor">Сформировать выпуск журнала</button>
+    </form>
+</body>
+</html>

@@ -14,6 +14,7 @@ namespace BisnessLogic.Models
         public IFormFile File { get; set; }
 
         public byte[] Text { get; set; }
+        //public char[] Text { get; set; }
         public string Status { get; set; }
         public List<Autor> Autors { get; set; }
         //public List<int> AutorsId { get; set; }

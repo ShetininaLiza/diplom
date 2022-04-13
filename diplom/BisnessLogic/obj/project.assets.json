@@ -473,7 +473,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\TEMP\\.nuget\\packages\\": {}
+    "C:\\Users\\sheti\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -481,11 +481,11 @@
       "projectUniqueName": "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj",
       "projectName": "BisnessLogic",
       "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj",
-      "packagesPath": "C:\\Users\\TEMP\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\sheti\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\TEMP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\sheti\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

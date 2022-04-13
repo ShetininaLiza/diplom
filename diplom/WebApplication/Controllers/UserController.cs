@@ -38,7 +38,7 @@ namespace WebApplication.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            return View(new string[] { });
         }
         
         [HttpPost]
@@ -61,23 +61,14 @@ namespace WebApplication.Controllers
                 };
             try
             {
-                md.Execute(UserLogic.AddUser, user);
+                //md.Execute(UserLogic.AddUser, user);
+                UserLogic.AddUser(md, user);
                 await SendMailNewAutor(user);
-                return View();
+                return View(new string[] {"Поздравляем!", "Регистрация в системе прошла успешно." });
             }
-            catch (Exception) { return Content("Ошибка. Пользователь с такими данными уже есть в системе."); }
+            catch (Exception) { return View(new string[] { "Ошибка!", "Пользователь с такими данными уже есть в системе." }); }
         }
 
-        async Task WriteAutor(User autor)
-        {
-            try
-            {
-                await Task.Run(() => md.Execute(UserLogic.AddUser, autor));
-            }
-            catch(Exception) { throw new Exception("Ошибка. Пользователь с такими данными уже есть в системе."); }
-            //.WriteUser(autor));
-            //file.WriteUser(autor));
-        }
         async Task SendMailNewAutor(User autor)
         {
             await Task.Run(() => mLogic.Send(autor.Email,
@@ -91,7 +82,7 @@ namespace WebApplication.Controllers
         [ActionName("Enter")]
         public IActionResult EnterUser()
         {
-            return View("Enter");
+            return View("Enter", new string[] { });
         }
         
         [HttpPost]
@@ -105,18 +96,18 @@ namespace WebApplication.Controllers
             var user = md.Query<User>(UserLogic.GetUsers, dp).ToList();
             //Если нет такого логина
             if (user==null || user.Count==0)
-                return Content("В системе нет пользователя с такими данными.");
+                return View("Enter", new string[] {"Ошибка!", "В системе нет пользователя с такими данными." });
             else
             {
                 if (user.ElementAt(0).IsBlock)
-                    return Content("Данный пользователь заблокирован администратором.");
+                    return View("Enter", new string[] { "Ошибка!", "Данный пользователь заблокирован администратором." });
                 else
                 {
                     if (user.ElementAt(0).Role != role)
-                        return Content("Нет пользователя с такой ролью.");
+                        return View("Enter", new string[] { "Ошибка!", "Нет пользователя с такой ролью." });
                     //Если введен неправильный пароль
                     if (user.ElementAt(0).Password != pass)
-                        return Content("Неправильно введен пароль.");
+                        return View("Enter", new string[] { "Ошибка!", "Неправильно введен пароль." });
                     else
                     {
                         Program.user = user.ElementAt(0);
@@ -126,7 +117,7 @@ namespace WebApplication.Controllers
                             return Redirect("../Reviewer/Index");
                     }    
                 }
-                return View();
+                return View(new string[] { });
             }
         }
 
@@ -171,8 +162,9 @@ namespace WebApplication.Controllers
             dp.Add("work", Work);
             dp.Add("block", Program.user.IsBlock);
             dp.Add("id", Program.user.Id);
-            
-            md.Execute(UserLogic.UpdateUser, user);
+
+            UserLogic.UpdateUser(md, user);
+            //md.Execute(UserLogic.UpdateUser, user);
             
             dp = new DynamicParameters();
             dp.Add("id", Program.user.Id);

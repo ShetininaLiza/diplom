@@ -36,6 +36,7 @@
           "BisnessLogic": "1.0.0",
           "Dapper": "2.0.123",
           "Database": "1.0.0",
+          "DocX": "2.1.0",
           "MailKit": "3.1.1",
           "Microsoft.AspNet.WebApi.Core": "5.2.7",
           "Microsoft.AspNet.WebHelpers": "3.2.7",
@@ -43,6 +44,7 @@
           "Microsoft.EntityFrameworkCore.Design": "5.0.13",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.13",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.1",
+          "Microsoft.Office.Interop.Word": "15.0.4797.1003",
           "Microsoft.jQuery.Unobtrusive.Ajax": "3.2.6",
           "OpenPop": "2.0.6.2",
           "OpenPop.NET": "2.0.6.1120",
@@ -52,6 +54,9 @@
           "System.Net.Pop3": "0.1.4",
           "Web.UI.WebControls": "1.0.2.226",
           "bootstrap": "4.6.0",
+          "System.Web.Abstractions": "4.0.0.0",
+          "System.Web.ApplicationServices": "4.0.0.0",
+          "System.Web": "4.0.0.0",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "5.0.0.0",
@@ -319,7 +324,6 @@
           "System.Transactions": "4.0.0.0",
           "System.Transactions.Local": "5.0.0.0",
           "System.ValueTuple": "4.0.3.0",
-          "System.Web": "4.0.0.0",
           "System.Web.HttpUtility": "5.0.0.0",
           "System.Windows": "4.0.0.0",
           "System.Windows.Extensions.Reference": "5.0.0.0",
@@ -356,6 +360,22 @@
         },
         "compile": {
           "lib/net5.0/Dapper.dll": {}
+        }
+      },
+      "DocX/2.1.0": {
+        "runtime": {
+          "lib/net40/Xceed.Document.NET.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          },
+          "lib/net40/Xceed.Words.NET.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        },
+        "compile": {
+          "lib/net40/Xceed.Document.NET.dll": {},
+          "lib/net40/Xceed.Words.NET.dll": {}
         }
       },
       "EntityFramework/6.4.4": {
@@ -974,6 +994,17 @@
       },
       "Microsoft.NETCore.Platforms/3.1.0": {},
       "Microsoft.NETCore.Targets/1.1.3": {},
+      "Microsoft.Office.Interop.Word/15.0.4797.1003": {
+        "runtime": {
+          "lib/net20/Microsoft.Office.Interop.Word.dll": {
+            "assemblyVersion": "15.0.0.0",
+            "fileVersion": "15.0.4797.1003"
+          }
+        },
+        "compile": {
+          "lib/net20/Microsoft.Office.Interop.Word.dll": {}
+        }
+      },
       "Microsoft.Web.Infrastructure/1.0.0": {
         "runtime": {
           "lib/net40/Microsoft.Web.Infrastructure.dll": {
@@ -2373,6 +2404,39 @@
         },
         "compile": {
           "Database.dll": {}
+        }
+      },
+      "System.Web.Abstractions/4.0.0.0": {
+        "runtime": {
+          "System.Web.Abstractions.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.8.4084.0"
+          }
+        },
+        "compile": {
+          "System.Web.Abstractions.dll": {}
+        }
+      },
+      "System.Web.ApplicationServices/4.0.0.0": {
+        "runtime": {
+          "System.Web.ApplicationServices.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.30319.18020"
+          }
+        },
+        "compile": {
+          "System.Web.ApplicationServices.dll": {}
+        }
+      },
+      "System.Web/4.0.0.0": {
+        "runtime": {
+          "System.Web.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "5.0.921.35908"
+          }
+        },
+        "compile": {
+          "System.Web.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
@@ -3977,12 +4041,6 @@
         },
         "compileOnly": true
       },
-      "System.Web/4.0.0.0": {
-        "compile": {
-          "System.Web.dll": {}
-        },
-        "compileOnly": true
-      },
       "System.Web.HttpUtility/5.0.0.0": {
         "compile": {
           "System.Web.HttpUtility.dll": {}
@@ -4082,6 +4140,13 @@
       "sha512": "sha512-RDFF4rBLLmbpi6pwkY7q/M6UXHRJEOerplDGE5jwEkP/JGJnBauAClYavNKJPW1yOTWRPIyfj4is3EaJxQXILQ==",
       "path": "dapper/2.0.123",
       "hashPath": "dapper.2.0.123.nupkg.sha512"
+    },
+    "DocX/2.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nuOq9M/1crnv53WzifXCdObqGPRCylDsByxMUA8HkW4IFZn1k3E7CgoFRfWdMJjbKtLYqY00tvdLUCAN9gsjTg==",
+      "path": "docx/2.1.0",
+      "hashPath": "docx.2.1.0.nupkg.sha512"
     },
     "EntityFramework/6.4.4": {
       "type": "package",
@@ -4495,6 +4560,13 @@
       "sha512": "sha512-3Wrmi0kJDzClwAC+iBdUBpEKmEle8FQNsCs77fkiOIw/9oYA07bL1EZNX0kQ2OMN3xpwvl0vAtOCYY3ndDNlhQ==",
       "path": "microsoft.netcore.targets/1.1.3",
       "hashPath": "microsoft.netcore.targets.1.1.3.nupkg.sha512"
+    },
+    "Microsoft.Office.Interop.Word/15.0.4797.1003": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-p22pljmHaQjDxNLqO+uO5vi3y0TK5t1mAtSAg93K28/e12Hw3qzfflAo6XHvNXxnvz9HZGv59vLCwIaC9xbXNQ==",
+      "path": "microsoft.office.interop.word/15.0.4797.1003",
+      "hashPath": "microsoft.office.interop.word.15.0.4797.1003.nupkg.sha512"
     },
     "Microsoft.Web.Infrastructure/1.0.0": {
       "type": "package",
@@ -5427,6 +5499,21 @@
     },
     "Database/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Web.Abstractions/4.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Web.ApplicationServices/4.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Web/4.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
@@ -6761,11 +6848,6 @@
       "sha512": ""
     },
     "System.ValueTuple/4.0.3.0": {
-      "type": "referenceassembly",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "System.Web/4.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

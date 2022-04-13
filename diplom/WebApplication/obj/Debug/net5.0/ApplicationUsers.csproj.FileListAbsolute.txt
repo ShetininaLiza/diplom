@@ -72,7 +72,6 @@ C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\ApplicationUs
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\AddPublication.cshtml.g.cs
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\Autor.cshtml.g.cs
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -144,3 +143,11 @@ C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\WebMatrix.Dat
 C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\WebMatrix.WebData.dll
 C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
 C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Reviewer\CreateReview.cshtml.g.cs
+C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\GetReview.cshtml.g.cs
+C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\Xceed.Document.NET.dll
+C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\Xceed.Words.NET.dll
+C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\Microsoft.Office.Interop.Word.dll
+C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\System.Web.Abstractions.dll
+C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\System.Web.ApplicationServices.dll
+C:\Users\sheti\source\repos\diplom\WebApplication\bin\Debug\net5.0\System.Web.dll
+C:\Users\sheti\source\repos\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Reviewer\GetReview.cshtml.g.cs

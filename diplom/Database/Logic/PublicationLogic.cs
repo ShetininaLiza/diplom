@@ -142,16 +142,155 @@ namespace Database.Logic
             return data;
         }
     
-        public static void UpdatePublic(IDbConnection db, int publicId, int revId, string status)
+        public static BisnessLogic.Models.Publication UpdatePublic(IDbConnection db, int publicId, int revId, string status)
         {
-            string text = "UPDATE Publications SET ReviewerId = :revId, Status = :status WHERE Id = :id;";
+            string text = "UPDATE Publications SET ReviewerId = :revId, Status = :status WHERE Id = :id;" +
+                            "SELECT * FROM Publications WHERE Id = :id;";
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("revId", revId);
             parameters.Add("status", status);
             parameters.Add("id", publicId);
             try
             {
-                db.ExecuteAsync(text, parameters);
+                var data = db.Query<Database.Models.Publication>(text, parameters)
+                .Select(rec => new BisnessLogic.Models.Publication
+                {
+                    Id = rec.Id,
+                    Title = rec.Title,
+                    Annotation = rec.Annotation,
+                    DateCreate = rec.DateCreate,
+                    DatePublic = rec.DatePublic,
+                    Status = rec.Status,
+                    Text = rec.Text,
+                    Categories = CategoriesLogic.GetCategoriesForPublic(db, rec.Id.Value),
+                    Autors = AutorLogic.GetAutorsForPublication(db, rec.Id.Value),
+                    ReviewerId = rec.ReviewerId,
+                    KeyWords = rec.KeyWords.Split(',').ToList()
+                }).First();
+                return data;
+            }
+            catch (Exception) { throw; }
+        }
+        
+        public static void AddReviewToPublication(IDbConnection db,  Review review)
+        {
+            string text = "INSERT INTO Review (" +
+                       "PublicId," +
+                       "Categories,"+
+                       "New," +
+                       "CommentNew," +
+                       "Correctness," +
+                       "CommentCorrectness," +
+                       "Znach," +
+                       "CommentZnach," +
+                       "Polnota," +
+                       "CommentPolnota,"+
+                       "Clarity," +
+                       "CommentClarity,"+
+                       "Recomend, CommentRecomend, Result," +
+                       "CommentResult," +
+                       "HasBlocks," +
+                       "Conclusion" +
+                       ") VALUES(" +
+                       "@PublicId," +
+                       "@Categories,"+
+                       "@New," +
+                       "@CommentNew," +
+                       "@Correctness," +
+                       "@CommentCorrectness," +
+                       "@Znach," +
+                       "@CommentZnach," +
+                       "@Polnota," +
+                       "@CommentPolnota," +
+                       "@Clarity," +
+                       "@CommentClarity," +
+                       "@Recomend," +
+                       "@CommentRecomend," +
+                       "@Result," +
+                       "@CommentResult," +
+                       "@HasBlocks," +
+                       "@Conclusion);";
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("PublicId", review.PublicId);
+            parameters.Add("Categories", review.Categories);
+            parameters.Add("New", review.New);
+            parameters.Add("CommentNew", review.CommentNew);
+            parameters.Add("Correctness", review.Correctness);
+            parameters.Add("CommentCorrectness", review.CommentCorrectness);
+            parameters.Add("Znach", review.Znach);
+            parameters.Add("CommentZnach", review.CommentZnach);
+            parameters.Add("Polnota", review.Polnota);
+            parameters.Add("CommentPolnota", review.CommentPolnota);
+            parameters.Add("Clarity", review.Clarity);
+            parameters.Add("CommentClarity", review.CommentClarity);
+            parameters.Add("Recomend", review.Recomend);
+            parameters.Add("CommentRecomend", review.CommentRecomend);
+            parameters.Add("Result", review.Result);
+            parameters.Add("CommentResult", review.CommentResult);
+            parameters.Add("HasBlocks", review.HasBlocks);
+            parameters.Add("Conclusion", review.Conclusion);
+
+            try
+            {
+                db.Execute(text, parameters);
+            }
+            catch (Exception) { throw; }
+
+        }
+        public static BisnessLogic.Models.Publication UpdateStatusPublication(IDbConnection db, int publicId, string status)
+        {
+            string text = "UPDATE Publications SET Status = :status WHERE Id = :id;" +
+                "SELECT * FROM Publications WHERE Id = :id;";
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("status", status);
+            parameters.Add("id", publicId);
+            try
+            {
+                var data = db.Query<Database.Models.Publication>(text, parameters)
+                .Select(rec => new BisnessLogic.Models.Publication
+                {
+                    Id = rec.Id,
+                    Title = rec.Title,
+                    Annotation = rec.Annotation,
+                    DateCreate = rec.DateCreate,
+                    DatePublic = rec.DatePublic,
+                    Status = rec.Status,
+                    Text = rec.Text,
+                    Categories = CategoriesLogic.GetCategoriesForPublic(db, rec.Id.Value),
+                    Autors = AutorLogic.GetAutorsForPublication(db, rec.Id.Value),
+                    ReviewerId = rec.ReviewerId,
+                    KeyWords = rec.KeyWords.Split(',').ToList()
+                }).First();
+                return data;
+            }
+            catch (Exception) { throw; }
+        }
+
+        public static BisnessLogic.Models.Review GetReviewByIDPublic(IDbConnection db, int publicId)
+        {
+            string text = "SELECT * FROM Review WHERE PublicId = :id;";
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("id", publicId);
+            try
+            {
+                var res=db.Query<BisnessLogic.Models.Review>(text, parameters)
+                    /*
+                .Select(rec => new BisnessLogic.Models.Review
+                {
+                    Id = rec.Id,
+                    Title = rec.Title,
+                    Annotation = rec.Annotation,
+                    DateCreate = rec.DateCreate,
+                    DatePublic = rec.DatePublic,
+                    Status = rec.Status,
+                    Text = rec.Text,
+                    Categories = CategoriesLogic.GetCategoriesForPublic(db, rec.Id.Value),
+                    Autors = AutorLogic.GetAutorsForPublication(db, rec.Id.Value),
+                    ReviewerId = rec.ReviewerId,
+                    KeyWords = rec.KeyWords.Split(',').ToList()
+                })*/
+                    .ToList().First();
+                return res;
             }
             catch (Exception) { throw; }
         }

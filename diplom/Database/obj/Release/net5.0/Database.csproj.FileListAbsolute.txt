@@ -17,3 +17,4 @@ C:\Users\sheti\source\repos\diplom\Database\obj\Release\net5.0\Database.dll
 C:\Users\sheti\source\repos\diplom\Database\obj\Release\net5.0\ref\Database.dll
 C:\Users\sheti\source\repos\diplom\Database\obj\Release\net5.0\Database.pdb
 C:\Users\sheti\source\repos\diplom\Database\obj\Release\net5.0\Database.genruntimeconfig.cache
+C:\Users\sheti\source\repos\diplom\Database\bin\Release\net5.0\Database.dll.config

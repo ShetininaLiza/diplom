@@ -33,5 +33,10 @@ namespace Database.Logic
             var result = db.Query<string>(text, parametr).ToList();
             return result;
         }
+        public static List<string> GetCategories(IDbConnection md)
+        {
+            var result=md.Query<string>(CategoriesLogic.GetNamesCategories, new DynamicParameters());
+            return result.ToList();
+        }
     }
 }

@@ -117,11 +117,13 @@
             buttonSave.setAttribute("type", "submit");
             buttonSave.setAttribute("onclick", "SaveUpdateData();");
             buttonSave.setAttribute("name", "save");
+            buttonSave.setAttribute("class", "btn btn-primary");
             buttonSave.innerHTML = "<label>Сохранить</label>";
 
             var buttonCen = document.createElement("button");
             buttonCen.setAttribute("type", "submit");
             buttonCen.setAttribute("onclick", "Censel();");
+            buttonCen.setAttribute("class", "btn btn-primary");
             buttonCen.setAttribute("name", "cen");
             buttonCen.innerHTML = "<label>Отмена</label>";
 
@@ -140,7 +142,16 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="../Home/AddPublication">Добавить публикацию</a>
+                        <a class="nav-link text-dark" href="AddPublication">Добавить публикацию</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="../User/UpdateData">Изменить данные</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="../Home/MyPublications">Мои публикации</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="../User/Enter">Выход</a>
                     </li>
                 </ul>
             </div>
@@ -160,7 +171,7 @@
             <input id="TextPass" type="password" required name="pass" value="@user.Password" readonly
                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])\S{8,}"
                    title="Пароль должен содержать от 8 символов (английские строчные, заглавные, цифры и спец символы)" />
-            <button onclick="printPas()">Отобразить</button>
+            <button class="btn btn-primary" onclick="printPas()">Отобразить</button>
         </p>
         <br />
         <p style="display:inline-block">
@@ -191,7 +202,7 @@
     }
     <br />
     <p id="Buttons" style="display:inline-block">
-        <button id="update" style="text-align: center" onclick="StartUpdate()">Изменить данные</button>
+        <button id="update" class="btn btn-primary" style="text-align: center" onclick="StartUpdate()">Изменить данные</button>
     </p>
     </form>
 </body>

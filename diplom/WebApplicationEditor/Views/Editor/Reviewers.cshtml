@@ -10,6 +10,7 @@
     <title></title>
 </head>
 <body>
+    <!--
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Main">Научный журнал</a>
@@ -24,6 +25,35 @@
             </div>
         </div>
     </nav>
+        -->
+    <header>
+        <nav>
+            <ul class="topmenu">
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="Main">Научный журнал</a>
+                </li>
+
+                <li>
+                    <a href="" class="submenu-link">Рецензенты</a>
+                    <ul class="submenu">
+                        <li><a href="../Editor/Reviewers">Список рецензентов</a></li>
+                        <li><a href="../Editor/Register">Регистрация рецензента</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="submenu-link">Выпуски журнала</a>
+                    <ul class="submenu">
+                        <li><a href="../Editor/CreateMagazine">Формировать научный журнал</a></li>
+                        <li><a href="../Editor/Magazines">Список выпусков</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="../Editor/Publications">Список статей</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
     <h1 class="display-4">Список рецензентов</h1>
     <table class="table table-primary">
         <thead>

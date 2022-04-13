@@ -32,6 +32,12 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="../User/UpdateData">Изменить данные</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="MyPublications">Мои публикации</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="../User/Enter">Выход</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -44,6 +50,7 @@
                 <th>Название статьи</th>
                 <th>Дата подачи</th>
                 <th>Статус</th>
+                <th> </th>
             </tr>
         </thead>
         <tbody>
@@ -54,6 +61,12 @@
                     <td><a href="/Home/GetPublic?Id=@str.Id"/>@str.Title</td>
                     <td>@str.DateCreate</td>
                     <td>@str.Status</td>
+                    <td>
+                        @if (str.Status == "Рецензирование_окончено" || str.Status == "Отправлена_на_дороботку")
+                        {
+                            <a href="/Home/GetReview?Id=@str.Id">Посмотреть результат рецензирования</a>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>

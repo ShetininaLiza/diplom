@@ -20,5 +20,10 @@ namespace BisnessLogic.Models
         //Место работы
         public string Work { get; set; }
         public bool IsConnect { get; set; }
+
+        public string GetFIOAutor()
+        {
+            return LastName + " " + Name.ElementAt(0) + "." + Otch.ElementAt(0)+".";
+        }
     }
 }

@@ -3,6 +3,7 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Database.Logic
 {
     public static class UserLogic
     {
-        public static string AddUser = "INSERT INTO Users(" +
+        public static string TextAddUser = "INSERT INTO Users(" +
                            "Login," +
                            "Email," +
                            "Phone," +
@@ -33,8 +34,15 @@ namespace Database.Logic
                            "@Work," +
                            "@Role," +
                            "@IsBlock);";
-
-        public static string UpdateUser = "UPDATE Users SET " +
+        public static void AddUser(IDbConnection db, User user)
+        {
+            try
+            {
+                db.Execute(TextAddUser, user);
+            }
+            catch (SQLiteException) { throw new Exception("Пользователь с такими данными уже есть в системе."); }
+        }
+        public static string TextUpdateUser = "UPDATE Users SET " +
                 "Id = @Id, "+
                 "Login = @Login, " +
                 "Email = @Email, "+
@@ -47,6 +55,15 @@ namespace Database.Logic
                 "Role = @Role, "+
                 "IsBlock = @IsBlock " +
             "WHERE Id = @Id;";
+        
+        public static void UpdateUser(IDbConnection md, User user)
+        {
+            try
+            {
+                md.Execute(TextUpdateUser, user);
+            }
+            catch (Exception) { throw; }
+        }
 
         public static string GetUsers = "SELECT * FROM Users WHERE Id = :id OR Login = :login;";
 
