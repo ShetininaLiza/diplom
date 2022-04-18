@@ -54,9 +54,7 @@
           "System.Net.Pop3": "0.1.4",
           "Web.UI.WebControls": "1.0.2.226",
           "bootstrap": "4.6.0",
-          "System.Web.Abstractions": "4.0.0.0",
           "System.Web.ApplicationServices": "4.0.0.0",
-          "System.Web": "4.0.0.0",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "5.0.0.0",
@@ -324,6 +322,7 @@
           "System.Transactions": "4.0.0.0",
           "System.Transactions.Local": "5.0.0.0",
           "System.ValueTuple": "4.0.3.0",
+          "System.Web": "4.0.0.0",
           "System.Web.HttpUtility": "5.0.0.0",
           "System.Windows": "4.0.0.0",
           "System.Windows.Extensions.Reference": "5.0.0.0",
@@ -2406,17 +2405,6 @@
           "Database.dll": {}
         }
       },
-      "System.Web.Abstractions/4.0.0.0": {
-        "runtime": {
-          "System.Web.Abstractions.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.8.4084.0"
-          }
-        },
-        "compile": {
-          "System.Web.Abstractions.dll": {}
-        }
-      },
       "System.Web.ApplicationServices/4.0.0.0": {
         "runtime": {
           "System.Web.ApplicationServices.dll": {
@@ -2426,17 +2414,6 @@
         },
         "compile": {
           "System.Web.ApplicationServices.dll": {}
-        }
-      },
-      "System.Web/4.0.0.0": {
-        "runtime": {
-          "System.Web.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.921.35908"
-          }
-        },
-        "compile": {
-          "System.Web.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
@@ -4041,6 +4018,12 @@
         },
         "compileOnly": true
       },
+      "System.Web/4.0.0.0": {
+        "compile": {
+          "System.Web.dll": {}
+        },
+        "compileOnly": true
+      },
       "System.Web.HttpUtility/5.0.0.0": {
         "compile": {
           "System.Web.HttpUtility.dll": {}
@@ -5502,17 +5485,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "System.Web.Abstractions/4.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
     "System.Web.ApplicationServices/4.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "System.Web/4.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -6848,6 +6821,11 @@
       "sha512": ""
     },
     "System.ValueTuple/4.0.3.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Web/4.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

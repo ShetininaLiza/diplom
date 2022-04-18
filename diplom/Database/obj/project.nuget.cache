@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "y+JWVxK17zt+4+X/iT0Usd6/+5gzwg0HpPO5dtQvmV+Bj9a6khfc8GyiXzrZhlP1CV1WkoSsMq8cnqbWjLo6Xw==",
+  "dgSpecHash": "zQFH8loGSTIGotEQv9WcQV2WHs43Pl6SiN1tPboCJ8bzOoTRQZPlkuUryEqpg4jvqIxnT759QVcaW8tn5w6SZQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\sheti\\source\\repos\\diplom\\Database\\Database.csproj",
+  "projectFilePath": "C:\\Users\\sheti\\Desktop\\diplom\\Database\\Database.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sheti\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",

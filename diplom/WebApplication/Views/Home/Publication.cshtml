@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Publication>
+﻿@model BisnessLogic.Models.Review
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -14,7 +14,7 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Autor">Научный журнал</a>
+            <a class="navbar-brand" asp-area="" asp-controller="Reviewer" asp-action="Index">Научный журнал</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -22,94 +22,163 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="AddPublication">Добавить публикацию</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="../User/UpdateData">Изменить данные</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="MyPublications">Мои публикации</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="../User/Enter">Выход</a>
+                        <a class="submenu-link nav-link text-dark" href="../User/Enter">Выход</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <h1>Информация о публикации</h1>
-    @foreach (var str in Model)
-    {
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <label style="font-weight:bold">Название статьи:</label><br />
-            <label>@str.Title</label><br /><br />
-            <label style="font-weight:bold">Рубрика(и):</label><br />
-            <p id="categories">
-                @foreach (var c in str.Categories)
-                {
-                    <input id="Checkbox1" checked="checked" name="category" type="checkbox" value="@c">@c<br />
-                }
-            </p>
-        </div>
-        <div class="col">
-            <div>
-                <label style="font-weight:bold">Ключевые слова:</label><br />
-                <textarea id="TextWords" name="words" cols="40" rows="12">@string.Join('\n', str.KeyWords.ToArray())</textarea><br /><br />
+
+    <h3 style="text-align:center">Результаты рецензирования:</h3>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <label style="font-weight:bold">Рубрика(и):</label><br />
+                <p id="categories">
+                    @foreach (var c in Model.Categories.Split(','))
+                    {
+                        <input id="Checkbox1" name="category" type="checkbox" value="@c" checked>@c<br />
+                    }
+                </p>
+
+                <label style="font-weight:bold">Новизна:</label>
+                <div id="novizna">
+                    @foreach (var n in Model.New.Split(','))
+                    {
+                        <input name="novizna" type="checkbox" value="@n" checked>@n<br />
+                    }
+
+                </div>
+                <div>
+                    <label style="font-weight:bold">Укажите, в чем именно состоит новизна:</label><br />
+                    <textarea id="TextNew" style="width:auto" name="textNew" rows="10"
+                              minlength="120" required>@Model.CommentNew</textarea>
+                </div>
+                <div>
+                    <label style="font-weight:bold">Корректность работы и полученных выводов:</label>
+                    <p id="corect">
+                        @foreach (var n in Model.Correctness.Split(','))
+                        {
+                            <input name="corect" type="checkbox" value="@n" checked>@n<br />
+                        }
+                    </p>
+
+                </div>
+
+                <div id="TextErorrs">
+                    @if (Model.CommentCorrectness != null && Model.CommentCorrectness.Length > 0)
+                    {
+                        <label style="font-weight:bold">Укажите, в чем именно содержатся ошибки:</label><br />
+                        <textarea id="TextNew" style="width:auto" name="textNew" rows="10"
+                                  minlength="120" required>@Model.CommentCorrectness</textarea>
+                    }
+                </div>
+
+                <div>
+                    <label style="font-weight:bold">Значимость работы:</label><br>
+                    <p id="znach">
+                        @foreach (var n in Model.Znach.Split(','))
+                        {
+                            <input name="znach" type="checkbox" value="@n" checked>@n<br />
+                        }
+                    </p>
+                </div>
+                <div>
+                    <label style="font-weight:bold">
+                        Укажите, для какого круга специалистов статья будет интересна, в том числе
+                        практическую значимость работы, оцените перспективу реализации результатов.
+                    </label>
+                    <textarea id="TextZnach" name="textZnach" rows="10" minlength="120" required>
+                        @Model.CommentZnach</textarea>
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <label style="font-weight:bold">Полнота исследования:</label>
+                <p id="polnota">
+                    @foreach (var p in Model.Polnota.Split(','))
+                    {
+                        <input name="polnota" type="checkbox" value="@p" checked>@p<br />
+                    }
+                </p>
+                <div>
+                    @if (Model.CommentPolnota != null && Model.CommentPolnota.Length > 0)
+                    {
+                        <label style="font-weight:bold">Распишите более подробно:</label><br />
+                        <textarea id="textPolnota" name="textPolnote" rows="10" minlength="120">
+                        @Model.CommentPolnota</textarea><br />
+                    }
+                </div>
+
+                <label style="font-weight:bold">Ясность изложения:</label>
+                <p id="izloj">
+                    @foreach (var i in Model.Clarity.Split(','))
+                    {
+                        <input name="izloj" type="checkbox" checked
+                               value="@i">@i<br />
+                        }
+                </p>
+                <div>
+                    @if (Model.CommentClarity != null && Model.CommentClarity.Length > 0)
+                    {
+                        <label style="font-weight:bold">Распишите более подробно:</label><br />
+                        <textarea id="textPolnota" name="textPolnote" rows="10" minlength="120">
+                        @Model.CommentClarity</textarea><br />
+                    }
+                </div>
+
+                <label style="font-weight:bold">Рекомендации:</label>
+                <p id="recomend">
+                    @foreach (var r in Model.Recomend.Split(','))
+                    {
+                        <input name="recomends" type="checkbox" checked
+                               value="@r">@r<br />
+                        }
+                </p>
+                <div>
+                    @if (Model.CommentRecomend != null && Model.CommentRecomend.Length > 0)
+                    {
+                        <label style="font-weight:bold">Распишите более подробно:</label><br />
+                        <textarea id="textRecomend" name="textRecomend" rows="10" minlength="120">
+                        @Model.CommentRecomend</textarea><br />
+                    }
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <label style="font-weight:bold">Общее впечатление от работы:</label>
+                <p id="result">
+                    @foreach (var r in Model.Result.Split(','))
+                    {
+                        <input name="results" type="checkbox" checked
+                               value=@r>@r<br />
+                        }
+                </p>
+                <label style="font-weight:bold">Приведите ниже развернутую оценку содержания статьи:</label><br />
+                <textarea id="TextResult" name="textResult" rows="10" minlength="120" required>
+                    @Model.CommentResult</textarea><br />
+                <label style="font-weight:bold">
+                    Наличие обязательных блоков текста: аннотации, ключевых слов, списка источников, авторского блока с адресами.
+                    Соответствие техническим требованиям оформления: параметры страниц, стили, иллюстрации, библиография, рекомендуемый объем.
+                </label>
+                <p id="blocks">
+                    @foreach (var b in Model.HasBlocks.Split(','))
+                    {
+                        <input id="result1" name="blocks" type="checkbox" checked
+                               value="@b">@b<br />
+                        }
+                </p>
+                <label style="font-weight:bold">Заключение о публикации статьи:</label>
+                <p id="zakl">
+                    @foreach (var z in Model.Conclusion.Split(','))
+                    {
+                        <input name="zakls" type="checkbox" checked
+                               value="@z">@z<br />
+                        }
+                </p>
             </div>
         </div>
-        <div class="col">
-            <div>
-                <label style="font-weight:bold">Аннотация:</label><br />
-                <textarea id="TextAnnotation" name="annotation" cols="40" rows="12">@str.Annotation</textarea><br /><br />
-            </div>
-        </div>
-        <div class="col">
-            <label style="font-weight:bold">Статус статьи:</label><br />
-            <label>@str.Status</label><br /><br />
-            <label style="font-weight:bold">Дата подачи статьи:</label><br />
-            <input type="text" value="@str.DateCreate">
-            <label style="font-weight:bold">Дата публикации статьи:</label><br />
-            @if (str.DatePublic <= str.DateCreate)
-            {
-                <label style="font-weight:bold">Статья не опубликована</label><br />
-            }
-            else
-            {
-                <input type="text" value="@str.DateCreate"><br />
-            }
-        </div>
     </div>
-    <div class="row">
-        <label style="font-weight:bold">Автор(ы):</label><br />
-        <table class="table table-primary">
-            <thead>
-                <tr>
-                    <th>Фамилия</th>
-                    <th>Имя</th>
-                    <th>Отчество</th>
-                    <th>Почта</th>
-                    <th>Номер телефона</th>
-                    <th>Место работы</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var autor in str.Autors)
-                {
-                    <tr>
-                        <td>@autor.LastName</td>
-                        <td>@autor.Name</td>
-                        <td>@autor.Otch</td>
-                        <td>@autor.Email</td>
-                        <td>@autor.Phone</td>
-                        <td>@autor.Work</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        </div>
-    </div>
-    }
 </body>
 </html>

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BP4627drx6ZFqYuu9XEKfkL09Y8zlFTf2CIa6y8n/ws5FJRQABpnYf+J0gOKD0RYoE7RJ5Y1B/UWLXQrPo3guA==",
+  "dgSpecHash": "1McRBcJdbbYoMwLwrlpSxlzSBORZNIjiPenwAd+kikXmsUmMpL93L8izTnXT/61SNqDvfuuaWZniP+FXxSXYYg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplicationEditor\\ApplicationEditor.csproj",
+  "projectFilePath": "C:\\Users\\sheti\\Desktop\\diplom\\WebApplicationEditor\\ApplicationEditor.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sheti\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",

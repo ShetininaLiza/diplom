@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj": {}
+    "C:\\Users\\sheti\\Desktop\\diplom\\BisnessLogic\\BisnessLogic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj": {
+    "C:\\Users\\sheti\\Desktop\\diplom\\BisnessLogic\\BisnessLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj",
+        "projectUniqueName": "C:\\Users\\sheti\\Desktop\\diplom\\BisnessLogic\\BisnessLogic.csproj",
         "projectName": "BisnessLogic",
-        "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj",
+        "projectPath": "C:\\Users\\sheti\\Desktop\\diplom\\BisnessLogic\\BisnessLogic.csproj",
         "packagesPath": "C:\\Users\\sheti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\obj\\",
+        "outputPath": "C:\\Users\\sheti\\Desktop\\diplom\\BisnessLogic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\sheti\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -60,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
         }
       }
     }

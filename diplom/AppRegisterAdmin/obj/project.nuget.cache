@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "13IMR6md13PdESF4KhHCkXr3T6hC7iETzZiLw5eD6HuYJxUl/uMEAniK0edVehI30gvqK7wzcaTtLq5cz+Dffw==",
+  "dgSpecHash": "UQ1fLYhH1MFR/ot2kjfDSeNBJ/YwD3Y7EF0wx9CB2nnPv/iPVwpCX6sy36Pq+l5kthZ17bpFFzBZFNKDZ0flzg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\sheti\\source\\repos\\diplom\\AppRegisterAdmin\\AppRegisterAdmin.csproj",
+  "projectFilePath": "C:\\Users\\sheti\\Desktop\\diplom\\AppRegisterAdmin\\AppRegisterAdmin.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sheti\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",

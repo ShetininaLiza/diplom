@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sheti\\source\\repos\\diplom\\AppRegisterAdmin\\AppRegisterAdmin.csproj": {}
+    "C:\\Users\\sheti\\Desktop\\diplom\\AppRegisterAdmin\\AppRegisterAdmin.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sheti\\source\\repos\\diplom\\AppRegisterAdmin\\AppRegisterAdmin.csproj": {
+    "C:\\Users\\sheti\\Desktop\\diplom\\AppRegisterAdmin\\AppRegisterAdmin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sheti\\source\\repos\\diplom\\AppRegisterAdmin\\AppRegisterAdmin.csproj",
+        "projectUniqueName": "C:\\Users\\sheti\\Desktop\\diplom\\AppRegisterAdmin\\AppRegisterAdmin.csproj",
         "projectName": "AppRegisterAdmin",
-        "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\AppRegisterAdmin\\AppRegisterAdmin.csproj",
+        "projectPath": "C:\\Users\\sheti\\Desktop\\diplom\\AppRegisterAdmin\\AppRegisterAdmin.csproj",
         "packagesPath": "C:\\Users\\sheti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sheti\\source\\repos\\diplom\\AppRegisterAdmin\\obj\\",
+        "outputPath": "C:\\Users\\sheti\\Desktop\\diplom\\AppRegisterAdmin\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\sheti\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\sheti\\source\\repos\\diplom\\Database\\Database.csproj": {
-                "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\Database\\Database.csproj"
+              "C:\\Users\\sheti\\Desktop\\diplom\\Database\\Database.csproj": {
+                "projectPath": "C:\\Users\\sheti\\Desktop\\diplom\\Database\\Database.csproj"
               }
             }
           }
@@ -68,18 +68,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj": {
+    "C:\\Users\\sheti\\Desktop\\diplom\\BisnessLogic\\BisnessLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj",
+        "projectUniqueName": "C:\\Users\\sheti\\Desktop\\diplom\\BisnessLogic\\BisnessLogic.csproj",
         "projectName": "BisnessLogic",
-        "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj",
+        "projectPath": "C:\\Users\\sheti\\Desktop\\diplom\\BisnessLogic\\BisnessLogic.csproj",
         "packagesPath": "C:\\Users\\sheti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\obj\\",
+        "outputPath": "C:\\Users\\sheti\\Desktop\\diplom\\BisnessLogic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\sheti\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -128,18 +128,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\sheti\\source\\repos\\diplom\\Database\\Database.csproj": {
+    "C:\\Users\\sheti\\Desktop\\diplom\\Database\\Database.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sheti\\source\\repos\\diplom\\Database\\Database.csproj",
+        "projectUniqueName": "C:\\Users\\sheti\\Desktop\\diplom\\Database\\Database.csproj",
         "projectName": "Database",
-        "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\Database\\Database.csproj",
+        "projectPath": "C:\\Users\\sheti\\Desktop\\diplom\\Database\\Database.csproj",
         "packagesPath": "C:\\Users\\sheti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sheti\\source\\repos\\diplom\\Database\\obj\\",
+        "outputPath": "C:\\Users\\sheti\\Desktop\\diplom\\Database\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\sheti\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -156,8 +156,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj": {
-                "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj"
+              "C:\\Users\\sheti\\Desktop\\diplom\\BisnessLogic\\BisnessLogic.csproj": {
+                "projectPath": "C:\\Users\\sheti\\Desktop\\diplom\\BisnessLogic\\BisnessLogic.csproj"
               }
             }
           }
@@ -208,7 +208,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
         }
       }
     }

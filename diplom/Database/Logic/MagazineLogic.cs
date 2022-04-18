@@ -38,7 +38,7 @@ namespace Database.Logic
                 {
                     var publication = magazine.Publications.ElementAt(i);
                     //обновляем статус на Опубликована для указанных статей
-                    PublicationLogic.UpdateStatusPublication(db, publication.Id.Value, Status.Опубликована.ToString());
+                    PublicationLogic.UpdateStatusPublication(db, publication.Id.Value, Status.Опубликована.ToString(), DateTime.Now);
                     DynamicParameters parameters = new DynamicParameters();
                     parameters.Add("jId", ID);
                     parameters.Add("id", publication.Id);

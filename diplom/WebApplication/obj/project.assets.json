@@ -9675,11 +9675,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplication\\ApplicationUsers.csproj",
+      "projectUniqueName": "C:\\Users\\sheti\\Desktop\\diplom\\WebApplication\\ApplicationUsers.csproj",
       "projectName": "ApplicationUsers",
-      "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplication\\ApplicationUsers.csproj",
+      "projectPath": "C:\\Users\\sheti\\Desktop\\diplom\\WebApplication\\ApplicationUsers.csproj",
       "packagesPath": "C:\\Users\\sheti\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplication\\obj\\",
+      "outputPath": "C:\\Users\\sheti\\Desktop\\diplom\\WebApplication\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\sheti\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -9696,11 +9696,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj": {
-              "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\BisnessLogic\\BisnessLogic.csproj"
+            "C:\\Users\\sheti\\Desktop\\diplom\\BisnessLogic\\BisnessLogic.csproj": {
+              "projectPath": "C:\\Users\\sheti\\Desktop\\diplom\\BisnessLogic\\BisnessLogic.csproj"
             },
-            "C:\\Users\\sheti\\source\\repos\\diplom\\Database\\Database.csproj": {
-              "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\Database\\Database.csproj"
+            "C:\\Users\\sheti\\Desktop\\diplom\\Database\\Database.csproj": {
+              "projectPath": "C:\\Users\\sheti\\Desktop\\diplom\\Database\\Database.csproj"
             }
           }
         }
@@ -9814,7 +9814,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
       }
     }
   },

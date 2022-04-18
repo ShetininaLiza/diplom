@@ -2401,11 +2401,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplicationEditor\\ApplicationEditor.csproj",
+      "projectUniqueName": "C:\\Users\\sheti\\Desktop\\diplom\\WebApplicationEditor\\ApplicationEditor.csproj",
       "projectName": "ApplicationEditor",
-      "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplicationEditor\\ApplicationEditor.csproj",
+      "projectPath": "C:\\Users\\sheti\\Desktop\\diplom\\WebApplicationEditor\\ApplicationEditor.csproj",
       "packagesPath": "C:\\Users\\sheti\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplicationEditor\\obj\\",
+      "outputPath": "C:\\Users\\sheti\\Desktop\\diplom\\WebApplicationEditor\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\sheti\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2422,8 +2422,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\sheti\\source\\repos\\diplom\\Database\\Database.csproj": {
-              "projectPath": "C:\\Users\\sheti\\source\\repos\\diplom\\Database\\Database.csproj"
+            "C:\\Users\\sheti\\Desktop\\diplom\\Database\\Database.csproj": {
+              "projectPath": "C:\\Users\\sheti\\Desktop\\diplom\\Database\\Database.csproj"
             }
           }
         }
@@ -2469,7 +2469,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
       }
     }
   }

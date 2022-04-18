@@ -32,15 +32,15 @@ namespace ApplicationEditor.Controllers
         }
 
         [HttpPost]
-        public IActionResult Enter(string login, string pass) 
+        public IActionResult Enter(string login, string pass)
         {
             var dp = new DynamicParameters();
             dp.Add("id", "%");
             dp.Add("login", login);
 
             var editor = database.Query<User>(UserLogic.GetUsers, dp).ToList();
-            if (editor == null || editor.Count==0)
-                return View("Enter", new string[] {"Ошибка!", "В системе нет пользователя с такими данными." });
+            if (editor == null || editor.Count == 0)
+                return View("Enter", new string[] { "Ошибка!", "В системе нет пользователя с такими данными." });
             else
             {
                 if (editor.ElementAt(0).IsBlock)
@@ -58,11 +58,11 @@ namespace ApplicationEditor.Controllers
                 }
             }
         }
-        
+        //[Authorize(Roles = "Автор")]
         [ActionName("Reviewers")]
         public IActionResult GetReviwers()
         {
-            
+
             var user = users.Where(rec => rec.Role == Role.Рецензент.ToString()).ToList();
             return View("Reviewers", user);
         }
@@ -72,7 +72,7 @@ namespace ApplicationEditor.Controllers
             return View(new string[] { });
         }
         [HttpPost]
-        public async Task <IActionResult> Register(string login, string email, string pass,
+        public async Task<IActionResult> Register(string login, string email, string pass,
                                     string last, string first, string otch, string work, string tel)
         {
             var user = new User
@@ -92,10 +92,10 @@ namespace ApplicationEditor.Controllers
             {
                 //database.Execute(UserLogic.AddUser, user);
                 UserLogic.AddUser(database, user);
-                users = UserLogic.GetAllUser(database); 
-                    //database.QueryAsync<User>(UserLogic.GetUsers, dp).Result.ToList();
+                users = UserLogic.GetAllUser(database);
+                //database.QueryAsync<User>(UserLogic.GetUsers, dp).Result.ToList();
                 await SendMail(user);
-                return View(new string[] {"Поздравляем!","Рецензент был удачно зарегистрирован в системе." });
+                return View(new string[] { "Поздравляем!", "Рецензент был удачно зарегистрирован в системе." });
             }
             catch (Exception) { return View(new string[] { "Ошибка!", "Пользователь с такими данными уже есть в системе." }); }
         }
@@ -108,19 +108,21 @@ namespace ApplicationEditor.Controllers
                                     + ", Вы были зарегистрированы в системе научного журнала как рецензент.\n" +
                                     "Ваш логин: " + user.Login + "\nВаш пароль: " + user.Password));
         }
-    
+
         [HttpGet]
         public IActionResult Publications()
         {
+            publications = GetPublications();
             return View((publications, "All"));
         }
         [HttpPost]
         public IActionResult GetPublicationList(string nameView, string selectedStatus = "All")
         {
+            publications = GetPublications();
             var publics = publications;
             if (selectedStatus != "All")
             {
-                publics = publications.Where(rec => rec.Status == selectedStatus).ToList(); 
+                publics = publications.Where(rec => rec.Status == selectedStatus).ToList();
             }
             if (nameView == "CreateMagazine")
                 return View(nameView, (publics, selectedStatus, new string[] { }));
@@ -134,40 +136,52 @@ namespace ApplicationEditor.Controllers
 
             var publication = publications.First(rec => rec.Id == Id);
             var user = users.Where(rec => rec.Role == Role.Рецензент.ToString()).ToList();
-
-            return View("Publication", (publication, user, new string[] { }));
+            var files = PublicationLogic.GetAllFilePublication(database, Id);
+            var rev = PublicationLogic.GetReviewByIDPublic(database, Id);
+            if (rev != null)
+                return View("Publication", (publication, user, new string[] { }, files, rev.CommentCorrectness));
+            else
+                return View("Publication", (publication, user, new string[] { }, files, ""));
         }
-        [HttpPost]
-        [ActionName("DownloadFile")]
-        public IActionResult DownloadFile(int id)
+        public IActionResult DownloadFile(int Id)
         {
-            
-            var publication = PublicationLogic.GetPublications(database, id).First();
-            //обновление статьи (меняем статус)
-            try
+
+            var publication = PublicationLogic.GetAllFilePublication(database, Id).Last();
+            //PublicationLogic.GetFilePublication(database, Id);
+            //.GetPublications(database, id).First();
+            var r = OnDowload(publication);
+            return r;
+        }
+
+        public IActionResult DownloadFilePublication(int PublicId, int Id)
+        {
+
+            var publication = PublicationLogic.GetAllFilePublication(database, PublicId)
+                .FirstOrDefault(rec => rec.Id == Id);
+            //PublicationLogic.GetFilePublication(database, Id);
+            //.GetPublications(database, id).First();
+            if (publication != null)
             {
-                var byteArray = publication.Text;
-                /*
-                string mineType = "application/pdf";
-                return new FileContentResult(byteArray, mineType)
-                {
-                    FileDownloadName = $"publication_" + id + ".pdf"
-                };
-                */
-                //return new FileContentResult(byteArray, "application/pdf");
-                return File(byteArray, "application/txt");
-                //return File(publication.Text, "application/pdf");
-                //return File(byteArray, "application/" +
-                                //"vnd.openxmlformats-officedocument.wordprocessingml.document"
-                                //"docx"
-                                //"vnd.ms-word"
-                                //"ms-word"
-                                //"octet-stream");
-                                //"x-zip-compressed"
-                                //);
-                
+                var r = OnDowload(publication);
+                return r;
             }
-            catch (Exception ex) { return Content(ex.Message); }
+            else
+                return new NotFoundResult();
+        }
+
+        public IActionResult OnDowload(FilePublication publication)
+        {
+            var text = publication.Text;
+            if (publication.GetTypeFile().Length > 0)
+            {
+                string type = publication.GetTypeFile();
+                return new FileContentResult(text, type)
+                {
+                    FileDownloadName = publication.Name
+                };
+            }
+            else
+                return new NotFoundResult();
 
         }
 
@@ -177,45 +191,58 @@ namespace ApplicationEditor.Controllers
             int revId = Convert.ToInt32(reviewerId);
             int Id = Convert.ToInt32(publicId);
             var publication = publications.First(rec => rec.Id == Id);
+            var files = PublicationLogic.GetAllFilePublication(database, Id);
             try
             {
+
+
+                var rev = PublicationLogic.GetReviewByIDPublic(database, Id);
                 var res = PublicationLogic.UpdatePublic(database, Id, revId, Status.Отправлена_рецензенту.ToString());
-                var model= new ApplicationEditor.Models.Publication
-                    { 
-                        Id = res.Id.Value,
-                        Title = res.Title,
-                        Annotation = res.Annotation,
-                        DateCreate = res.DateCreate,
-                        Status = res.Status,
-                        KeyWords = res.KeyWords,
-                        Categories = res.Categories,
-                        Autors = res.Autors,
-                        ReviewerId = res.ReviewerId,
-                        ReviewerFIO = UserLogic.GetFIOUser(database, res.ReviewerId)
-                    }; 
+                var model = new ApplicationEditor.Models.Publication
+                {
+                    Id = res.Id.Value,
+                    Title = res.Title,
+                    Annotation = res.Annotation,
+                    DateCreate = res.DateCreate,
+                    Status = res.Status,
+                    KeyWords = res.KeyWords,
+                    Categories = res.Categories,
+                    Autors = res.Autors,
+                    ReviewerId = res.ReviewerId,
+                    ReviewerFIO = UserLogic.GetFIOUser(database, res.ReviewerId)
+                };
+
+                if (rev != null)
+                    return View("Publication", (model, new List<User>(), new string[] { "Поздравляем!", "Изменения были удачно внесены." }
+                    , files, rev.CommentCorrectness));
+                else
+                    return View("Publication", (model, new List<User>(), new string[] { "Поздравляем!", "Изменения были удачно внесены." }
+                    , files, ""));
                 //????????????????????????????????????
-                return View("Publication", (model, new List<User>(), new string[] { "Поздравляем!", "Изменения были удачно внесены."}));
-                    //new EmptyResult();
+                //return View("Publication", ));
+                //new EmptyResult();
             }
-            catch (Exception ex) 
-            { 
+            catch (Exception ex)
+            {
                 //??????????????????????????????????????????????????????
-                return View("Publication", (publication, new List<User>(), new string[] { "Ошибка!", ex.Message})); 
+                return View("Publication", (publication, new List<User>(), new string[] { "Ошибка!", ex.Message }
+                , files, ""));
             }
-            
+
         }
         [HttpPost]
         public IActionResult ClosePublication(string publicId)
         {
             int id = Convert.ToInt32(publicId);
-            var res=PublicationLogic.UpdateStatusPublication(database, id, BisnessLogic.Models.Status.Отклонена.ToString());
+            var res = PublicationLogic.UpdateStatusPublication(database, id, BisnessLogic.Models.Status.Отклонена.ToString(), null);
             return View("Publication", ((res, new List<User>(), new string[] { "Поздравляем!", "Изменения были удачно внесены." })));
-                //new EmptyResult();
+            //new EmptyResult();
         }
         [HttpGet]
         public IActionResult CreateMagazine()
         {
-            return View((publications, "All", new string[] { }));
+            var model = publications.Where(rec => rec.Status == Status.Готова_к_публикации.ToString()).ToList();
+            return View((model, new string[] { }));
         }
         [HttpGet]
         public IActionResult GetReview()
@@ -231,33 +258,33 @@ namespace ApplicationEditor.Controllers
             var model = PublicationLogic.GetReviewByIDPublic(database, id);
             try
             {
-                var data = PublicationLogic.UpdateStatusPublication(database, id, status);
-                return View("GetReview", (model, new string[] {"Поздравляем!","Статус статьи успешно обновлен." }));
+                var data = PublicationLogic.UpdateStatusPublication(database, id, status, null);
+                return View("GetReview", (model, new string[] { "Поздравляем!", "Статус статьи успешно обновлен." }));
             }
-            catch (Exception ex) { return View("GetReview", (model, new string[] {"Ошибка!",ex.Message})); }
+            catch (Exception ex) { return View("GetReview", (model, new string[] { "Ошибка!", ex.Message })); }
         }
 
         [HttpPost]
-        public IActionResult CreateMagazine(List<string>checkbox, string date)
+        public IActionResult CreateMagazine(List<string> checkbox, string date)
         {
-            var proverka=CheakDataMagazine(date);
+            var proverka = CheakDataMagazine(date);
             if (proverka == "false")
             {
-                return View((publications, "All", new string[] { "Ошибка!", 
+                return View((publications, "All", new string[] { "Ошибка!",
                     "В этом квартале уже выходил номер. Выберите другую дату."}));
             }
             try
             {
                 List<Publication> buf = new List<Publication>();
-                for(int i=0; i < checkbox.Count; i++)
+                for (int i = 0; i < checkbox.Count; i++)
                 {
                     buf.Add(publications.Where(rec => rec.Id == Convert.ToInt32(checkbox.ElementAt(i)))
-                        .Select(rec=>new BisnessLogic.Models.Publication 
-                        { 
-                            Id=rec.Id,
-                            Title=rec.Title,
-                            Annotation=rec.Annotation,
-                            Text=rec.Text,
+                        .Select(rec => new BisnessLogic.Models.Publication
+                        {
+                            Id = rec.Id,
+                            Title = rec.Title,
+                            Annotation = rec.Annotation,
+                            Text = rec.Text,
                             DateCreate = rec.DateCreate,
                             DatePublic = rec.DatePublic,
                             Status = rec.Status,
@@ -274,10 +301,11 @@ namespace ApplicationEditor.Controllers
                 {
                     //Id = 67,
                     Date = Convert.ToDateTime(date),
-                    Publications=buf
+                    Publications = buf
                 };
                 //создаем выпуск журнала и обновляем статус статей указаных в журнале
                 MagazineLogic.AddMagazine(database, magazine);
+                /*
                 //считываем все публикации
                 var publicUpdate = PublicationLogic.GetPublications(database, null)
                     .Where(rec=>rec.Status==Status.Готова_к_публикации.ToString()).ToList();
@@ -286,17 +314,18 @@ namespace ApplicationEditor.Controllers
                     PublicationLogic.UpdateStatusPublication(database,
                     publicUpdate.ElementAt(i).Id.Value, Status.Публикуется_в_слудующем_номере.ToString());
                 }
+                */
                 publications = GetPublications();
 
                 return View((publications, "All", new[] { "Поздравляем!", "Журнал успешно создан." }));
             }
-            catch (Exception ex) { return View((publications, "All", new string[] {"Ошибка!" ,ex.Message })); }
+            catch (Exception ex) { return View((publications, "All", new string[] { "Ошибка!", ex.Message })); }
             //return View((publications, "All", ""));
         }
 
         private List<ApplicationEditor.Models.Publication> GetPublications()
         {
-            var res=PublicationLogic.GetPublications(database, null)
+            var res = PublicationLogic.GetPublications(database, null)
                 .Select(rec => new ApplicationEditor.Models.Publication
                 {
                     Id = rec.Id.Value,
@@ -326,12 +355,33 @@ namespace ApplicationEditor.Controllers
 
         private string CheakDataMagazine(string Date)
         {
-            var lastDate = MagazineLogic.GetMagazines(database).Last().Date;
-            //Если последняя дата плюс 3 месяца меньше или рана выбранной
-            if (lastDate.AddMonths(3) <= Convert.ToDateTime(Date))
+            var month = Convert.ToDateTime(Date).Month;
+            if (month == 3 || month == 6 || month == 9 || month == 12)
                 return "true";
             else
                 return "false";
+        }
+        [HttpPost]
+        public string CreateReview(string PublicId, string Text)
+        {
+            int publicId = Convert.ToInt32(PublicId);
+            Review review = new Review
+            {
+                //добавляем текст в коментарий правильности 
+                CommentCorrectness = Text,
+                PublicId = publicId
+            };
+            try
+            {
+                PublicationLogic.AddOrUpdateReviewToPublication(database, review);
+                PublicationLogic.UpdateStatusPublication(database, publicId,
+                    Status.Устранить_замечания_редактора.ToString(), null);
+                return "Замечания успешно сохранены.";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
         }
     }
 }

@@ -16,7 +16,7 @@
     <script>
         function updateStatus() {
             var sel = document.getElementById('status').value;
-            Swal.fire('Status: '+sel)
+            Swal.fire('Status: ' + sel)
         }
     </script>
     <header>
@@ -199,7 +199,7 @@
                     </p>
                 </div>
             </div>
-            
+
             <div class="row">
                 @if (Model.Item2.Length != 0)
                 {
@@ -211,12 +211,14 @@
                     </div>
                     <br />
                 }
+                <br />
                 <label style="font-weight:bold">Решение:</label>
                 <label>Перевести данную статью в статус:</label>
                 <select id="status" name="status" required>
                     <option selected disabled value="">Выберите...</option>
                     <option value="@Status.Готова_к_публикации">@Status.Готова_к_публикации</option>
-                    <option value="@Status.Отправлена_на_дороботку">@Status.Отправлена_на_дороботку</option>
+                    <option value="@Status.Устранить_замечания_редактора">@Status.Устранить_замечания_редактора</option>
+                    <option value="@Status.Устранить_замечания_рецензента">@Status.Устранить_замечания_рецензента</option>
                 </select>
                 <button id="Save" class="btn btn-primary" type="submit" asp-controller="Editor" asp-action="UpdateStatus">Изменить</button>
             </div>

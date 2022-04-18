@@ -1,6 +1,6 @@
 ﻿@using BisnessLogic.Models
 @using ApplicationEditor.Models
-@model (List<ApplicationEditor.Models.Publication>, string, string[])
+@model (List<ApplicationEditor.Models.Publication>, string[])
 @{
 }
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
 </head>
 <body id="body">
     <script>
-        
+
     </script>
     <script>
         var count = 0;
@@ -89,27 +89,23 @@
     </header>
     <form method="post" onsubmit="return Proverka();">
         <h1>Формирование выпуска научного журнала</h1>
-        @if(Model.Item3.Length != 0) {
+        @if (Model.Item2.Length != 0)
+        {
             <div class="alert alert-primary" role="alert">
-                <strong>@Model.Item3.ElementAt(0)</strong>@Model.Item3.ElementAt(1)
+                <strong>@Model.Item2.ElementAt(0)</strong>@Model.Item2.ElementAt(1)
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         }
         <h6>Выберите статьи для формирования выпуска:</h6>
+        <!--
         <label>Фильтровать:</label>
         <select id="status" onchange="Filter();">
             <option name="status" value="All">Все</option>
-            <option name="status" value="@Status.Принята">@Status.Принята</option>
-            <option name="status" value="@Status.Отклонена">@Status.Отклонена</option>
-            <option name="status" value="@Status.Отправлена_рецензенту">@Status.Отправлена_рецензенту</option>
-            <option name="status" value="@Status.Находится_на_рецензировании">@Status.Находится_на_рецензировании</option>
-            <option name="status" value="@Status.Рецензирование_окончено">@Status.Рецензирование_окончено</option>
-            <option name="status" value="@Status.Отправлена_на_дороботку">@Status.Отправлена_на_дороботку</option>
             <option name="status" value="@Status.Готова_к_публикации">@Status.Готова_к_публикации</option>
-            <option name="status" value="@Status.Публикуется_в_слудующем_номере">@Status.Публикуется_в_слудующем_номере</option>
         </select>
+            -->
         <table id="dataPublic" class="table table-primary">
             <thead>
                 <tr>
@@ -124,19 +120,19 @@
             <tbody>
                 @foreach (var str in Model.Item1)
                 {
-                <tr>
-                    <td>@str.Id</td>
-                    <td><a href="/Editor/GetPublic?Id=@str.Id" />@str.Title</td>
-                    <td>@str.DateCreate</td>
-                    <td>@str.Status</td>
-                    <td>@str.ReviewerFIO</td>
-                    <td><input type="checkbox" name="checkbox" value="@str.Id" onclick="Select(this);" /></td>
-                </tr>
+                    <tr>
+                        <td>@str.Id</td>
+                        <td><a href="/Editor/GetPublic?Id=@str.Id" />@str.Title</td>
+                        <td>@str.DateCreate</td>
+                        <td>@str.Status</td>
+                        <td>@str.ReviewerFIO</td>
+                        <td><input type="checkbox" name="checkbox" value="@str.Id" onclick="Select(this);" /></td>
+                    </tr>
                 }
             </tbody>
         </table>
         <label style="font-weight:bold">Выберите дату выхода:</label>
-        <input id="date" type="date" name="date" required/>
+        <input id="date" type="date" name="date" required />
         <button class="btn btn-primary" type="submit" asp-action="CreateMagazine" asp-controller="Editor">Сформировать выпуск журнала</button>
     </form>
 </body>

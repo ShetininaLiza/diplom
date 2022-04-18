@@ -1,5 +1,5 @@
 ﻿@using BisnessLogic.Models
-@model (ApplicationEditor.Models.Publication, List<User>, string[])
+@model (ApplicationEditor.Models.Publication, List<User>, string[], List<FilePublication>, string)
 @{
 }
 <!DOCTYPE html>
@@ -22,11 +22,26 @@
             var id = @Model.Item1.Id;
             DownloadFile(id);
         }
+
+
     </script>
 </head>
 <!--onload="OnLoadToDownload();"-->
 <body>
     <script>
+        function CreateRiview(publicId) {
+            var text = document.getElementById('TextErorrs').getElementsByTagName('textarea').item(0).value;
+            if (text.length == 0) {
+                Swal.fire("Заполните пустое поле", "Заполните текстовое поле замечаний к статье.");
+                return false;
+            }
+            else {
+                $.post("/Editor/CreateReview", { PublicId: publicId, Text: text }, function (data) {
+                    Swal.fire(data);
+                });
+            }
+        }
+
         function DownloadFile(id) {
             $.post("/Editor/DownloadFile", { ID: id }, function (data) {
                 //Swal.fire('data: ' + data);
@@ -38,16 +53,26 @@
                 //a.download = "publication_" + id + ".docx";
                 //
                 a.click();
-                
+
             });
         }
 
         function FSelect(sel, id) {
+            var f = document.getElementById('TextErorrs');
             if (sel.value == 'Назначить рецензента') {
+                f.style.display = 'none';
                 PrintSelectReviewer();
             }
             else if (sel.value == 'Отклонить статью') {
+                f.style.display = 'none';
                 ClosePublication(id);
+            }
+            else if (sel.value == 'Отправить на доработку') {
+                var rev = document.getElementById('reviewers');
+                if (rev.style.display == 'block') {
+                    rev.style.display = 'none';
+                }
+                f.style.display = 'block';
             }
         }
         function PrintSelectReviewer() {
@@ -166,6 +191,7 @@
                         }
                     </p>
                 </div>
+
                 <div class="col">
                     <div>
                         <label style="font-weight:bold">Ключевые слова:</label><br />
@@ -178,12 +204,14 @@
                         <textarea id="TextAnnotation" name="annotation" cols="40" rows="12">@Model.Item1.Annotation</textarea><br /><br />
                     </div>
                 </div>
+            </div>
+
+            <div class="row">
                 <div class="col">
                     <label style="font-weight:bold">Статус статьи:</label><br />
                     <label>@Model.Item1.Status</label><br />
-                    <!--type="button" class="w-25 btn btn-primary" onclick="OnLoadToDownload();"-->
-                    <button type="button" onclick="OnLoadToDownload();"
-                                class="w-25 btn btn-primary">Скачать статью</button>
+
+                    <a class="w-auto btn btn-primary" href="/Editor/DownloadFile?Id=@Model.Item1.Id" role="button">Скачать последную версию статьи</a>
                     <br />
                     <label style="font-weight:bold">Дата подачи статьи:</label><br />
                     <input type="text" value="@Model.Item1.DateCreate"><br />
@@ -199,11 +227,13 @@
 
                     @if (Model.Item1.Status.Length == 0 || Model.Item1.Status != "Отклонена")
                     {
-                        @if (Model.Item1.Status == "Принята")
+                        @if (Model.Item1.Status == Status.Поступила.ToString() ||
+                           Model.Item1.Status == Status.Изменения_внесены.ToString())
                         {
                             <select onchange="FSelect(this, @Model.Item1.Id);">
                                 <option selected disabled value="">Выберите...</option>
                                 <option value="Назначить рецензента">Назначить рецензента</option>
+                                <option value="Отправить на доработку">Отправить на доработку</option>
                                 <option value="Отклонить статью">Отклонить статью</option>
                             </select>
                         }
@@ -264,6 +294,22 @@
                         </div>
                     }
                 </div>
+                @if (Model.Item1.Status == "Устранить_замечания_редактора" && Model.Item5.Length > 0)
+                {
+                    <div id="TextErorrs" class="col">
+                        <label style="font-weight:bold">Укажите в чем заключаются замечания к статье:</label>
+                        <textarea cols="40" rows="10">@Model.Item5</textarea><br />
+                    </div>
+                }
+                @if (Model.Item1.Status != "Устранить_замечания_редактора")
+                {
+                    <div id="TextErorrs" style="display:none" class="col">
+                        <label style="font-weight:bold">Укажите в чем заключаются замечания к статье:</label>
+                        <textarea cols="40" rows="10"></textarea><br />
+                        <button class="btn btn-primary" onclick="CreateRiview(@Model.Item1.Id)">Сохранить</button>
+                    </div>
+                }
+                <div class="col"></div>
             </div>
             <div class="row">
                 <label style="font-weight:bold">Автор(ы):</label><br />
@@ -293,6 +339,31 @@
                     </tbody>
                 </table>
             </div>
+            @if (Model.Item4 != null)
+            {
+                <div class="row">
+                    <label style="font-weight:bold">Предыдущие версии статьи</label><br />
+                    <table class="table table-primary">
+                        <thead>
+                            <tr>
+                                <th>Дата версии</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var d in Model.Item4)
+                            {
+                                <tr>
+                                    <td>@d.Date</td>
+                                    <td>
+                                        <a href="/Editor/DownloadFilePublication?PublicId=@Model.Item1.Id&Id=@d.Id">Скачать</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
         </div>
     </form>
 </body>

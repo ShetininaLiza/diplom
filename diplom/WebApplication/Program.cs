@@ -18,12 +18,8 @@ namespace WebApplication
     {
         public static User user;
         public static IDbConnection database;
-        //public static MyDatabase database;
         public static void Main(string[] args)
         {
-            //database = new MyDatabase();
-            //database.CreateTables();
-            //database.Connect();
             database = new SQLiteConnection(LoadConnectionString());
             database.Open();
 

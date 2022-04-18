@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kHEMvJ6+U7EBfi7tuaUDf6mUr0OmN5SOy3TI9sOPNF5odZQiMZ/MsqP5HXdNlx8WZzqKoCjSTlkDmPv53GeDfw==",
+  "dgSpecHash": "s7mQa57NoyDWwXlmVYW4DagRE6QZo05FVoDav8/NU7FTYCbN6NtXA6GBIazYOz2gjTgdGWaaaxSiT8+MjS6WXA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\sheti\\source\\repos\\diplom\\WebApplication\\ApplicationUsers.csproj",
+  "projectFilePath": "C:\\Users\\sheti\\Desktop\\diplom\\WebApplication\\ApplicationUsers.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sheti\\.nuget\\packages\\bootstrap\\4.6.0\\bootstrap.4.6.0.nupkg.sha512",
     "C:\\Users\\sheti\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
