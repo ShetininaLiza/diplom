@@ -18,6 +18,9 @@ using System.Data;
 using Dapper;
 using Microsoft.Data.Sqlite;
 using Database.Logic;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebApplication.Controllers
 {
@@ -63,6 +66,7 @@ namespace WebApplication.Controllers
             {
                 //md.Execute(UserLogic.AddUser, user);
                 UserLogic.AddUser(md, user);
+                //await Authenticate(user);
                 await SendMailNewAutor(user);
                 return View(new string[] {"Поздравляем!", "Регистрация в системе прошла успешно." });
             }
@@ -87,8 +91,9 @@ namespace WebApplication.Controllers
         
         [HttpPost]
         [ActionName("Enter")]
-        public IActionResult Enter(string login, string pass, string role)
+        public async Task<IActionResult> EnterAsync(string login, string pass, string role)
         {
+            
             var dp = new DynamicParameters();
             dp.Add("id", "");
             dp.Add("login", login);
@@ -110,11 +115,20 @@ namespace WebApplication.Controllers
                         return View("Enter", new string[] { "Ошибка!", "Неправильно введен пароль." });
                     else
                     {
-                        Program.user = user.ElementAt(0);
-                        if(user.ElementAt(0).Role==Role.Автор.ToString())
+
+                        if (user.ElementAt(0).Role == Role.Автор.ToString())
+                        {
+                            Program.user = user.ElementAt(0);
+                            await Authenticate(user.ElementAt(0));
                             return Redirect("../Home/Autor");
-                        else if(user.ElementAt(0).Role==Role.Рецензент.ToString())
+                        }
+                        else if (user.ElementAt(0).Role == Role.Рецензент.ToString())
+                        {
+                            Program.user = user.ElementAt(0);
+                            await Authenticate(user.ElementAt(0));
                             return Redirect("../Reviewer/Index");
+                        }
+                            
                     }    
                 }
                 return View(new string[] { });
@@ -173,6 +187,22 @@ namespace WebApplication.Controllers
             return View(md.Query<User>(UserLogic.GetUsers,dp));
                 //Content("All ok");
                 //new EmptyResult();
+        }
+        private async Task Authenticate(User user)
+        {
+            //https://metanit.com/sharp/aspnet5/15.7.php
+            // создаем один claim
+            var claims = new List<Claim>
+            {
+                new Claim("Email", user.Email),
+                new Claim("Login", user.Login),
+                new Claim("Role", user.Role)
+            };
+            // создаем объект ClaimsIdentity
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);
+            // установка аутентификационных куки
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
     }
 }

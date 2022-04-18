@@ -20,20 +20,33 @@ namespace WebApplication
         public static IDbConnection database;
         public static void Main(string[] args)
         {
+            //await Task.Run(() => Start(args));
+            database = new SQLiteConnection(LoadConnectionString());
+            database.Open();
+            
+            user = new User();
+            CreateHostBuilder(args).Build().Run();
+        }
+        static void Start(string[] args) 
+        {
             database = new SQLiteConnection(LoadConnectionString());
             database.Open();
 
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().Start();
+                //.Run();
+            
         }
         private static string LoadConnectionString(string id = "DiplomDB") 
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
+
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+         
     }
 }

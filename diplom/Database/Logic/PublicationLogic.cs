@@ -279,23 +279,24 @@ namespace Database.Logic
             DynamicParameters parameters = new DynamicParameters();
             if (datePublic.HasValue)
             {
-                text = "UPDATE Publications SET Status = :status AND  DatePublic = :date WHERE Id = :id;" +
-                "SELECT * FROM Publications WHERE Id = :id;";
+                text = "UPDATE Publications SET Status = :status AND  DatePublic = :date WHERE Id = :id;";
                 parameters.Add("status", status);
                 parameters.Add("date", datePublic.Value);
                 parameters.Add("id", publicId);
             }
             else
             {
-                text = "UPDATE Publications SET Status = :status WHERE Id = :id;" +
-                    "SELECT * FROM Publications WHERE Id = :id;";
-
+                text = "UPDATE Publications SET Status = :status WHERE Id = :id;";
                 parameters.Add("status", status);
                 parameters.Add("id", publicId);
             }
             try
             {
-                var data = db.Query<Database.Models.Publication>(text, parameters)
+                db.Execute(text, parameters);
+                string sel= "SELECT * FROM Publications WHERE Id = :id;";
+                parameters = new DynamicParameters();
+                parameters.Add("id", publicId);
+                var data = db.Query<Database.Models.Publication>(sel, parameters)
                 .Select(rec => new BisnessLogic.Models.Publication
                 {
                     Id = rec.Id,

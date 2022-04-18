@@ -6,23 +6,20 @@ using System.Text.RegularExpressions;
 using System.Data;
 using System.Data.SQLite;
 using System.Configuration;
+using System.IO;
 
 namespace AppRegisterAdmin
 {
     class Program
     {
         //public static MyDatabase database;
-        public static IDbConnection database;
         static void Main(string[] args)
         {
-            database = new SQLiteConnection(LoadConnectionString());
+            string connectionString= ConfigurationManager.ConnectionStrings["DiplomDB"].ConnectionString;
+            IDbConnection database = new SQLiteConnection(connectionString);
             database.Open();
-            //database = new MyDatabase();
-            //database.Connect();
-            //WorkFile wf = new WorkFile();
-
+            
             var list = UserLogic.GetAllUser(database);
-                //database.GetUsers();
             
             Console.WriteLine("Введите логин:");
             string login = Console.ReadLine();
@@ -37,6 +34,36 @@ namespace AppRegisterAdmin
                 res= list.FirstOrDefault(rec => rec.Login == login);
                 //Console.WriteLine("Res: " + res);
             }
+            Console.WriteLine("Введите email:");
+            string email = Console.ReadLine();
+            while (!Regex.IsMatch(email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
+            {
+                Console.WriteLine("Неверно введен адрес электронной почты!\nВведите email:");
+                email = Console.ReadLine();
+            }
+            var checkEmail = list.FirstOrDefault(rec => rec.Email == email);
+            while (checkEmail != null)
+            {
+                Console.WriteLine("Такая почта уже есть в системе.\nВведите email:");
+                email = Console.ReadLine();
+                checkEmail = list.FirstOrDefault(rec => rec.Email == email);
+            }
+            
+            Console.WriteLine("Введите контактный номер телефона:");
+            string tel = Console.ReadLine();
+            while (!Regex.IsMatch(tel, @"^89\d{9}$"))
+            {
+                Console.WriteLine("Формат телефона 89.........!\nВведите контактный номер телефона:");
+                tel = Console.ReadLine();
+            }
+            var checkTel = list.FirstOrDefault(rec => rec.Phone == tel);
+            while (checkTel != null)
+            {
+                Console.WriteLine("Такой номер телефона уже есть в системе.\nВведите контактный номер телефона:");
+                tel = Console.ReadLine();
+                checkTel = list.FirstOrDefault(rec => rec.Phone == tel);
+            }
+
             Console.WriteLine("Введите пароль:");
             string pas = Console.ReadLine();
             string pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])\S{8,}";
@@ -50,30 +77,18 @@ namespace AppRegisterAdmin
             try
             {
                 //если все верно
-                //wf
-                /*
-                database.WriteUser(new User
-                {
-                    Login = login,
-                    Password = pas,
-                    Email = "",
-                    LastName = "",
-                    Name = "",
-                    Otch = "",
-                    Work = "",
-                    Role = Role.Администратор.ToString()
-                });
-                */
                 User user = new User
                 {
                     Login = login,
+                    Email = email,
+                    Phone = tel,
                     Password = pas,
-                    Email = "",
                     LastName = "",
                     Name = "",
                     Otch = "",
                     Work = "",
-                    Role = Role.Администратор.ToString()
+                    Role = Role.Администратор.ToString(),
+                    IsBlock=false
                 };
                 UserLogic.AddUser(database, user);
                 Console.WriteLine("Администратор добавлен.");
@@ -83,10 +98,6 @@ namespace AppRegisterAdmin
                 Console.WriteLine(ex.Message);
             }
             Console.ReadKey();
-        }
-        private static string LoadConnectionString(string id = "DiplomDB")
-        {
-            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
     }
 }

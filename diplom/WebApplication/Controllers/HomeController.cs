@@ -18,13 +18,20 @@ using Microsoft.AspNetCore.Hosting;
 using System.Web.Mvc;
 using System.Text;
 using Microsoft.Web.Helpers;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication.Controllers
 {
+
     public class HomeController : Controller
     {
         private MailLogic ml;
         private IDbConnection md = Program.database;
+        
+
         IWebHostEnvironment _appEnvironment;
 
         IEnumerable<string> categories;
@@ -36,21 +43,25 @@ namespace WebApplication.Controllers
             categories = md.Query<string>(CategoriesLogic.GetNamesCategories, new DynamicParameters());
         }
         [HttpGet]
-        public IActionResult Index() { return View(); }
+        public IActionResult Index() 
+        { 
+            return View(); 
+        }
 
         [HttpGet]
+        [Authorize(Policy = "OnlyForAutor")]
         public IActionResult Autor()
         {
             return View("Autor");
         }
-
+        
         [HttpGet]
         [ActionName("AddPublication")]
         public IActionResult AddPublic()
         {
             return View("AddPublication", (categories, new string[] { }));
         }
-
+        
         [HttpPost]
         [ActionName("AddPublication")]
         public async Task<IActionResult> AddPublicationAsync(List<string> last, List<string> name, List<string> otch,
@@ -58,6 +69,7 @@ namespace WebApplication.Controllers
                                             string title, string annotation, IFormFile file,
                                             string words, List<string> category, List<string> connection, List<string> tel)
         {
+
             //получили номера авторов для связи в списке
             List<int> autorsId = await ConvertIndexAutors(connection);
             List<long> autors = new List<long>();
@@ -81,7 +93,7 @@ namespace WebApplication.Controllers
                 try
                 {
                     var res = (long)md.ExecuteScalar(AutorLogic.AddAutor, autor);
-                    //await SendMailAutor(autor, title);
+                    await SendMailAutor(autor, title);
                     autors.Add(res);
                 }
                 catch (Exception ex) { return View("AddPublication", (categories, new string[] { "Ошибка!", ex.Message })); }
@@ -131,42 +143,6 @@ namespace WebApplication.Controllers
             return result;
         }
 
-        private byte[] ReadFileToByteArrayAsync(IFormFile file)
-        {
-            //Guid.NewGuid
-            //https://metanit.com/sharp/adonetcore/4.7.php
-            // массив для хранения бинарных данных файла
-            byte[] result = null;
-            // считываем переданный файл в массив байтов
-            using (var binaryReader = new BinaryReader(file.OpenReadStream()))
-            {
-                result = binaryReader.ReadBytes((Int32)file.Length);
-            }
-            /*
-            byte[] result = null;
-            using (var target=new MemoryStream()) 
-            {
-                file.CopyTo(target);
-                result = target.ToArray();
-                target.Close();
-            }
-            */
-            /*
-            var strim = file.OpenReadStream();
-            BinaryReader fs = new BinaryReader(strim);
-
-            //var buf = fs.ReadChars((Int32)strim.Length);
-            byte[] result = //buf.Select(c => (byte)c).ToArray();
-                fs.ReadBytes((Int32)strim.Length);
-            */
-            return result;
-        }
-        //byte[]
-        async Task<byte[]> ReadFileAsync(IFormFile file)
-        {
-            var result = await Task.Run(() => ReadFileToByteArrayAsync(file));
-            return result;
-        }
         async Task SendMailAutor(Autor user, string title)
         {
             string subject = "Указание авторства статьи";
@@ -190,7 +166,10 @@ namespace WebApplication.Controllers
                     + val.ElementAt(0).Work;
         }
 
+        
         [HttpGet]
+        //[Authorize(Roles ="Автор")]
+        //[Authorize(Policy = "OnlyForAutor")]
         public IActionResult MyPublications()
         {
             var publications = PublicationLogic.GetPublicationList(md, Program.user.Email);
@@ -269,14 +248,18 @@ namespace WebApplication.Controllers
                 PublicationLogic.UpdateStatusPublication(md, Id, Status.Изменения_внесены.ToString(), null);
                 return //new OkResult();
                 Redirect("../Home/GetReview?Id=" + Id + "&Print=true&Result=Ok");
+                //new EmptyResult();
             }
             catch (Exception)
             {
                 return //new NotFoundResult(); }
-                      Redirect("../Home/GetReview?Id=" + Id + "&Print=true&Result=No");
+                       Redirect("../Home/GetReview?Id=" + Id + "&Print=true&Result=No");
+                      //new EmptyResult();
             }
             //new EmptyResult();
         }
+
+       
     }
 }
 

@@ -348,6 +348,7 @@
                             <tr>
                                 <th>Дата версии</th>
                                 <th> </th>
+                                <th>Сообщение</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -358,6 +359,7 @@
                                     <td>
                                         <a href="/Editor/DownloadFilePublication?PublicId=@Model.Item1.Id&Id=@d.Id">Скачать</a>
                                     </td>
+                                    <td>@d.Comment<td>
                                 </tr>
                             }
                         </tbody>

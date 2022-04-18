@@ -443,7 +443,6 @@ C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Shared
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\User\Enter.cshtml.g.cs
-C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\User\NextRegister.cshtml.g.cs
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\User\Register.cshtml.g.cs
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\User\UpdateData.cshtml.g.cs
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
@@ -456,3 +455,4 @@ C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\ApplicationUsers.d
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\ref\ApplicationUsers.dll
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\ApplicationUsers.pdb
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\ApplicationUsers.genruntimeconfig.cache
+C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Reviewer\Publication.cshtml.g.cs

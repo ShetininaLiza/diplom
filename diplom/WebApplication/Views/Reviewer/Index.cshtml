@@ -1,79 +1,106 @@
-﻿@model List<BisnessLogic.Models.Publication>
+﻿@using BisnessLogic.Models
+@model List<BisnessLogic.Models.Publication>
 @{
 }
-<script>
-    function DownloadFile(id) {
-        //Swal.fire("id: "+id)
-        $.post("/Reviewer/DownloadAndUpdate", { ID: id }, function (data) {
-            let a = document.createElement("a");
-            let blob = new Blob([data]);
-            a.href = URL.createObjectURL(blob);
-            a.download = "publication_"+id+".txt";
-            //a.download = "publication_" + id + ".docx";
-            a.click();
-        });
-    }
-    
-</script>
-<script>
-    
-</script>
-<div class="text-center">
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <a class="navbar-brand" asp-area="" asp-controller="Reviewer" asp-action="Index">Научный журнал</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <ul class="navbar-nav flex-grow-1 topmenu">
-                <li class="nav-item">
-                    <a class="submenu-link nav-link text-dark" href="../User/Enter">Выход</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <h1>Добро пожаловать</h1>
-    <h2>Рецензент</h2>
-    <table class="table table-primary">
-        <thead>
-            <tr>
-                <th>№</th>
-                <th>Название статьи</th>
-                <th>Дата подачи</th>
-                <th>Статус</th>
-                <th> </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var str in Model)
-            {
-                <tr>
-                    <td>@str.Id</td>
-                    <td><a href="/Home/GetPublic?Id=@str.Id" />@str.Title</td>
-                    <td>@str.DateCreate</td>
-                    <td>@str.Status</td>
-                    @if (str.Status == BisnessLogic.Models.Status.Отправлена_рецензенту.ToString())
-                    {
-                        <td>
-                            <button class="btn btn-lg btn-primary" type="button" onclick="DownloadFile(@str.Id)">Скачать</button>
-                        </td>
-                    }
-                    else if (str.Status == BisnessLogic.Models.Status.Находится_на_рецензировании.ToString())
-                    {
-                        <td>
-                            <a href="/Reviewer/CreateReview?Id=@str.Id">Написать рецензию</a>
-                        </td>
-                    }
-                    else
-                    { 
-                        <td>
-                            <a href="/Reviewer/GetReview?Id=@str.Id">Посмотреть результат рецензирования</a>
-                        </td>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+<!DOCTYPE html>
 
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body id="body">
+    <script>
+        function Filter() {
+            var status = document.getElementById('status');
+            $.post("/Reviewer/GetPublicationList", { selectedStatus: status.value },
+                function (dataP) {
+                    $('#body').html(dataP);
+                    var options = document.getElementsByTagName('option');
+                    for (var i = 0; i < options.length; i++) {
+                        if (options.item(i).value == status.value) {
+                            options.item(i).selected = true;
+                            break;
+                        }
+                    }
+                });
+        }
+    </script>
+    <div class="text-center">
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <a class="navbar-brand" asp-area="" asp-controller="Reviewer" asp-action="Index">Научный журнал</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <ul class="navbar-nav flex-grow-1 topmenu">
+                    <li class="nav-item">
+                        <a class="submenu-link nav-link text-dark" href="../User/Enter">Выход</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <h1>Добро пожаловать</h1>
+        <h2>Рецензент</h2>
+        <label>Фильтровать:</label>
+        <select id="status" onchange="Filter();">
+            <option name="status" value="All">Все</option>
+            <option name="status" value="@Status.Поступила">@Status.Поступила</option>
+            <option name="status" value="@Status.Отклонена">@Status.Отклонена</option>
+            <option name="status" value="@Status.Отправлена_рецензенту">@Status.Отправлена_рецензенту</option>
+            <option name="status" value="@Status.Находится_на_рецензировании">@Status.Находится_на_рецензировании</option>
+            <option name="status" value="@Status.Рецензирование_окончено">@Status.Рецензирование_окончено</option>
+            <option name="status" value="@Status.Устранить_замечания_редактора">@Status.Устранить_замечания_редактора</option>
+            <option name="status" value="@Status.Устранить_замечания_рецензента">@Status.Устранить_замечания_рецензента</option>
+            <option name="status" value="@Status.Готова_к_публикации">@Status.Готова_к_публикации</option>
+        </select>
+        <table class="table table-primary">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Название статьи</th>
+                    <th>Дата подачи</th>
+                    <th>Статус</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var str in Model)
+                {
+                    <tr>
+                        <td>@str.Id</td>
+                        <!--"/Home/GetPublic-->
+                        <td><a href="/Reviewer/GetPublic?Id=@str.Id" />@str.Title</td>
+                        <td>@str.DateCreate</td>
+                        <td>@str.Status</td>
+                        @if (str.Status == BisnessLogic.Models.Status.Отправлена_рецензенту.ToString())
+                        {
+                            <td>
+                                <a style="color:white" role="button" class="btn btn-primary"
+                                   href="/Reviewer/Download?Id=@str.Id">Скачать</a>
+                                <a style="color:white" role="button" class="btn btn-primary"
+                                   href="/Reviewer/GetToWork?Id=@str.Id">Взять на рецензирование</a>
+                                <a style="color:white" role="button" class="btn btn-primary"
+                                   href="/Reviewer/CenselPublic?Id=@str.Id">Отказаться</a>
+                            </td>
+                        }
+                        else if (str.Status == BisnessLogic.Models.Status.Находится_на_рецензировании.ToString())
+                        {
+                            <td>
+                                <a href="/Reviewer/CreateReview?Id=@str.Id">Написать рецензию</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a href="/Reviewer/GetReview?Id=@str.Id">Посмотреть результат рецензирования</a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

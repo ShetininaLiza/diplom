@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace WebApplication
@@ -23,6 +25,32 @@ namespace WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Register");
+                    options.LoginPath= new Microsoft.AspNetCore.Http.PathString("/User/Enter");
+                });
+            
+            /*
+            services.AddAuthorization(opts => {
+                opts.AddPolicy("OnlyForLondon", policy => {
+                    policy.RequireClaim(ClaimTypes.Locality, "Лондон", "London");
+                });
+                opts.AddPolicy("OnlyForMicrosoft", policy => {
+                    policy.RequireClaim("company", "Microsoft");
+                });
+            });
+            */
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            services.AddAuthorization(opts => {
+                opts.AddPolicy("OnlyForAutor", policy => {
+                    policy.RequireClaim("Role", "Автор");
+                });
+                opts.AddPolicy("OnlyForReviewer", policy => {
+                    policy.RequireClaim("Role", "Рецензент");
+                });
+            });
             services.AddControllersWithViews();
         }
 
@@ -45,6 +73,7 @@ namespace WebApplication
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

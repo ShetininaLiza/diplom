@@ -1,5 +1,6 @@
 ﻿using BisnessLogic.Models;
 using Database.Logic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace ApplicationUsers.Controllers
             categories = CategoriesLogic.GetCategories(database);
             publications = PublicationLogic.GetPublications(database, null);
         }
+        
         public IActionResult Index()
         {
             var model = publications.Where(rec => rec.ReviewerId == Program.user.Id).ToList();
@@ -89,11 +91,12 @@ namespace ApplicationUsers.Controllers
                         BisnessLogic.Models.Status.Находится_на_рецензировании.ToString());
                 model = publications.Where(rec => rec.ReviewerId == Program.user.Id).ToList();
 
-                return View("Index", model);
+                return RedirectToAction("Index", "Reviewer");
+                //View("Index", model);
                 //{"Поздравляем!", "Изменения былы внесены успешно." }));
             }
-            catch (Exception ex) { return View("Index", model); }
-        }
+            catch (Exception ex) { return RedirectToAction("Index", "Reviewer"); }//View("Index", model); }
+            }
 
         public IActionResult CenselPublic(int Id)
         {
@@ -105,9 +108,11 @@ namespace ApplicationUsers.Controllers
 
                 model = publications.Where(rec => rec.ReviewerId == Program.user.Id).ToList();
 
-                return View("Index", model);
+                return RedirectToAction("Index", "Reviewer"); //View("Index", model);
             }
-            catch (Exception ex) { return View("Index", model); }
+            catch (Exception ex) { //return View("Index", model);
+                return RedirectToAction("Index", "Reviewer");
+            }
         }
         [HttpPost]
         public IActionResult GetInformationForRev(string New, string CommentNew, string Corect, string CommentCorect,
