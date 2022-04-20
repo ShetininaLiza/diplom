@@ -1,6 +1,6 @@
 ﻿@model string[]
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Регистрация автора";
 }
 
 <!DOCTYPE html>
@@ -54,7 +54,7 @@
     <div>
         @if (Model.Length != 0)
         {
-            <div class="alert alert-primary" role="alert">
+            <div id="Mess" class="alert alert-primary" role="alert">
                 <strong>@Model.ElementAt(0)</strong>@Model.ElementAt(1)
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -125,7 +125,7 @@
             <button class="btn btn-primary" type="submit" onclick="send();">Регистрация</button>
                 -->
 
-                <button class="btn btn-primary" type="submit" asp-controller="User" asp-action="Register">Регистрация</button>
+                <button id="buttonRegister" class="btn btn-primary" type="submit" asp-controller="User" asp-action="Register">Регистрация</button>
 
                 <br />
                 <a href="Enter">Вход</a>

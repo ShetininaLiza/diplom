@@ -15,7 +15,6 @@ using Dapper;
 using Database.Logic;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using System.Web.Mvc;
 using System.Text;
 using Microsoft.Web.Helpers;
 using System.Security.Claims;
@@ -25,7 +24,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication.Controllers
 {
-
     public class HomeController : Controller
     {
         private MailLogic ml;

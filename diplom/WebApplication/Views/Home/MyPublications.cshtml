@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<BisnessLogic.Models.Publication>
 @{
+    ViewData["Title"] = "Мои статьи";
 }
 
 <!DOCTYPE html>
@@ -57,7 +58,7 @@
             {
             <tr>
                 <td>@str.Id</td>
-                <td><a href="/Home/GetPublic?Id=@str.Id" />@str.Title</td>
+                <td><a id="title" href="/Home/GetPublic?Id=@str.Id" />@str.Title</td>
                 <td>@str.DateCreate</td>
                 @if (str.Status == "Рецензирование_окончено")
                 {
@@ -70,12 +71,12 @@
                 <td>
                     @if (str.Status == "Устранить_замечания_редактора")
                     {
-                        <a href="/Home/GetReview?Id=@str.Id&Print=false">Посмотреть замечания</a>
+                        <a id="result" href="/Home/GetReview?Id=@str.Id&Print=false">Посмотреть замечания</a>
                     }
                     @if (str.Status == "Устранить_замечания_рецензента"
                         || str.Status == "Готова_к_публикации")
                     {
-                        <a href="/Home/GetReview?Id=@str.Id&Print=false">Посмотреть результат рецензирования</a>
+                        <a id="result" href="/Home/GetReview?Id=@str.Id&Print=false">Посмотреть результат рецензирования</a>
                     }
                 </td>
             </tr>

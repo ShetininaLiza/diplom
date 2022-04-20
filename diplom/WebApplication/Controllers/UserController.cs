@@ -35,7 +35,11 @@ namespace WebApplication.Controllers
             mLogic = new MailLogic();
             file = new WorkFile();
         }
-
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
         // GET: /User/Register/
         // Регистрация пользователя
         [HttpGet]

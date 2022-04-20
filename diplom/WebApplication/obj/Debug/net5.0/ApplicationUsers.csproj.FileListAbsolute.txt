@@ -432,7 +432,6 @@ C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\ApplicationUsers.R
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\AddPublication.cshtml.g.cs
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\Autor.cshtml.g.cs
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\GetReview.cshtml.g.cs
-C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\MyPublications.cshtml.g.cs
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Home\Publication.cshtml.g.cs
@@ -456,3 +455,8 @@ C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\ref\ApplicationUse
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\ApplicationUsers.pdb
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\ApplicationUsers.genruntimeconfig.cache
 C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\Reviewer\Publication.cshtml.g.cs
+C:\Users\sheti\Desktop\diplom\WebApplication\bin\Debug\net5.0\Antlr3.Runtime.dll
+C:\Users\sheti\Desktop\diplom\WebApplication\bin\Debug\net5.0\System.Web.Mvc.dll
+C:\Users\sheti\Desktop\diplom\WebApplication\bin\Debug\net5.0\System.Web.Optimization.dll
+C:\Users\sheti\Desktop\diplom\WebApplication\bin\Debug\net5.0\WebGrease.dll
+C:\Users\sheti\Desktop\diplom\WebApplication\obj\Debug\net5.0\Razor\Views\User\Index.cshtml.g.cs

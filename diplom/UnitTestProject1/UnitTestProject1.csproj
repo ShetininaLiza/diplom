@@ -57,12 +57,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Start.cs" />
-    <Compile Include="TestEnter.cs" />
+    <Compile Include="TestsForAdmin\TestRegisterEditor.cs" />
+    <Compile Include="TestsForAdmin\TestBlockUser.cs" />
+    <Compile Include="TestsForAutor\TestAllPublication.cs" />
+    <Compile Include="TestsForReviewer\TestEnterReviewer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestsForAutor\TestEnterAutor.cs" />
+    <Compile Include="TestsForEditor\TestEnterEditor.cs" />
+    <Compile Include="TestsForAdmin\TestEnterAdmin.cs" />
+    <Compile Include="TestsForAutor\TestRegisterAutor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

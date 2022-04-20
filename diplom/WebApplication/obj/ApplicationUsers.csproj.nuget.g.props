@@ -183,6 +183,7 @@
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgNewtonsoft_Json Condition=" '$(PkgNewtonsoft_Json)' == '' ">C:\Users\sheti\.nuget\packages\newtonsoft.json\10.0.1</PkgNewtonsoft_Json>
+    <PkgWebGrease Condition=" '$(PkgWebGrease)' == '' ">C:\Users\sheti\.nuget\packages\webgrease\1.5.2</PkgWebGrease>
     <PkgEntityFramework Condition=" '$(PkgEntityFramework)' == '' ">C:\Users\sheti\.nuget\packages\entityframework\6.4.4</PkgEntityFramework>
     <PkgSystem_Data_SQLite_EF6 Condition=" '$(PkgSystem_Data_SQLite_EF6)' == '' ">C:\Users\sheti\.nuget\packages\system.data.sqlite.ef6\1.0.115.5</PkgSystem_Data_SQLite_EF6>
     <PkgjQuery Condition=" '$(PkgjQuery)' == '' ">C:\Users\sheti\.nuget\packages\jquery\3.0.0</PkgjQuery>
